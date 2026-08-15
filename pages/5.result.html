@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>5. 定制方案确认 | BUFFALO BOXING</title>
+  <title>5. 最終カスタマイズプラン | BUFFALO BOXING</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { 
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic", "Meiryo", "Segoe UI", Arial, sans-serif;
       padding: 40px 20px; 
       max-width: 750px; 
       margin: 0 auto; 
@@ -137,6 +137,7 @@
       cursor: pointer;
       letter-spacing: 2px;
       transition: all 0.2s ease;
+      font-family: inherit;
     }
     .prev-btn {
       background: #fff;
@@ -161,250 +162,134 @@
   <div class="page-frame">
     <div class="brand-header">
       <div class="brand-name">BUFFALO BOXING</div>
-      <div class="brand-series">Darwin Custom Series</div>
+      <div class="brand-series">DARWIN CUSTOM SERIES</div>
     </div>
 
-    <div class="page-title">定制方案确认 / Confirmation</div>
+    <div class="page-title">最終カスタマイズプラン</div>
     
     <div class="result-item">
-      <div class="item-label">拳套尺寸</div>
+      <div class="item-label">グローブサイズ</div>
       <div class="item-value" id="sizeVal">--</div>
     </div>
     <div class="result-item">
-      <div class="item-label">皮革类型</div>
+      <div class="item-label">レザーの種類</div>
       <div class="item-value" id="leatherVal">--</div>
     </div>
     <div class="result-item">
-      <div class="item-label">Logo 颜色</div>
-      <div class="item-value" id="logoColorVal">原色</div>
+      <div class="item-label">ロゴカラー</div>
+      <div class="item-value" id="logoColorVal">標準</div>
     </div>
     <div class="result-item">
-      <div class="item-label">Logo 工艺</div>
-      <div class="item-value" id="logoStitchVal">外缝</div>
+      <div class="item-label">ロゴ縫製方法</div>
+      <div class="item-value" id="logoStitchVal">外縫い</div>
     </div>
     
-    <div class="section-title">各区域配色</div>
+    <div class="section-title">エリア配色</div>
     <div class="color-grid" id="colorGrid"></div>
     
-    <div class="section-title">手腕内侧印字</div>
+    <div class="section-title">手首内側 ホットスタンプ詳細</div>
     <div class="custom-section" id="printDetail"></div>
     
-    <div class="section-title">手腕内侧图案</div>
+    <div class="section-title">手首内側 オリジナル柄詳細</div>
     <div class="custom-section" id="patternDetail"></div>
     
     <div class="result-item">
-      <div class="item-label">Logo 替换</div>
-      <div class="item-value" id="logoReplaceVal">未选择</div>
+      <div class="item-label">ロゴ変更</div>
+      <div class="item-value" id="logoReplaceVal">選択なし</div>
     </div>
     <div class="result-item">
-      <div class="item-label">手背刺绣</div>
-      <div class="item-value" id="embroideryVal">未选择</div>
+      <div class="item-label">甲部分刺繍</div>
+      <div class="item-value" id="embroideryVal">選択なし</div>
     </div>
     <div class="result-item">
-      <div class="item-label">配色额外费用</div>
+      <div class="item-label">カラー追加料金</div>
       <div class="item-value" id="colorVal">¥0</div>
     </div>
     <div class="result-item">
-      <div class="item-label">定制额外费用</div>
+      <div class="item-label">カスタマイズ追加料金</div>
       <div class="item-value" id="customVal">¥0</div>
     </div>
 
     <div class="final-price">
-      <div class="final-price-text">Estimated Total · 预估总价</div>
+      <div class="final-price-text">概算合計（刺繍代別途）</div>
       <div class="final-price-num" id="totalPrice">¥0</div>
-      <div style="font-size:12px; color:#999; margin-top:6px;">不含刺绣费用</div>
     </div>
 
     <div class="note">
-      1. 手背刺绣需提供图案，客服将根据复杂度单独报价<br>
-      2. 最终价格以客服确认方案后核算为准<br>
-      3. 复制方案后可直接发送给客服对接下单
+      1. 甲部分の刺繍はデザインデータが必要です。複雑さに応じてカスタマーサービスよりお見積もりいたします。<br>
+      2. 最終的な価格はカスタマーサービスでの確定となります。<br>
+      3. プランをコピーしてカスタマーサービスにお送りいただくと、そのままご注文いただけます。
     </div>
 
     <div class="btn-group">
-      <button class="prev-btn" id="prevBtn">BACK · 返回修改</button>
-      <button class="copy-btn" onclick="copyResult()">COPY · 复制方案</button>
+      <button class="prev-btn" id="prevBtn">戻る ・ 編集する</button>
+      <button class="copy-btn" onclick="copyResult()">コピー ・ プランを保存</button>
     </div>
   </div>
 
   <script>
+    // エリア名マッピング
     const areaNames = {
-      '1': '区域 ①',
-      '2': '区域 ②',
-      '3': '区域 ③',
-      '4': '区域 ④',
-      '5': '区域 ⑤',
-      '6': '区域 ⑥',
-      '7': '区域 ⑦',
-      '8': '区域 ⑧'
+      '1': 'エリア ①', '2': 'エリア ②', '3': 'エリア ③', '4': 'エリア ④',
+      '5': 'エリア ⑤', '6': 'エリア ⑥', '7': 'エリア ⑦', '8': 'エリア ⑧'
     };
 
+    // カラー名マッピング（管理番号 + 和名）
     const colorNames = {
-      '#FFFFFF': 'F001 纯白',
-      '#F5F0EB': 'F002 奶昔白',
-      '#9D5F3B': 'F003 金棕',
-      '#746148': 'F004 大象灰',
-      '#1E2E44': 'F005 午夜蓝',
-      '#000000': 'F006 黑色',
-      '#80412D': 'F033 焦糖棕',
-      '#3FBF72': 'F032 漫画绿',
-      '#B3A59A': 'F009 风衣灰',
-      '#F27D3C': 'F010 橙色',
-      '#F2C12E': 'F011 太阳黄',
-      '#F9E77F': 'F012 小鸡黄',
-      '#404234': 'F013 橄榄绿',
-      '#BDE0F2': 'F014 微风蓝',
-      '#A0E7E5': 'F015 tiffany蓝',
-      '#0D32C4': 'F016 克莱因蓝',
-      '#91A3B1': 'F017 亚麻蓝',
-      '#C0A086': 'F018 马拉茶色',
-      '#8C8969': 'F019 鼠尾草绿',
-      '#808080': 'F020 积雨云灰',
-      '#BE3033': 'F021 大红',
-      '#EEB9C9': 'F022 樱花粉',
-      '#DF6981': 'F023 蔷薇粉',
-      '#E4A3BB': 'F031 花瓣粉',
-      '#6A2A30': 'F029 酒红',
-      '#FFD700': 'F025 柠檬黄',
-      '#C6AEA6': 'F026 杏色',
-      '#294162': 'F030 深邃蓝',
-      '#C0C0C0': 'F027 海鸥灰',
-      '#402D2D': 'F028 深咖'
+      '#FFFFFF': 'F001 ピュアホワイト',
+      '#F5F0EB': 'F002 ミルクセーキホワイト',
+      '#9D5F3B': 'F003 ゴールドブラウン',
+      '#746148': 'F004 エレファントグレー',
+      '#1E2E44': 'F005 ミッドナイトブルー',
+      '#000000': 'F006 ブラック',
+      '#80412D': 'F033 キャラメルブラウン',
+      '#3FBF72': 'F032 コミックグリーン',
+      '#B3A59A': 'F009 トレンチグレー',
+      '#F27D3C': 'F010 オレンジ',
+      '#F2C12E': 'F011 サンイエロー',
+      '#F9E77F': 'F012 チックイエロー',
+      '#404234': 'F013 オリーブグリーン',
+      '#BDE0F2': 'F014 ブリーズブルー',
+      '#A0E7E5': 'F015 ティファニーブルー',
+      '#0D32C4': 'F016 クラインブルー',
+      '#91A3B1': 'F017 リネンブルー',
+      '#C0A086': 'F018 マラケシュブラウン',
+      '#8C8969': 'F019 セージグリーン',
+      '#808080': 'F020 ストームクラウドグレー',
+      '#BE3033': 'F021 ブライトレッド',
+      '#EEB9C9': 'F022 サクラピンク',
+      '#DF6981': 'F023 ローズピンク',
+      '#E4A3BB': 'F031 ペタルピンク',
+      '#6A2A30': 'F029 バーガンディ',
+      '#FFD700': 'F025 レモンイエロー',
+      '#C6AEA6': 'F026 アプリコット',
+      '#294162': 'F030 ディープブルー',
+      '#C0C0C0': 'F027 シーガルグレー',
+      '#402D2D': 'F028 ダークコーヒー'
     };
 
-    window.onload = function() {
-      const size = localStorage.getItem('customSize') || '未选择';
-      const leather = localStorage.getItem('leatherType') || '未选择';
-      const basePrice = parseInt(localStorage.getItem('basePrice')) || 0;
-      const colorExtra = parseInt(localStorage.getItem('colorExtra')) || 0;
-      const customExtra = parseInt(localStorage.getItem('customExtra')) || 0;
-      const areaColors = JSON.parse(localStorage.getItem('areaColors')) || {};
-      const customOptions = JSON.parse(localStorage.getItem('customOptions')) || {};
-
-      document.getElementById('sizeVal').innerText = size + ' oz';
-      document.getElementById('leatherVal').innerText = leather;
-      document.getElementById('colorVal').innerText = '¥' + colorExtra;
-      document.getElementById('customVal').innerText = '¥' + customExtra;
-
-      const logoColorMap = {
-        'logoDefault': '原色植鞣牛皮 Logo',
-        'logoContrast': '撞色 Logo（与手背同色）',
-        'logoTextGold': '烫金文字 LOGO',
-        'logoTextSilver': '烫银文字 LOGO'
-      };
-      const logoColorText = logoColorMap[customOptions.logoColor] || '原色植鞣牛皮';
-      
-      const logoStitchMap = {
-        'stitchOuter': '外缝',
-        'stitchInner': '内缝',
-        'stitchPrintOnly': '烫印（无缝纫）'
-      };
-      const logoStitchText = logoStitchMap[customOptions.logoStitch] || '外缝';
-      
-      document.getElementById('logoColorVal').innerText = logoColorText;
-      document.getElementById('logoStitchVal').innerText = logoStitchText;
-
-      document.getElementById('logoReplaceVal').innerText = customOptions.logoReplace === 'yes' ? '已选择（+ ¥70）' : '未选择';
-      document.getElementById('embroideryVal').innerText = customOptions.embroidery === 'yes' ? '已选择（¥100-300，待报价）' : '未选择';
-
-      const colorGrid = document.getElementById('colorGrid');
-      colorGrid.innerHTML = '';
-      for (let i = 1; i <= 8; i++) {
-        const colorCode = areaColors[i];
-        const colorItem = document.createElement('div');
-        colorItem.className = 'color-item';
-        
-        if (colorCode) {
-          const colorName = colorNames[colorCode] || colorCode;
-          colorItem.innerHTML = `
-            <span>${areaNames[i]}</span>
-            <span>
-              <span class="color-swatch" style="background-color: ${colorCode};"></span>
-              ${colorName}
-            </span>
-          `;
-        } else {
-          colorItem.innerHTML = `
-            <span>${areaNames[i]}</span>
-            <span style="color:#ccc;">未选择</span>
-          `;
-        }
-        
-        colorGrid.appendChild(colorItem);
-      }
-
-      const printDetail = document.getElementById('printDetail');
-      let printHtml = '';
-      
-      if (customOptions.leftEngText || customOptions.leftChText) {
-        const content = customOptions.leftEngText || customOptions.leftChText;
-        const type = customOptions.leftEngText ? '英文/数字' : '汉字（+ ¥30）';
-        const font = customOptions.leftEngFont === 'cursive' ? '花体' : '正体';
-        const color = getColorText(customOptions.leftPrintColor || 'leftGold');
-        
-        printHtml += `<div class="custom-detail"><strong>左手</strong>　${type}「${content}」· ${font} · ${color}</div>`;
-      } else {
-        printHtml += '<div class="custom-detail">左手　未定制</div>';
-      }
-      
-      if (customOptions.rightEngText || customOptions.rightChText) {
-        const content = customOptions.rightEngText || customOptions.rightChText;
-        const type = customOptions.rightEngText ? '英文/数字' : '汉字（+ ¥30）';
-        const font = customOptions.rightEngFont === 'cursive' ? '花体' : '正体';
-        const color = getColorText(customOptions.rightPrintColor || 'rightGold');
-        
-        printHtml += `<div class="custom-detail"><strong>右手</strong>　${type}「${content}」· ${font} · ${color}</div>`;
-      } else {
-        printHtml += '<div class="custom-detail">右手　未定制</div>';
-      }
-      
-      printDetail.innerHTML = printHtml;
-
-      const patternDetail = document.getElementById('patternDetail');
-      let patternHtml = '';
-      
-      if (customOptions.leftWristPattern === 'yes') {
-        const color = getPatternColorText(customOptions.leftPatternColor || 'leftPatternGold');
-        patternHtml += `<div class="custom-detail"><strong>左手</strong>　已定制（+ ¥30）· ${color}</div>`;
-      } else {
-        patternHtml += '<div class="custom-detail">左手　未定制</div>';
-      }
-      
-      if (customOptions.rightWristPattern === 'yes') {
-        const color = getPatternColorText(customOptions.rightPatternColor || 'rightPatternGold');
-        patternHtml += `<div class="custom-detail"><strong>右手</strong>　已定制（+ ¥30）· ${color}</div>`;
-      } else {
-        patternHtml += '<div class="custom-detail">右手　未定制</div>';
-      }
-      
-      patternDetail.innerHTML = patternHtml;
-
-      const total = basePrice + colorExtra + customExtra;
-      document.getElementById('totalPrice').innerText = '¥' + total;
-    };
-
-    function getColorText(colorId) {
-      if (colorId.includes('Gold')) return '烫金';
-      if (colorId.includes('Silver')) return '烫银';
-      if (colorId.includes('Original')) return '原色烙印';
-      return '默认';
+    // スタンプカラー名変換
+    function getColorText(id) {
+      if (id?.includes('Gold')) return 'ゴールドホットスタンプ';
+      if (id?.includes('Silver')) return 'シルバーホットスタンプ';
+      if (id?.includes('Original')) return 'オリジナルカラー（ワイルドカウハイド専用）';
+      return '標準';
+    }
+    function getPatternColorText(id) {
+      if (id?.includes('Gold')) return 'ゴールドホットスタンプ';
+      if (id?.includes('Silver')) return 'シルバーホットスタンプ';
+      if (id?.includes('Original')) return 'オリジナルカラー（ワイルドカウハイド専用）';
+      return '標準';
     }
 
-    function getPatternColorText(colorId) {
-      if (colorId.includes('Gold')) return '烫金';
-      if (colorId.includes('Silver')) return '烫银';
-      if (colorId.includes('Original')) return '原色烙印';
-      return '默认';
-    }
-
-    // 优化排版后的复制方案
+    // プランコピー機能
     function copyResult() {
       const size = document.getElementById('sizeVal').innerText;
       const leather = document.getElementById('leatherVal').innerText;
       const logoColor = document.getElementById('logoColorVal').innerText;
       const logoStitch = document.getElementById('logoStitchVal').innerText;
-      const colorExtra = document.getElementById('colorVal').innerText;
-      const customExtra = document.getElementById('customVal').innerText;
+      const colorFee = document.getElementById('colorVal').innerText;
+      const customFee = document.getElementById('customVal').innerText;
       const logoReplace = document.getElementById('logoReplaceVal').innerText;
       const embroidery = document.getElementById('embroideryVal').innerText;
       const total = document.getElementById('totalPrice').innerText;
@@ -412,78 +297,78 @@
       const areaColors = JSON.parse(localStorage.getItem('areaColors')) || {};
       const customOptions = JSON.parse(localStorage.getItem('customOptions')) || {};
 
-      // 各区域配色文本
+      // 配色テキスト生成
       let colorText = '';
       for (let i = 1; i <= 8; i++) {
         const colorCode = areaColors[i];
         if (colorCode) {
           const colorName = colorNames[colorCode] || colorCode;
-          colorText += `  ${areaNames[i]}：${colorName}\n`;
+          colorText += `  ${areaNames[i]}: ${colorName}\n`;
         }
       }
-      if (!colorText) colorText = '  未进行颜色选择\n';
+      if (!colorText) colorText = '  カラー選択なし\n';
 
-      // 手腕印字 - 左右手分行
-      let leftPrint = '未定制';
-      let rightPrint = '未定制';
+      // 手首スタンプ 左右手
+      let leftPrint = 'カスタマイズなし';
+      let rightPrint = 'カスタマイズなし';
       
       if (customOptions.leftEngText || customOptions.leftChText) {
         const content = customOptions.leftEngText || customOptions.leftChText;
-        const type = customOptions.leftEngText ? '英文/数字' : '汉字（+ ¥30）';
-        const font = customOptions.leftEngFont === 'cursive' ? '花体' : '正体';
+        const type = customOptions.leftEngText ? '英字・数字（無料）' : '日本語（+¥750）';
+        const font = customOptions.leftEngFont === 'cursive' ? '筆記体' : '標準書体';
         const color = getColorText(customOptions.leftPrintColor || 'leftGold');
-        leftPrint = `${type}「${content}」· ${font} · ${color}`;
+        leftPrint = `${type} 「${content}」・${font}・${color}`;
       }
       
       if (customOptions.rightEngText || customOptions.rightChText) {
         const content = customOptions.rightEngText || customOptions.rightChText;
-        const type = customOptions.rightEngText ? '英文/数字' : '汉字（+ ¥30）';
-        const font = customOptions.rightEngFont === 'cursive' ? '花体' : '正体';
+        const type = customOptions.rightEngText ? '英字・数字（無料）' : '日本語（+¥750）';
+        const font = customOptions.rightEngFont === 'cursive' ? '筆記体' : '標準書体';
         const color = getColorText(customOptions.rightPrintColor || 'rightGold');
-        rightPrint = `${type}「${content}」· ${font} · ${color}`;
+        rightPrint = `${type} 「${content}」・${font}・${color}`;
       }
 
-      // 手腕图案 - 左右手分行
-      let leftPattern = '未定制';
-      let rightPattern = '未定制';
+      // 手首柄 左右手
+      let leftPattern = 'カスタマイズなし';
+      let rightPattern = 'カスタマイズなし';
       
       if (customOptions.leftWristPattern === 'yes') {
         const color = getPatternColorText(customOptions.leftPatternColor || 'leftPatternGold');
-        leftPattern = `已定制（+ ¥30）· ${color}`;
+        leftPattern = `カスタマイズあり（+¥750）・${color}`;
       }
       if (customOptions.rightWristPattern === 'yes') {
         const color = getPatternColorText(customOptions.rightPatternColor || 'rightPatternGold');
-        rightPattern = `已定制（+ ¥30）· ${color}`;
+        rightPattern = `カスタマイズあり（+¥750）・${color}`;
       }
 
       const resultText = 
-`BUFFALO BOXING · Darwin 系列定制方案
+`BUFFALO BOXING ・ Darwin カスタムシリーズ
 ────────────────────
-1. 拳套尺寸：${size}
-2. 皮革类型：${leather}
-3. Logo 配置
-  颜色：${logoColor}
-  工艺：${logoStitch}
-4. 各区域配色
+1. グローブサイズ：${size}
+2. レザーの種類：${leather}
+3. ロゴ設定
+  カラー：${logoColor}
+  縫製方法：${logoStitch}
+4. エリア配色
 ${colorText}
-5. 手腕内侧印字
+5. 手首内側ホットスタンプ
   左手：${leftPrint}
   右手：${rightPrint}
-6. 手腕内侧图案
+6. 手首内側オリジナル柄
   左手：${leftPattern}
   右手：${rightPattern}
-7. Logo 替换：${logoReplace}
-8. 手背刺绣：${embroidery}
-9. 配色额外费用：${colorExtra}
-10. 定制额外费用：${customExtra}
-11. 预估总价（不含刺绣）：${total}
+7. ロゴ変更：${logoReplace}
+8. 甲部分刺繍：${embroidery}
+9. カラー追加料金：${colorFee}
+10. カスタマイズ追加料金：${customFee}
+11. 概算合計（刺繍代別途）：${total}
 ────────────────────
-备注：请客服确认方案并核算最终价格，刺绣需提供图案对接报价。`;
+備考：最終的なプランと価格はカスタマーサービスにて確定いたします。刺繍はデザインデータをいただいてからのお見積もりとなります。`;
 
-      // 优先现代API，失败降级，兼容移动端
+      // コピー処理：モダンAPI優先、失敗時はフォールバック
       if (navigator.clipboard && window.isSecureContext) {
         navigator.clipboard.writeText(resultText).then(() => {
-          alert('方案已复制，可直接发送给客服');
+          alert('プランをコピーしました。カスタマーサービスにお送りください。');
         }).catch(() => {
           fallbackCopy(resultText);
         });
@@ -492,7 +377,7 @@ ${colorText}
       }
     }
 
-    // 降级复制方法
+    // フォールバックコピー（モバイル・ローカルファイル対応）
     function fallbackCopy(text) {
       const textarea = document.createElement('textarea');
       textarea.value = text;
@@ -500,17 +385,113 @@ ${colorText}
       textarea.style.top = '0';
       textarea.style.left = '0';
       textarea.style.opacity = '0';
+      textarea.style.fontSize = '14px';
       document.body.appendChild(textarea);
       textarea.select();
+      textarea.setSelectionRange(0, text.length);
       try {
         document.execCommand('copy');
-        alert('方案已复制，可直接发送给客服');
+        alert('プランをコピーしました。カスタマーサービスにお送りください。');
       } catch (err) {
-        alert('复制失败，请手动复制方案内容');
+        alert('コピーに失敗しました。テキストを選択して手動でコピーしてください。');
       }
       document.body.removeChild(textarea);
     }
 
+    // ページ読み込み時：全データを描画
+    window.onload = function() {
+      const size = localStorage.getItem('customSize') || '未選択';
+      const leather = localStorage.getItem('leatherType') || '未選択';
+      
+      // 価格データ取得（フォールバック付き）
+      const basePriceJPY = Math.max(0, parseInt(localStorage.getItem('basePriceJPY')) || 57000);
+      const colorExtraJPY = Math.max(0, parseInt(localStorage.getItem('colorExtraJPY')) || 0);
+      const customExtraJPY = Math.max(0, parseInt(localStorage.getItem('customExtraJPY')) || 0);
+      
+      const areaColors = JSON.parse(localStorage.getItem('areaColors')) || {};
+      const customOptions = JSON.parse(localStorage.getItem('customOptions')) || {};
+
+      // 基本情報表示
+      document.getElementById('sizeVal').innerText = size + ' オンス';
+      document.getElementById('leatherVal').innerText = leather;
+      document.getElementById('colorVal').innerText = '¥' + colorExtraJPY.toLocaleString('ja-JP');
+      document.getElementById('customVal').innerText = '¥' + customExtraJPY.toLocaleString('ja-JP');
+
+      // ロゴ情報マッピング
+      const logoColorMap = {
+        'logoDefault': 'オリジナルカラーロゴ（標準）',
+        'logoContrast': 'コントラストカラーロゴ（甲部分の色に合わせる）',
+        'logoTextGold': 'ゴールドホットスタンプ テキストロゴ',
+        'logoTextSilver': 'シルバーホットスタンプ テキストロゴ'
+      };
+      const logoStitchMap = {
+        'stitchOuter': '外縫い（手首レザーに直接縫い付け）',
+        'stitchInner': '内縫い（手首レザーの下に縫い込み）',
+        'stitchPrintOnly': 'ホットスタンプのみ（縫製なし）'
+      };
+      document.getElementById('logoColorVal').innerText = logoColorMap[customOptions.logoColor] || 'オリジナルカラーロゴ（標準）';
+      document.getElementById('logoStitchVal').innerText = logoStitchMap[customOptions.logoStitch] || '外縫い';
+
+      // ロゴ変更・刺繍表示
+      document.getElementById('logoReplaceVal').innerText = customOptions.logoReplace === 'yes' ? '選択あり（+¥1,500）' : '選択なし';
+      document.getElementById('embroideryVal').innerText = customOptions.embroidery === 'yes' ? '選択あり（¥2,200～6,700、別途お見積もり）' : '選択なし';
+
+      // 配色グリッド描画
+      const colorGrid = document.getElementById('colorGrid');
+      colorGrid.innerHTML = '';
+      for (let i = 1; i <= 8; i++) {
+        const colorCode = areaColors[i];
+        const colorItem = document.createElement('div');
+        colorItem.className = 'color-item';
+        if (colorCode) {
+          const cName = colorNames[colorCode] || colorCode;
+          colorItem.innerHTML = `<span>${areaNames[i]}</span><span><span class="color-swatch" style="background:${colorCode}"></span>${cName}</span>`;
+        } else {
+          colorItem.innerHTML = `<span>${areaNames[i]}</span><span style="color:#ccc;">未選択</span>`;
+        }
+        colorGrid.appendChild(colorItem);
+      }
+
+      // スタンプ詳細描画
+      const printDetail = document.getElementById('printDetail');
+      let printHtml = '';
+      if (customOptions.leftEngText || customOptions.leftChText) {
+        const content = customOptions.leftEngText || customOptions.leftChText;
+        const type = customOptions.leftEngText ? '英字・数字（無料）' : '日本語（+¥750）';
+        const font = customOptions.leftEngFont === 'cursive' ? '筆記体' : '標準書体';
+        const color = getColorText(customOptions.leftPrintColor);
+        printHtml += `<div class="custom-detail"><strong>左手：</strong>${type} 「${content}」、書体：${font}、カラー：${color}</div>`;
+      } else printHtml += '<div class="custom-detail">左手：スタンプなし</div>';
+      
+      if (customOptions.rightEngText || customOptions.rightChText) {
+        const content = customOptions.rightEngText || customOptions.rightChText;
+        const type = customOptions.rightEngText ? '英字・数字（無料）' : '日本語（+¥750）';
+        const font = customOptions.rightEngFont === 'cursive' ? '筆記体' : '標準書体';
+        const color = getColorText(customOptions.rightPrintColor);
+        printHtml += `<div class="custom-detail"><strong>右手：</strong>${type} 「${content}」、書体：${font}、カラー：${color}</div>`;
+      } else printHtml += '<div class="custom-detail">右手：スタンプなし</div>';
+      printDetail.innerHTML = printHtml;
+
+      // 柄詳細描画
+      const patternDetail = document.getElementById('patternDetail');
+      let patternHtml = '';
+      if (customOptions.leftWristPattern === 'yes') {
+        const color = getPatternColorText(customOptions.leftPatternColor);
+        patternHtml += `<div class="custom-detail"><strong>左手：</strong>カスタマイズあり（+¥750）、カラー：${color}</div>`;
+      } else patternHtml += '<div class="custom-detail">左手：柄なし</div>';
+      
+      if (customOptions.rightWristPattern === 'yes') {
+        const color = getPatternColorText(customOptions.rightPatternColor);
+        patternHtml += `<div class="custom-detail"><strong>右手：</strong>カスタマイズあり（+¥750）、カラー：${color}</div>`;
+      } else patternHtml += '<div class="custom-detail">右手：柄なし</div>';
+      patternDetail.innerHTML = patternHtml;
+
+      // 合計金額
+      const totalJPY = basePriceJPY + colorExtraJPY + customExtraJPY;
+      document.getElementById('totalPrice').innerText = '¥' + totalJPY.toLocaleString('ja-JP');
+    };
+
+    // 戻るボタン
     document.getElementById('prevBtn').addEventListener('click', () => {
       window.location.href = '4.customize.html';
     });
