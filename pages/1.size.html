@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>1. グローブサイズ選択 | BUFFALO BOXING</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { 
+      font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic", "Meiryo", "Segoe UI", Arial, sans-serif;
+      padding: 40px 20px; 
+      max-width: 750px; 
+      margin: 0 auto; 
+      background: #fafafa;
+      color: #1a1a1a;
+      line-height: 1.6;
+    }
+    /* Vintage black border frame */
+    .page-frame {
+      background: #ffffff;
+      border: 1px solid #1a1a1a;
+      border-radius: 2px;
+      padding: 48px 40px;
+    }
+    /* Brand header */
+    .brand-header {
+      text-align: center;
+      margin-bottom: 48px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    .brand-name {
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      color: #1a1a1a;
+    }
+    .brand-series {
+      font-size: 11px;
+      letter-spacing: 4px;
+      color: #666;
+      margin-top: 6px;
+      text-transform: uppercase;
+    }
+    .page-title { 
+      font-size: 20px; 
+      font-weight: 500; 
+      margin-bottom: 36px;
+      color: #1a1a1a;
+      letter-spacing: 1px;
+    }
+    /* Unified 2-column size grid */
+    .size-list { 
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 60px; 
+    }
+    .size-item { 
+      border: 1px solid #d9d9d9; 
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 2px; 
+      cursor: pointer;
+      font-size: 15px;
+      color: #333;
+      transition: all 0.2s ease;
+      background: #fff;
+    }
+    .size-item:hover {
+      border-color: #1a1a1a;
+      color: #1a1a1a;
+    }
+    .size-item.active { 
+      border-color: #1a1a1a; 
+      background: #fafafa; 
+      color: #1a1a1a;
+      font-weight: 500;
+    }
+    .next-btn { 
+      width: 100%; 
+      background: #1a1a1a; 
+      color: #fff; 
+      border: 1px solid #1a1a1a;
+      padding: 16px; 
+      border-radius: 2px; 
+      cursor: pointer;
+      font-size: 14px;
+      letter-spacing: 2px;
+      transition: all 0.2s ease;
+    }
+    .next-btn:hover {
+      background: #000;
+      border-color: #000;
+    }
+  </style>
+</head>
+<body>
+  <div class="page-frame">
+    <div class="brand-header">
+      <div class="brand-name">BUFFALO BOXING</div>
+      <div class="brand-series">DARWIN CUSTOM SERIES</div>
+    </div>
+
+    <div class="page-title">グローブサイズ / オンス を選択</div>
+    <div class="size-list" id="sizeList">
+      <div class="size-item" data-size="8">8 オンス</div>
+      <div class="size-item" data-size="10">10 オンス</div>
+      <div class="size-item" data-size="12">12 オンス</div>
+      <div class="size-item" data-size="14">14 オンス</div>
+      <div class="size-item" data-size="16">16 オンス</div>
+    </div>
+    <button class="next-btn" id="nextBtn">次へ ・ レザーを選ぶ</button>
+  </div>
+
+  <script>
+    const sizeList = document.getElementById('sizeList');
+    const nextBtn = document.getElementById('nextBtn');
+    let selectedSize = '';
+
+    // Read saved size (if any)
+    const savedSize = localStorage.getItem('customSize');
+    if (savedSize) {
+      document.querySelector(`.size-item[data-size="${savedSize}"]`).classList.add('active');
+      selectedSize = savedSize;
+    }
+
+    sizeList.addEventListener('click', (e) => {
+      if (e.target.classList.contains('size-item')) {
+        document.querySelectorAll('.size-item').forEach(item => item.classList.remove('active'));
+        e.target.classList.add('active');
+        selectedSize = e.target.dataset.size;
+      }
+    });
+
+    nextBtn.addEventListener('click', () => {
+      if (selectedSize) {
+        localStorage.setItem('customSize', selectedSize);
+        window.location.href = '2.leather.html';
+      } else {
+        alert('サイズを選択してから次に進んでください。');
+      }
+    });
+  </script>
+</body>
+</html>
