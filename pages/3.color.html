@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
-    <title>3. 配色预览 | BUFFALO BOXING</title>
+    <title>3. カラープレビュー | BUFFALO BOXING</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { 
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic", "Meiryo", "Segoe UI", Arial, sans-serif;
             padding: 40px 20px; 
             max-width: 750px; 
             margin: 0 auto; 
@@ -97,7 +97,7 @@
             color: #999; font-size: 14px; z-index: 1;
         }
         #canvasContainer { position: relative; width: 100%; height: 100%; }
-        /* 修复：等比例显示，不拉伸 */
+        /* 等比例显示，不拉伸变形 */
         #canvasContainer canvas {
             position: absolute;
             top: 50%;
@@ -199,6 +199,7 @@
             font-size: 14px;
             letter-spacing: 2px;
             transition: all 0.2s ease;
+            font-family: inherit;
         }
         .prev-btn { 
             background: #fff; 
@@ -223,62 +224,62 @@
 <div class="page-frame">
     <div class="brand-header">
         <div class="brand-name">BUFFALO BOXING</div>
-        <div class="brand-series">Darwin Custom Series</div>
+        <div class="brand-series">DARWIN CUSTOM SERIES</div>
     </div>
 
-    <div class="page-title">配色预览 / Color</div>
+    <div class="page-title">カラープレビュー</div>
 
-    <div class="current-price">当前价格 <span>¥<span id="currentPrice">1699</span></span></div>
+    <div class="current-price">現在の価格：¥<span id="currentPriceJPY">57,000</span></div>
     <div class="price-alert" id="priceAlert"></div>
 
     <div class="canvas-container">
-        <div class="canvas-placeholder">拳套预览图加载中...</div>
+        <div class="canvas-placeholder">グローブプレビューを読み込み中...</div>
         <div id="canvasContainer"></div>
     </div>
 
     <div id="leatherTip" class="alert-box" style="display: none;"></div>
 
     <div class="color-rules">
-        <div class="color-rule">· 1、2、3号区域：可免费选择2种颜色，每额外增加1种 + ¥300</div>
-        <div class="color-rule">· 4-8号区域：可在免费2色基础上再免费选1种，每额外增加1种 + ¥150</div>
+        <div class="color-rule">・①～③エリア：基本2色無料、追加1色ごとに¥9,000</div>
+        <div class="color-rule">・④～⑧エリア：ベースに加えて1色無料、追加1色ごとに¥6,000</div>
     </div>
 
     <div class="controls">
         <div>
-            <label>选择上色区域</label>
+            <label>配色するエリアを選択</label>
             <select id="areaSelect">
-                <option value="1">区域 1</option>
-                <option value="2">区域 2</option>
-                <option value="3">区域 3</option>
-                <option value="4">区域 4</option>
-                <option value="5">区域 5</option>
-                <option value="6">区域 6</option>
-                <option value="7">区域 7</option>
-                <option value="8">区域 8</option>
+                <option value="1">エリア ①</option>
+                <option value="2">エリア ②</option>
+                <option value="3">エリア ③</option>
+                <option value="4">エリア ④</option>
+                <option value="5">エリア ⑤</option>
+                <option value="6">エリア ⑥</option>
+                <option value="7">エリア ⑦</option>
+                <option value="8">エリア ⑧</option>
             </select>
         </div>
         <div>
-            <label>选择颜色</label>
+            <label>カラーを選択</label>
             <div class="color-container" id="colorContainer"></div>
         </div>
     </div>
 
     <div class="btn-group">
-        <button class="prev-btn" id="prevBtn">BACK · 返回</button>
-        <button class="next-btn" id="nextBtn">NEXT · 定制印字</button>
+        <button class="prev-btn" id="prevBtn">戻る ・ 前のページ</button>
+        <button class="next-btn" id="nextBtn">次へ ・ カスタマイズ</button>
     </div>
 </div>
 
 <script>
-    /* ==================== 首次进入清空染色状态 ==================== */
-    const isFirstVisit = !localStorage.getItem('hasVisitedColorPage');
+    /* ==================== 初回訪問時にカラー状態をリセット ==================== */
+    const isFirstVisit = !localStorage.getItem('hasVisitedColorPageJP');
     if (isFirstVisit) {
         localStorage.removeItem('areaColors');
-        localStorage.removeItem('colorExtra');
-        localStorage.setItem('hasVisitedColorPage', 'true');
+        localStorage.removeItem('colorExtraJPY');
+        localStorage.setItem('hasVisitedColorPageJP', 'true');
     }
 
-    /* ==================== 染色核心逻辑 ==================== */
+    /* ==================== コア着色ロジック ==================== */
     const TOTAL_LAYERS = 8;
     const CANVAS_SIZE = { w: 1632, h: 1280 };
 
@@ -286,20 +287,20 @@
     const placeholder = document.querySelector('.canvas-placeholder');
     const areaSelect = document.getElementById('areaSelect');
     const colorContainer = document.getElementById('colorContainer');
-    const currentPriceEl = document.getElementById('currentPrice');
+    const currentPriceJPYEl = document.getElementById('currentPriceJPY');
     const priceAlert = document.getElementById('priceAlert');
     const leatherTip = document.getElementById('leatherTip');
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
 
-    let basePrice = parseInt(localStorage.getItem('basePrice')) || 1699;
-    let colorExtra = 0;
+    let basePriceJPY = Math.max(0, parseInt(localStorage.getItem('basePriceJPY')) || 57000);
+    let colorExtraJPY = 0;
     const areaColors = { '1': null, '2': null, '3': null, '4': null, '5': null, '6': null, '7': null, '8': null };
 
     const canvases = [], ctxs = [], images = [], tintedData = [];
     let selectedIdx = 0;
 
-    // 创建 canvas
+    // キャンバスレイヤーを作成
     for (let i = 0; i < TOTAL_LAYERS; i++) {
         const cvs = document.createElement('canvas');
         cvs.width = CANVAS_SIZE.w;
@@ -316,7 +317,7 @@
         return new Promise((resolve, reject) => {
             const img = new Image();
             img.onload = () => resolve(img);
-            img.onerror = () => reject(new Error(`加载失败: ${src}`));
+            img.onerror = () => reject(new Error(`読み込み失敗: ${src}`));
             img.src = src;
         });
     }
@@ -385,23 +386,23 @@
         renderLayer(idx);
     }
 
-    /* ==================== 颜色选择 ==================== */
+    /* ==================== カラー選択 ==================== */
     const colors = [
-        { code: '#FFFFFF', name: '纯白' }, { code: '#F5F0EB', name: '奶昔白' },
-        { code: '#9D5F3B', name: '金棕' }, { code: '#746148', name: '大象灰' },
-        { code: '#1E2E44', name: '午夜蓝' }, { code: '#000000', name: '黑色' },
-        { code: '#80412D', name: '焦糖棕' }, { code: '#3FBF72', name: '漫画绿' },
-        { code: '#B3A59A', name: '风衣灰' }, { code: '#F27D3C', name: '橙色' },
-        { code: '#F2C12E', name: '太阳黄' }, { code: '#F9E77F', name: '小鸡黄' },
-        { code: '#404234', name: '橄榄绿' }, { code: '#BDE0F2', name: '微风蓝' },
-        { code: '#A0E7E5', name: 'tiffany蓝' }, { code: '#0D32C4', name: '克莱因蓝' },
-        { code: '#91A3B1', name: '亚麻蓝' }, { code: '#C0A086', name: '马拉茶色' },
-        { code: '#8C8969', name: '鼠尾草绿' }, { code: '#808080', name: '积雨云灰' },
-        { code: '#BE3033', name: '大红' }, { code: '#EEB9C9', name: '樱花粉' },
-        { code: '#DF6981', name: '蔷薇粉' }, { code: '#E4A3BB', name: '花瓣粉' },
-        { code: '#6A2A30', name: '酒红' }, { code: '#FFD700', name: '柠檬黄' },
-        { code: '#C6AEA6', name: '杏色' }, { code: '#294162', name: '深邃蓝' },
-        { code: '#C0C0C0', name: '海鸥灰' }, { code: '#402D2D', name: '深咖' }
+        { code: '#FFFFFF', name: 'ピュアホワイト' }, { code: '#F5F0EB', name: 'ミルクセーキホワイト' },
+        { code: '#9D5F3B', name: 'ゴールドブラウン' }, { code: '#746148', name: 'エレファントグレー' },
+        { code: '#1E2E44', name: 'ミッドナイトブルー' }, { code: '#000000', name: 'ブラック' },
+        { code: '#80412D', name: 'キャラメルブラウン' }, { code: '#3FBF72', name: 'コミックグリーン' },
+        { code: '#B3A59A', name: 'トレンチグレー' }, { code: '#F27D3C', name: 'オレンジ' },
+        { code: '#F2C12E', name: 'サンイエロー' }, { code: '#F9E77F', name: 'チックイエロー' },
+        { code: '#404234', name: 'オリーブグリーン' }, { code: '#BDE0F2', name: 'ブリーズブルー' },
+        { code: '#A0E7E5', name: 'ティファニーブルー' }, { code: '#0D32C4', name: 'クラインブルー' },
+        { code: '#91A3B1', name: 'リネンブルー' }, { code: '#C0A086', name: 'マラケシュブラウン' },
+        { code: '#8C8969', name: 'セージグリーン' }, { code: '#808080', name: 'ストームクラウドグレー' },
+        { code: '#BE3033', name: 'ブライトレッド' }, { code: '#EEB9C9', name: 'サクラピンク' },
+        { code: '#DF6981', name: 'ローズピンク' }, { code: '#E4A3BB', name: 'ペタルピンク' },
+        { code: '#6A2A30', name: 'バーガンディ' }, { code: '#FFD700', name: 'レモンイエロー' },
+        { code: '#C6AEA6', name: 'アプリコット' }, { code: '#294162', name: 'ディープブルー' },
+        { code: '#C0C0C0', name: 'シーガルグレー' }, { code: '#402D2D', name: 'ダークコーヒー' }
     ];
 
     function createColorCircles() {
@@ -443,10 +444,10 @@
         });
     });
 
-    /* ==================== 价格 & 提示逻辑 ==================== */
+    /* ==================== 価格計算＆注意喚起ロジック ==================== */
     function calculatePrice() {
         const leatherType = localStorage.getItem('leatherType') || '';
-        const isWildCowhide = leatherType.includes('野牛皮');
+        const isWildCowhide = leatherType.includes('Wild Cowhide');
         const area123Colors = new Set();
         const area45678Colors = new Set();
 
@@ -467,48 +468,48 @@
         const area123Free = isWildCowhide ? 3 : 2;
         if (area123Colors.size > area123Free) {
             const over = area123Colors.size - area123Free;
-            extra += over * 300;
-            alertText += `· 1-3号区域已超额使用 ${over} 种颜色，额外费用 ¥${over * 300}\n`;
+            extra += over * 9000;
+            alertText += `・①～③エリア：追加色${over}点、+¥${(over*9000).toLocaleString('ja-JP')}\n`;
         }
 
         const area45678Free = isWildCowhide ? 2 : 1;
         if (newColorsIn45678.size > area45678Free) {
             const over = newColorsIn45678.size - area45678Free;
-            extra += over * 150;
-            alertText += `· 4-8号区域已超额使用 ${over} 种颜色，额外费用 ¥${over * 150}`;
+            extra += over * 6000;
+            alertText += `・④～⑧エリア：追加色${over}点、+¥${(over*6000).toLocaleString('ja-JP')}`;
         }
 
         priceAlert.textContent = alertText;
         priceAlert.style.display = alertText ? 'block' : 'none';
 
-        colorExtra = extra;
-        currentPriceEl.innerText = basePrice + colorExtra;
-        localStorage.setItem('colorExtra', colorExtra);
+        colorExtraJPY = extra;
+        currentPriceJPYEl.innerText = (basePriceJPY + colorExtraJPY).toLocaleString('ja-JP');
+        localStorage.setItem('colorExtraJPY', colorExtraJPY);
         localStorage.setItem('areaColors', JSON.stringify(areaColors));
     }
 
     function showLeatherTip() {
         const leatherType = localStorage.getItem('leatherType') || '';
-        if (leatherType.includes('野牛皮')) {
-            leatherTip.textContent = '提示：野牛皮固定为深棕色，可直接用深棕色搭配，且不计入普通牛皮颜色额度';
+        if (leatherType.includes('Wild Cowhide')) {
+            leatherTip.textContent = 'ワイルドカウハイドはダークブラウン固定となります。通常カウハイドの無料2色のカウントには含まれません。';
             leatherTip.style.display = 'block';
-        } else if (/鲨鱼|鳄鱼|鸵鸟|蜥蜴/.test(leatherType)) {
-            leatherTip.textContent = '提示：稀有皮革无固定色卡，常见为黑、棕、白等。可先选择相近颜色搭配，后续由我们确认皮料库存。稀有皮默认应用于2、5号区域，其他区域需联系客服单独报价。';
+        } else if (/Shark|Crocodile|Ostrich|Lizard|Python/.test(leatherType)) {
+            leatherTip.textContent = 'エキゾチックレザーには固定のカラーチャートがありません。一般的なカラー：ブラック、ブラウン、ホワイト。プレビューには類似色を使用してください。実際の在庫カラーは別途ご確認いたします。エキゾチックレザーは②と⑤エリアに標準で使用されます。その他のエリアへの適用は別途お見積もりいたしますのでお問い合わせください。';
             leatherTip.style.display = 'block';
         } else {
             leatherTip.style.display = 'none';
         }
     }
 
-    /* ==================== 导航 ==================== */
+    /* ==================== ページ遷移 ==================== */
     prevBtn.onclick = () => { window.location.href = '2.leather.html'; };
     nextBtn.onclick = () => {
         localStorage.setItem('areaColors', JSON.stringify(areaColors));
-        localStorage.setItem('colorExtra', colorExtra);
+        localStorage.setItem('colorExtraJPY', colorExtraJPY);
         window.location.href = '4.customize.html';
     };
 
-    /* ==================== 初始化 ==================== */
+    /* ==================== 初期化 ==================== */
     const saved = localStorage.getItem('areaColors');
     if (saved && !isFirstVisit) {
         Object.assign(areaColors, JSON.parse(saved));
@@ -531,7 +532,7 @@
         }
     }).catch(err => {
         console.error(err);
-        placeholder.textContent = '图片加载失败，请确保 1.png ~ 8.png 存在';
+        placeholder.textContent = '画像の読み込みに失敗しました。1.png～8.pngが存在することをご確認ください。';
     });
 </script>
 </body>
