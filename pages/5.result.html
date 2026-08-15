@@ -234,6 +234,17 @@
       '5': 'エリア ⑤', '6': 'エリア ⑥', '7': 'エリア ⑦', '8': 'エリア ⑧'
     };
 
+    // レザー名和訳マッピング
+    const leatherNames = {
+      'Swift Cowhide': 'スウィフトカウハイド',
+      'Swift Cowhide + Curtiba Wild Cowhide': 'スウィフトカウハイド + クルティバワイルドカウハイド',
+      'Swift Cowhide + Shark Skin': 'スウィフトカウハイド + シャークスキン',
+      'Swift Cowhide + Crocodile Skin': 'スウィフトカウハイド + クロコダイルスキン',
+      'Swift Cowhide + Ostrich Skin': 'スウィフトカウハイド + オーストリッチスキン',
+      'Swift Cowhide + Lizard Skin': 'スウィフトカウハイド + リザードスキン',
+      'Swift Cowhide + Python Skin': 'スウィフトカウハイド + パイソンスキン'
+    };
+
     // カラー名マッピング（管理番号 + 和名）
     const colorNames = {
       '#FFFFFF': 'F001 ピュアホワイト',
@@ -401,7 +412,7 @@ ${colorText}
     // ページ読み込み時：全データを描画
     window.onload = function() {
       const size = localStorage.getItem('customSize') || '未選択';
-      const leather = localStorage.getItem('leatherType') || '未選択';
+      const leatherRaw = localStorage.getItem('leatherType') || '未選択';
       
       // 価格データ取得（フォールバック付き）
       const basePriceJPY = Math.max(0, parseInt(localStorage.getItem('basePriceJPY')) || 57000);
@@ -413,7 +424,7 @@ ${colorText}
 
       // 基本情報表示
       document.getElementById('sizeVal').innerText = size + ' オンス';
-      document.getElementById('leatherVal').innerText = leather;
+      document.getElementById('leatherVal').innerText = leatherNames[leatherRaw] || leatherRaw;
       document.getElementById('colorVal').innerText = '¥' + colorExtraJPY.toLocaleString('ja-JP');
       document.getElementById('customVal').innerText = '¥' + customExtraJPY.toLocaleString('ja-JP');
 
