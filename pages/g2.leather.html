@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>2. 革の種類を選択 | BUFFALO BOXING</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      padding: 40px 20px;
+      max-width: 750px;
+      margin: 0 auto;
+      background: #fafafa;
+      color: #1a1a1a;
+      line-height: 1.6;
+    }
+    .page-frame {
+      background: #ffffff;
+      border: 1px solid #1a1a1a;
+      border-radius: 2px;
+      padding: 48px 40px;
+    }
+    .brand-header {
+      text-align: center;
+      margin-bottom: 48px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    .brand-name { font-size: 20px; font-weight: 600; letter-spacing: 3px; color: #1a1a1a; }
+    .brand-series { font-size: 11px; letter-spacing: 4px; color: #666; margin-top: 6px; text-transform: uppercase; }
+    .page-title { font-size: 20px; font-weight: 500; margin-bottom: 24px; color: #1a1a1a; letter-spacing: 1px; }
+    .current-price {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 32px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    .current-price span { font-size: 22px; font-weight: 500; color: #1a1a1a; margin-left: 8px; }
+    .leather-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px; }
+    .leather-item {
+      border: 1px solid #d9d9d9;
+      padding: 18px 20px;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      background: #fff;
+    }
+    .leather-item:hover { border-color: #1a1a1a; }
+    .leather-item.active { border-color: #1a1a1a; background: #fafafa; color: #1a1a1a; }
+    .leather-name { font-size: 15px; min-width: 0; }
+    .price-tag { color: #1a1a1a; font-weight: 500; font-size: 15px; flex: 0 0 auto; }
+    .alert-box {
+      padding: 15px 18px;
+      background: #fafafa;
+      border: 1px solid #d9d9d9;
+      border-radius: 2px;
+      font-size: 12px;
+      color: #555;
+      line-height: 1.8;
+      margin-bottom: 30px;
+    }
+    .btn-group { display: flex; gap: 12px; }
+    .prev-btn, .next-btn {
+      flex: 1;
+      padding: 16px;
+      border-radius: 2px;
+      cursor: pointer;
+      font-size: 14px;
+      letter-spacing: 2px;
+      transition: all 0.2s ease;
+    }
+    .prev-btn { background: #fff; color: #1a1a1a; border: 1px solid #d9d9d9; }
+    .prev-btn:hover { border-color: #1a1a1a; }
+    .next-btn { background: #1a1a1a; color: #fff; border: 1px solid #1a1a1a; }
+    .next-btn:hover { background: #000; border-color: #000; }
+    @media (max-width: 480px) {
+      body { padding: 20px 12px; }
+      .page-frame { padding: 32px 20px; }
+    }
+    .step-nav { display: flex; gap: 8px; margin-bottom: 30px; overflow-x: auto; padding-bottom: 4px; -webkit-overflow-scrolling: touch; }
+  .step-nav::-webkit-scrollbar { height: 3px; }
+  .step-nav-item { flex: 0 0 auto; display: flex; align-items: center; gap: 7px; border: 1px solid #d9d9d9; border-radius: 2px; padding: 9px 13px; background: #fff; font-size: 12px; letter-spacing: 1px; color: #666; cursor: pointer; font-family: inherit; transition: all .2s ease; }
+  .step-nav-item .sn-num { display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border: 1px solid #999; border-radius: 50%; font-size: 10px; }
+  .step-nav-item:hover { border-color: #1a1a1a; color: #1a1a1a; }
+  .step-nav-item.current { background: #1a1a1a; border-color: #1a1a1a; color: #fff; }
+  .step-nav-item.current .sn-num { border-color: #fff; }
+    .global-nav { display:flex; gap:10px; margin-top:24px; padding-top:18px; border-top:1px solid #f0f0f0; }
+    .gn-link { flex:1; text-align:center; border:1px solid #d9d9d9; border-radius:2px; padding:13px 8px; font-size:12px; letter-spacing:1px; color:#666; background:#fff; text-decoration:none; cursor:pointer; transition:all .2s; }
+    .gn-link:hover { border-color:#1a1a1a; color:#1a1a1a; }
+    .gn-link.gn-bundle { border-color:#1a1a1a; color:#1a1a1a; display:none; }
+    .gn-link.gn-bundle:hover { background:#1a1a1a; color:#fff; }
+</style>
+</head>
+<body>
+  <div class="page-frame">
+    <div class="brand-header">
+      <div class="brand-name">BUFFALO BOXING</div>
+      <div class="brand-series">Darwin Custom Series</div>
+    </div>
+
+    <div class="step-nav" id="stepNav"><button type="button" class="step-nav-item" data-href="g1.size.html"><span class="sn-num">1</span>サイズ</button><button type="button" class="step-nav-item current" data-href="g2.leather.html"><span class="sn-num">2</span>革</button><button type="button" class="step-nav-item" data-href="g3.color.html"><span class="sn-num">3</span>カラー</button><button type="button" class="step-nav-item" data-href="g4.customize.html"><span class="sn-num">4</span>文字入れ</button><button type="button" class="step-nav-item" data-href="g5.result.html"><span class="sn-num">5</span>結果</button></div>
+<div class="page-title">革の種類を選択 / 革</div>
+
+    <div class="current-price">基本価格 <span id="currentPrice">$380 / £288</span></div>
+
+    <div class="leather-list" id="leatherList">
+      <div class="leather-item active" data-type="Swift Cowhide" data-price="380">
+        <span class="leather-name">スウィフト牛革</span><span class="price-tag">$380 / £288</span>
+      </div>
+      <div class="leather-item" data-type="Swift Cowhide + Wild Buffalo Leather" data-price="420">
+        <span class="leather-name">スウィフト牛革 + ワイルドバッファロー革</span><span class="price-tag">$420 / £318</span>
+      </div>
+      <div class="leather-item" data-type="Swift Cowhide + Shark Skin" data-price="800">
+        <span class="leather-name">スウィフト牛革 + シャーク革</span><span class="price-tag">$800 / £606</span>
+      </div>
+      <div class="leather-item" data-type="Swift Cowhide + Crocodile Skin" data-price="890">
+        <span class="leather-name">スウィフト牛革 + クロコダイル革</span><span class="price-tag">$890 / £674</span>
+      </div>
+      <div class="leather-item" data-type="Swift Cowhide + Ostrich Skin" data-price="890">
+        <span class="leather-name">スウィフト牛革 + オーストリッチ革</span><span class="price-tag">$890 / £674</span>
+      </div>
+      <div class="leather-item" data-type="Swift Cowhide + Lizard Skin" data-price="890">
+        <span class="leather-name">スウィフト牛革 + トカゲ革</span><span class="price-tag">$890 / £674</span>
+      </div>
+    </div>
+
+    <div id="tipBox" class="alert-box" style="display:none;"></div>
+
+    <div class="btn-group">
+      <button class="prev-btn" id="prevBtn">戻る · 戻る</button>
+      <button class="next-btn" id="nextBtn">次へ · カラープレビュー</button>
+    </div>
+  <div class="global-nav">
+      <a class="gn-link" href="../index.html">カスタマイザーのホームに戻る · 数量の追加・変更</a>
+      <a class="gn-link gn-bundle" id="gnBundle" href="../bundle.html">バンドル一覧に戻る</a>
+    </div>
+    </div>
+
+  <script>
+    /* ===== 统一存储封装（每件独立前缀） ===== */
+    const BBSUIT_KEY = 'bb_suit';
+    function BB_suit(){ try{ return JSON.parse(localStorage.getItem(BBSUIT_KEY)) || null; }catch(e){ return null; } }
+    function BB_prefix(){
+      const s = BB_suit();
+      if(!s || !Array.isArray(s.items) || !s.items.length) return '';
+      const idx = (typeof s.current === 'number') ? s.current : 0;
+      return 'bb_' + idx + '_';
+    }
+    const LS = {
+      get(k){ return localStorage.getItem(BB_prefix() + k); },
+      set(k,v){ localStorage.setItem(BB_prefix() + k, v); },
+      remove(k){ localStorage.removeItem(BB_prefix() + k); }
+    };
+
+    const RARE_KEYS = ['Shark Skin', 'Crocodile Skin', 'Ostrich Skin', 'Lizard Skin'];
+    const WILD_TIP = 'Wild buffalo leather uses a separate color card on the color page. Selecting "Wild Buffalo Leather" means wild buffalo leather is applied to this area and does not count toward the free color quota. It cannot be used on Area 1 (hand front) but is available on all other areas. Original hot stamping is only available when the corresponding area uses wild buffalo leather.';
+    const RARE_TIP = 'Exotic leathers (other than wild buffalo) have no fixed color card; you can pick a similar color first and our team will confirm the leather later. The default price only covers Areas 2 (Wrist Front), 5 (Lower Outer Thumb) and 7 (Palm Side Strip). To expand the range or combine different specialty leathers, choose the colors and contact us for a quote. Exotic leathers only support text-logo hot stamping.';
+
+    const leatherList = document.getElementById('leatherList');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const currentPriceEl = document.getElementById('currentPrice');
+    const tipBox = document.getElementById('tipBox');
+    let selectedLeather = 'Swift Cowhide';
+
+    function isRareLeather(name) {
+      return RARE_KEYS.some(k => name.indexOf(k) !== -1);
+    }
+    function isWildLeather(name) {
+      return name.indexOf('Wild Buffalo Leather') !== -1;
+    }
+    function refreshTip() {
+      if (isRareLeather(selectedLeather)) {
+        tipBox.textContent = RARE_TIP;
+        tipBox.style.display = 'block';
+      } else if (isWildLeather(selectedLeather)) {
+        tipBox.textContent = WILD_TIP;
+        tipBox.style.display = 'block';
+      } else {
+        tipBox.style.display = 'none';
+      }
+    }
+
+    // 读取已选Leather（如果有）
+    const savedLeather = LS.get('leatherType');
+    const savedPrice = LS.get('basePrice');
+    if (savedLeather && savedPrice) {
+      document.querySelectorAll('.leather-item').forEach(item => {
+        if (item.dataset.type === savedLeather) {
+          item.classList.add('active');
+          selectedLeather = savedLeather;
+          currentPriceEl.innerText = savedPrice;
+        }
+      });
+    } else {
+      LS.set('customLeather', selectedLeather);
+      LS.set('basePrice', '380');
+      LS.set('leatherType', selectedLeather);
+    }
+    refreshTip();
+
+    // Leather选项点击事件
+    leatherList.addEventListener('click', (e) => {
+      const target = e.target.closest('.leather-item');
+      if (target) {
+        document.querySelectorAll('.leather-item').forEach(item => item.classList.remove('active'));
+        target.classList.add('active');
+
+        selectedLeather = target.dataset.type;
+        const price = target.dataset.price;
+        currentPriceEl.innerText = price;
+
+        LS.set('customLeather', selectedLeather);
+        LS.set('basePrice', price);
+        LS.set('leatherType', selectedLeather);
+        refreshTip();
+      }
+    });
+
+    prevBtn.addEventListener('click', () => {
+      window.location.href = 'g1.size.html';
+    });
+
+    nextBtn.addEventListener('click', () => {
+      window.location.href = 'g3.color.html';
+    });
+      document.getElementById('stepNav').addEventListener('click', function(e){
+      const it = e.target.closest('.step-nav-item');
+      if (!it) return;
+      try { if (window.__bbSave) window.__bbSave(); } catch(err){}
+      window.location.href = it.dataset.href;
+    });
+</script>
+<script>
+    (function(){
+      try{
+        var st=BB_suit();
+        var b=document.getElementById('gnBundle');
+        if(b && st && st.mode==='suit') b.style.display='inline-block';
+      }catch(e){}
+    })();
+  </script>
+</body>
+</html>

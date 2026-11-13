@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BUFFALO BOXING · ボクシングギア カスタム</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { 
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      padding: 40px 20px; 
+      max-width: 750px; 
+      margin: 0 auto; 
+      background: #fafafa;
+      color: #1a1a1a;
+      line-height: 1.6;
+    }
+    /* 复古Black边外框容器 */
+    .page-frame {
+      background: #ffffff;
+      border: 1px solid #1a1a1a;
+      border-radius: 2px;
+      padding: 48px 40px;
+    }
+    /* 品牌头部 */
+    .brand-header {
+      text-align: center;
+      margin-bottom: 48px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    .brand-name {
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      color: #1a1a1a;
+    }
+    .brand-series {
+      font-size: 11px;
+      letter-spacing: 4px;
+      color: #666;
+      margin-top: 6px;
+      text-transform: uppercase;
+    }
+    .page-title { 
+      font-size: 20px; 
+      font-weight: 500; 
+      margin-bottom: 36px;
+      color: #1a1a1a;
+      letter-spacing: 1px;
+    }
+    /* 统一Size按钮：两列等宽网格 */
+    .size-list { 
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 60px; 
+    }
+    .size-item { 
+      border: 1px solid #d9d9d9; 
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 2px; 
+      cursor: pointer;
+      font-size: 15px;
+      color: #333;
+      transition: all 0.2s ease;
+      background: #fff;
+    }
+    .size-item:hover {
+      border-color: #1a1a1a;
+      color: #1a1a1a;
+    }
+    .size-item.active { 
+      border-color: #1a1a1a; 
+      background: #fafafa; 
+      color: #1a1a1a;
+      font-weight: 500;
+    }
+    .next-btn { 
+      width: 100%; 
+      background: #1a1a1a; 
+      color: #fff; 
+      border: 1px solid #1a1a1a;
+      padding: 16px; 
+      border-radius: 2px; 
+      cursor: pointer;
+      font-size: 14px;
+      letter-spacing: 2px;
+      transition: all 0.2s ease;
+    }
+    .next-btn:hover {
+      background: #000;
+      border-color: #000;
+    }
+      .copy-prev-btn {
+      width: 100%; margin-bottom: 28px; padding: 14px; border: 1px solid #1a1a1a; border-radius: 2px;
+      background: #fff; color: #1a1a1a; font-size: 13px; letter-spacing: 1px; cursor: pointer;
+      font-family: inherit; transition: all .2s ease;
+    }
+    .copy-prev-btn:hover { background: #1a1a1a; color: #fff; }
+    .step-nav {
+      display: flex; gap: 8px; margin-bottom: 30px; overflow-x: auto;
+      padding-bottom: 4px; -webkit-overflow-scrolling: touch;
+    }
+    .step-nav::-webkit-scrollbar { height: 3px; }
+    .step-nav-item {
+      flex: 0 0 auto; display: flex; align-items: center; gap: 7px;
+      border: 1px solid #d9d9d9; border-radius: 2px; padding: 9px 13px;
+      background: #fff; font-size: 12px; letter-spacing: 1px; color: #666;
+      cursor: pointer; font-family: inherit; transition: all .2s ease;
+    }
+    .step-nav-item .sn-num {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 18px; height: 18px; border: 1px solid #999; border-radius: 50%; font-size: 10px;
+    }
+    .step-nav-item:hover { border-color: #1a1a1a; color: #1a1a1a; }
+    .step-nav-item.current { background: #1a1a1a; border-color: #1a1a1a; color: #fff; }
+    .step-nav-item.current .sn-num { border-color: #fff; }
+    .global-nav { display:flex; gap:10px; margin-top:24px; padding-top:18px; border-top:1px solid #f0f0f0; }
+    .gn-link { flex:1; text-align:center; border:1px solid #d9d9d9; border-radius:2px; padding:13px 8px; font-size:12px; letter-spacing:1px; color:#666; background:#fff; text-decoration:none; cursor:pointer; transition:all .2s; }
+    .gn-link:hover { border-color:#1a1a1a; color:#1a1a1a; }
+    .gn-link.gn-bundle { border-color:#1a1a1a; color:#1a1a1a; display:none; }
+    .gn-link.gn-bundle:hover { background:#1a1a1a; color:#fff; }
+</style>
+</head>
+<body>
+  <div class="page-frame">
+    <div class="brand-header">
+      <div class="brand-name">BUFFALO BOXING</div>
+      <div class="brand-series">Darwin Custom Series</div>
+    </div>
+
+    <div class="step-nav" id="stepNav">
+      <button type="button" class="step-nav-item current" data-href="g1.size.html"><span class="sn-num">1</span>サイズ</button>
+      <button type="button" class="step-nav-item" data-href="g2.leather.html"><span class="sn-num">2</span>革</button>
+      <button type="button" class="step-nav-item" data-href="g3.color.html"><span class="sn-num">3</span>カラー</button>
+      <button type="button" class="step-nav-item" data-href="g4.customize.html"><span class="sn-num">4</span>文字入れ</button>
+      <button type="button" class="step-nav-item" data-href="g5.result.html"><span class="sn-num">5</span>結果</button>
+    </div>
+
+    <div class="page-title">グローブのサイズを選択 / OZ</div>
+<button class="copy-prev-btn" id="copyPrevBtn" type="button" style="display:none;">前の1点の設定をコピーしてから、必要に応じて調整してください。</button>
+    <div class="size-list" id="sizeList">
+      <div class="size-item" data-size="8">8 oz</div>
+      <div class="size-item" data-size="10">10 oz</div>
+      <div class="size-item" data-size="12">12 oz</div>
+      <div class="size-item" data-size="14">14 oz</div>
+      <div class="size-item" data-size="16">16 oz</div>
+    </div>
+    <button class="next-btn" id="nextBtn">次へ · 革を選択</button>
+  <div class="global-nav">
+      <a class="gn-link" href="../index.html">カスタマイザーのホームに戻る · 数量の追加・変更</a>
+      <a class="gn-link gn-bundle" id="gnBundle" href="../bundle.html">バンドル一覧に戻る</a>
+    </div>
+    </div>
+
+  <script>
+    /* ===== 统一存储封装（每件独立前缀） ===== */
+    const BBSUIT_KEY = 'bb_suit';
+    function BB_suit(){ try{ return JSON.parse(localStorage.getItem(BBSUIT_KEY)) || null; }catch(e){ return null; } }
+    function BB_prefix(){
+      const s = BB_suit();
+      if(!s || !Array.isArray(s.items) || !s.items.length) return '';
+      const idx = (typeof s.current === 'number') ? s.current : 0;
+      return 'bb_' + idx + '_';
+    }
+    const LS = {
+      get(k){ return localStorage.getItem(BB_prefix() + k); },
+      set(k,v){ localStorage.setItem(BB_prefix() + k, v); },
+      remove(k){ localStorage.removeItem(BB_prefix() + k); }
+    };
+
+    const sizeList = document.getElementById('sizeList');
+    const nextBtn = document.getElementById('nextBtn');
+    let selectedSize = '';
+
+    // 读取已选Size（如果有）
+    const savedSize = LS.get('size');
+    if (savedSize) {
+      document.querySelector(`.size-item[data-size="${savedSize}"]`).classList.add('active');
+      selectedSize = savedSize;
+    }
+
+    sizeList.addEventListener('click', (e) => {
+      const item = e.target.closest('.size-item');
+      if (item) {
+        document.querySelectorAll('.size-item').forEach(el => el.classList.remove('active'));
+        item.classList.add('active');
+        selectedSize = item.dataset.size;
+      }
+    });
+
+    nextBtn.addEventListener('click', () => {
+      if (selectedSize) {
+        LS.set('size', selectedSize);
+        window.location.href = 'g2.leather.html';
+      } else {
+        alert('先にサイズを選択してください。');
+      }
+    });
+
+    /* ===== 步骤Navigation：跳转前Save ===== */
+    window.__bbSave = function(){ if (selectedSize) LS.set('size', selectedSize); };
+    document.getElementById('stepNav').addEventListener('click', function(e){
+      const it = e.target.closest('.step-nav-item');
+      if (!it) return;
+      try { if (window.__bbSave) window.__bbSave(); } catch(err){}
+      window.location.href = it.dataset.href;
+    });
+      /* ===== Copy previous piece (identical multi-piece) ===== */
+    (function initCopyPrev(){
+      const suit = BB_suit();
+      if (!suit || !Array.isArray(suit.items)) return;
+      const cur = (typeof suit.current === 'number') ? suit.current : 0;
+      if (cur < 1) return;
+      if (!suit.items[cur-1] || suit.items[cur].type !== suit.items[cur-1].type) return;
+      const btn = document.getElementById('copyPrevBtn');
+      btn.style.display = 'block';
+      btn.addEventListener('click', () => {
+        const prevPfx = 'bb_' + (cur - 1) + '_';
+        const curPfx = 'bb_' + cur + '_';
+        Object.keys(localStorage).forEach(k => {
+          if (k.indexOf(prevPfx) === 0) {
+            localStorage.setItem(curPfx + k.slice(prevPfx.length), localStorage.getItem(k));
+          }
+        });
+        location.reload();
+      });
+    })();
+</script>
+<script>
+    (function(){
+      try{
+        var st=BB_suit();
+        var b=document.getElementById('gnBundle');
+        if(b && st && st.mode==='suit') b.style.display='inline-block';
+      }catch(e){}
+    })();
+  </script>
+</body>
+</html>
