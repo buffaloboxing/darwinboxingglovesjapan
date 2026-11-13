@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>バンドルプラン一覧 · BUFFALO BOXING</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231a1a1a'/%3E%3Ctext x='16' y='22' font-family='Arial' font-size='18' font-weight='bold' fill='%23fff' text-anchor='middle'%3EB%3C/text%3E%3C/svg%3E">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    padding: 40px 20px; max-width: 750px; margin: 0 auto; background: #fafafa; color: #1a1a1a; line-height: 1.7;
+  }
+  .page-frame { background: #fff; border: 1px solid #1a1a1a; border-radius: 2px; padding: 32px 20px; }
+  @media (min-width: 768px) { .page-frame { padding: 48px 40px; } }
+  .brand-header { text-align: center; margin-bottom: 30px; padding-bottom: 24px; border-bottom: 1px solid #1a1a1a; }
+  .brand-name { font-size: 20px; font-weight: 600; letter-spacing: 3px; }
+  .brand-series { font-size: 11px; letter-spacing: 4px; color: #666; margin-top: 6px; text-transform: uppercase; }
+
+  .page-title { font-size: 20px; font-weight: 500; margin-bottom: 10px; text-align: center; letter-spacing: 1px; }
+  .page-sub { font-size: 13px; color: #999; margin-bottom: 30px; text-align: center; }
+
+  .item-card { border: 1px solid #1a1a1a; border-radius: 2px; margin-bottom: 22px; overflow: hidden; }
+  .item-head { display: flex; justify-content: space-between; align-items: center; padding: 16px 18px; background: #1a1a1a; color: #fff; }
+  .item-head .t { font-size: 14px; letter-spacing: 2px; }
+  .item-head .sub { font-size: 11px; color: #bbb; letter-spacing: 1px; }
+  .item-body { padding: 18px; }
+  .line { display: flex; justify-content: space-between; gap: 14px; padding: 8px 0; border-bottom: 1px solid #f0f0f0; font-size: 14px; }
+  .line .k { color: #999; flex: 0 0 auto; }
+  .line .v { font-weight: 500; text-align: right; }
+  .sub-title { font-size: 13px; font-weight: 600; letter-spacing: 1px; margin: 16px 0 6px; color: #333; }
+  .detail { font-size: 13px; color: #333; margin: 4px 0; }
+  .color-swatch { display: inline-block; width: 13px; height: 13px; border-radius: 2px; margin-right: 7px; vertical-align: middle; border: 1px solid rgba(0,0,0,.08); }
+  .color-line { display: flex; justify-content: space-between; align-items: center; font-size: 13px; padding: 6px 0; border-bottom: 1px solid #f0f0f0; gap: 10px; }
+  .item-subtotal { display: flex; justify-content: space-between; padding: 14px 18px 4px; font-size: 14px; }
+  .item-subtotal b { font-size: 16px; }
+  .edit-link { padding: 0 18px 16px; }
+  .edit-btn { width: 100%; padding: 12px; border: 1px solid #d9d9d9; background: #fff; border-radius: 2px; cursor: pointer; font-size: 13px; letter-spacing: 2px; color: #1a1a1a; }
+  .edit-btn:hover { border-color: #1a1a1a; }
+
+  .notice-box { border: 1px solid #f0f0f0; background: #fafafa; border-radius: 2px; padding: 14px 16px; margin-bottom: 20px; }
+  .notice-box .detail { color: #666; }
+
+  .final-total { margin: 24px 0 18px; padding: 26px 22px; background: #fafafa; border: 1px solid #1a1a1a; border-radius: 2px; text-align: center; }
+  .final-total .ft { font-size: 11px; color: #666; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
+  .final-total .fn { font-size: 30px; font-weight: 500; }
+  .final-total .fh { font-size: 12px; color: #999; margin-top: 6px; }
+
+  .main-actions { display: flex; gap: 12px; }
+  .act-btn { flex: 1; padding: 16px; border-radius: 2px; cursor: pointer; font-size: 14px; letter-spacing: 2px; }
+  .copy-all { background: #1a1a1a; color: #fff; border: 1px solid #1a1a1a; }
+  .copy-all:hover { background: #000; }
+  .restart { background: #fff; color: #1a1a1a; border: 1px solid #d9d9d9; }
+  .restart:hover { border-color: #1a1a1a; }
+
+  .policy-note { margin-top: 22px; padding-top: 14px; border-top: 1px solid #f0f0f0; font-size: 11px; color: #9a9a9a; line-height: 1.9; letter-spacing: .2px; }
+</style>
+</head>
+<body>
+  <div class="page-frame">
+    <div class="brand-header">
+      <div class="brand-name">BUFFALO BOXING</div>
+      <div class="brand-series">Darwin Custom Series</div>
+    </div>
+
+    <div class="page-title">バンドルプラン一覧</div>
+    <div class="page-sub" id="pageSub">各1点を確認し、確定後にプラン全体をコピーして当チームにお送りください</div>
+
+    <div id="itemsWrap"></div>
+
+    <div class="notice-box" id="noticeBox"></div>
+
+    <div class="final-total">
+      <div class="ft">バンドル合計 · 自動計算</div>
+      <div class="fn" id="grandTotal">--</div>
+      <div class="fh">刺繍、希少革の追加、その他別途見積もりの項目はこの合計に含まれません</div>
+    </div>
+
+    <div class="main-actions">
+      <button class="act-btn restart" id="restartBtn" type="button">選択し直す</button>
+      <button class="act-btn copy-all" id="copyAllBtn" type="button">プラン全体をコピー</button>
+    </div>
+
+    <div class="policy-note">基本価格には国際送料と通常の輸入関税・税が含まれており、通常の範囲では納品時に追加費用はかかりません。製作中に関税政策が大きく変わった場合は、確認のためご連絡します。オーダー製作は約1か月、その後7〜14営業日で国際配送します。オーダー品は品質上の問題以外の返品・交換はできません。品質問題が確認された場合は、当社が返送費用を負担するか、作り直しいたします。</div>
+  </div>
+
+  <script>
+    /* ===== 公共常量 ===== */
+    const COLOR_NAME = {
+      '#FFFFFF':'Pure White','#F5F0EB':'Milkshake White','#9D5F3B':'Golden Brown','#746148':'Elephant Gray','#1E2E44':'Midnight Blue',
+      '#000000':'Black','#80412D':'Caramel Brown','#3FBF72':'Comic Green','#B3A59A':'Trench Gray','#F27D3B':'Orange','#F27D3C':'Orange',
+      '#F2C12E':'Sun Yellow','#F9E77F':'Chick Yellow','#404234':'Olive Green','#BDE0F2':'Breeze Blue','#A0E7E5':'Tiffany Blue',
+      '#0D32C4':'Klein Blue','#91A3B1':'Linen Blue','#C0A086':'Marala Brown','#8C8969':'Sage Green','#808080':'Nimbus Gray',
+      '#BE3033':'Bright Red','#EEB9C9':'Sakura Pink','#DF6981':'Rose Pink','#E4A3BB':'Petal Pink','#6A2A30':'Wine Red',
+      '#FFD700':'Lemon Yellow','#C6AEA6':'Apricot','#294162':'Deep Blue','#C0C0C0':'Seagull Gray','#402D2D':'Deep Coffee',
+      '#452E22':'Wild Buffalo Leather'
+    };
+    const GLOVE_AREA = {1:'Hand Front',2:'Wrist Front',3:'Back Main Body',4:'Upper Outer Thumb',5:'Lower Outer Thumb',6:'Inner Thumb',7:'Palm Side Strip',8:'Piping'};
+    const HEAD_ZONE = {
+      split: {1:'Left Side',2:'Right Side',3:'Left Ear Strip',4:'Left Ear',5:'Right Ear Strip',6:'Right Ear',7:'Piping'},
+      triple: {1:'Middle',2:'Both Sides',3:'Ear Strips',4:'Ears',5:'Piping'}
+    };
+    const GLOVE_POS = {wristLeftLeft:'Left inner wrist · Left',wristLeftRight:'Left inner wrist · Right',wristRightLeft:'Right inner wrist · Left',wristRightRight:'Right inner wrist · Right'};
+    const HEAD_SMALL_POS = {leftEar:'Left Ear',rightEar:'Right Ear',foreLeft:'Left Forehead',foreRight:'Right Forehead',other:'Other Areas'};
+    const GROIN_ZONE = {1:'Left',2:'Right',3:'Left Piping',4:'Right Piping',5:'Lace Left',6:'Lace Right'};
+    const TYPE_LABEL = {glove:'Boxing Gloves', head:'Head Guard', groin:'Groin Guard'};
+    const TYPE_RESULT = {glove:'g5.result.html', head:'h6.head-result.html', groin:'c5.groin-result.html'};
+
+    const printText = v => ({gold:'Gold Foil',silver:'Silver Foil',original:'OriginalHot Stamping'}[v] || v);
+    const engFontText = v => v === 'cursive' ? 'Cursive' : 'Regular';
+    const chFontText = v => v === 'song' ? 'Serif' : 'Handwriting';
+    const mixedFontText = v => v === 'cursive' ? 'Cursive/Handwriting' : 'Regular / Serif';
+    const stitchText = v => v === 'inner' ? 'Inner Stitch' : 'Outer Stitch';
+    const cname = hex => COLOR_NAME[hex] || hex;
+    const swatch = hex => `<span class="color-swatch" style="background:${hex};"></span>`;
+    function bbMoney(usd){ return '$' + usd + ' / £' + Math.round(usd / 1.32); }
+
+    /* ===== 读取套装与各件Data ===== */
+    let suit;
+    try { suit = JSON.parse(localStorage.getItem('bb_suit')); } catch (e) { suit = null; }
+    if (!suit || !Array.isArray(suit.items) || !suit.items.length) {
+      alert('バンドルのデータが見つかりません。先に製品を選択してください。');
+      window.location.href = 'index.html';
+    }
+    function readItem(i){
+      const pfx = 'bb_' + i + '_';
+      const get = k => localStorage.getItem(pfx + k);
+      const parse = (k,d) => { try { return JSON.parse(get(k)) || d; } catch (e) { return d; } };
+      return {
+        type: suit.items[i].type,
+        size: get('size'),
+        height: get('height'),
+        weight: get('weight'),
+        waist: get('waist'),
+        leather: get('leatherType') || 'Not Selected',
+        mode: get('mode') || 'triple',
+        basePrice: parseInt(get('basePrice'),10) || 0,
+        colorExtra: parseInt(get('colorExtra'),10) || 0,
+        customExtra: parseInt(get('customExtra'),10) || 0,
+        areaColors: parse('areaColors', {}),
+        opt: parse('customOptions', {})
+      };
+    }
+    /* ===== HTML Auxiliary ===== */
+    const line = (k,v) => `<div class="line"><span class="k">${k}</span><span class="v">${v}</span></div>`;
+    const subTitle = t => `<div class="sub-title">${t}</div>`;
+    const colorLine = (k,v) => `<div class="color-line"><span>${k}</span><span>${v}</span></div>`;
+    const detail = s => `<div class="detail">${s}</div>`;
+
+    /* ===== Boxing Gloves渲染 ===== */
+    function gloveLogo(o){
+      const lt = o.logoType || 'original';
+      if (lt === 'text') {
+        const tc = o.textContent || 'brand';
+        if (tc === 'custom') {
+          let s = `Text Logo (Wrist Front) · Custom Text「${o.textLogoCustom}」· ${mixedFontText(o.textLogoFont)} · ${printText(o.textPrint)}`;
+          if (/[一-龥]/.test(o.textLogoCustom || '')) s += ' (Chinese character metal mold, +$5 / £4)';
+          return s;
+        }
+        return `Text Logo (Wrist Front) · Brand Text · ${printText(o.textPrint)}`;
+      }
+      if (lt === 'colored') return `Colored Logo · ${cname(o.coloredLogo)} · ${stitchText(o.logoStitch)}`;
+      if (lt === 'none') return 'No Logo';
+      if (lt === 'embroidery') return 'Embroidery Logo · separate quote, contact our team';
+      return `Original Logo · ${stitchText(o.logoStitch)}`;
+    }
+    function buildGlove(d){
+      const o = d.opt;
+      const html = [];
+      const text = [];
+      const notices = [];
+
+      html.push(line('Glove Size', d.size ? d.size + ' oz' : 'Not Selected'));
+      html.push(line('Leather Type', d.leather));
+      text.push('Glove Size：' + (d.size ? d.size + ' oz' : 'Not Selected'));
+      text.push('Leather Type：' + d.leather);
+
+      html.push(subTitle('Area Colors'));
+      text.push('Area Colors：');
+      for (let i = 1; i <= 8; i++) {
+        const hex = d.areaColors[i];
+        if (hex) { html.push(colorLine('No.' + i + ' · ' + GLOVE_AREA[i], swatch(hex) + cname(hex))); text.push(`  No.${i} ${GLOVE_AREA[i]}: ${cname(hex)}`); }
+        else html.push(colorLine('No.' + i + ' · ' + GLOVE_AREA[i], '<span style="color:#ccc;">Not Selected</span>'));
+      }
+
+      html.push(subTitle('Logo Configuration'));
+      html.push(detail(gloveLogo(o)));
+      text.push('Logo Configuration：');
+      text.push('  ' + gloveLogo(o));
+
+      html.push(subTitle('Inner Wrist Lettering'));
+      text.push('Inner Wrist Lettering：');
+      ['left','right'].forEach(side => {
+        const lab = side === 'left' ? 'Left Hand' : 'Right Hand';
+        let s;
+        if (o[side + 'Eng']) s = `${lab}: English/numbers「${o[side+'Eng']}」· ${engFontText(o[side+'EngFont'])} · ${printText(o[side+'Print'])}`;
+        else if (o[side + 'Ch']) s = `${lab}: Chinese Characters「${o[side+'Ch']}」· ${chFontText(o[side+'ChFont'])} · ${printText(o[side+'Print'])} (Metal Mold, +$5 / £4)`;
+        else s = `${lab}: Not Customized`;
+        html.push(detail(s)); text.push('  ' + s);
+      });
+
+      html.push(subTitle('Small Patterns'));
+      text.push('Small Patterns：');
+      const sp = Array.isArray(o.smallPatterns) ? o.smallPatterns : [];
+      if (sp.length) {
+        sp.forEach((it, idx) => {
+          let s;
+          if (it.craft === 'embroidery') {
+            s = `Small Patterns ${idx+1}: Embroidery (${GLOVE_POS[it.pos]||it.pos}, +$15–45 / £12–35, contact our team, not included in the automatic total)`;
+            notices.push('Boxing Gloves Small Patterns ' + (idx+1) + ' Embroidery: ' + (GLOVE_POS[it.pos]||it.pos) + ', +$15–45 / £12–35 quoted by pattern');
+          } else {
+            s = `Small Patterns ${idx+1}: Hot Stamping (${GLOVE_POS[it.pos]||it.pos}, ${printText(it.print)}, +$5 / £4)`;
+          }
+          html.push(detail(s)); text.push('  ' + s);
+        });
+      } else { html.push(detail('Small Patterns: Not Added')); text.push('  Not Added'); }
+
+      const handS = o.handEmbroidery === 'yes'
+        ? 'Hand Back Embroidery added (+$15–45 / £12–35, provide the pattern and contact our team, not included in the automatic total)'
+        : 'Not Added';
+      html.push(subTitle('Hand Back Embroidery'));
+      html.push(detail(handS));
+      text.push('Hand Back Embroidery: ' + handS);
+      if (o.handEmbroidery === 'yes') notices.push('Boxing Gloves Hand Back Embroidery: +$15–45 / £12–35 quoted by pattern');
+
+      if ((o.logoType === 'embroidery')) notices.push('Boxing Gloves Embroidery Logo: separate quote based on pattern complexity');
+      if (/Shark|Crocodile|Ostrich|Lizard/.test(d.leather)) notices.push('Boxing Gloves exotic leather「' + d.leather + '」: final leather and price are subject to our team confirmation.');
+
+      html.push(line('Base Price', bbMoney(d.basePrice)));
+      html.push(line('Color Extra Fee', bbMoney(d.colorExtra)));
+      html.push(line('Customization Extra Fee', bbMoney(d.customExtra)));
+      const total = d.basePrice + d.colorExtra + d.customExtra;
+      text.push('Fees: Base ' + bbMoney(d.basePrice) + ' + Color ' + bbMoney(d.colorExtra) + ' + Customization ' + bbMoney(d.customExtra));
+      text.push('Piece subtotal (excluding separate embroidery quote): ' + bbMoney(total));
+      return { html: html.join(''), text: text.join('\n'), total, notices };
+    }
+    /* ===== Head Guard渲染 ===== */
+    function headLogo(o){
+      const lt = o.logoType;
+      if (lt === 'text') {
+        const tc = o.textContent || 'brand';
+        if (tc === 'custom') {
+          let s = `Text Logo (middle of forehead) · Custom Text「${o.textLogoCustom}」· ${mixedFontText(o.textLogoFont)} · ${printText(o.textPrint)}`;
+          if (/[一-龥]/.test(o.textLogoCustom || '')) s += ' (Chinese character metal mold, +$5 / £4)';
+          return s;
+        }
+        return `Text Logo (middle of forehead) · Brand Text · ${printText(o.textPrint)}`;
+      }
+      if (lt === 'colored') return `Colored Logo · ${cname(o.coloredLogo)}`;
+      if (lt === 'none') return 'No Logo';
+      if (lt === 'embroidery') return 'Embroidery Logo · separate quote, contact our team';
+      return 'Original Logo · Outer Stitch';
+    }
+    function headSmallPatterns(o){
+      const norm = it => ({ pos: it.pos || 'leftEar', note: it.note || '', craft: it.craft || 'hot', print: it.print || 'gold' });
+      if (Array.isArray(o.smallPatterns)) return o.smallPatterns.map(norm);
+      if (o.smallPattern === 'yes') return [norm({ pos: o.smallPos, note: o.smallNote })];
+      return [];
+    }
+    function buildHead(d){
+      const o = d.opt;
+      const html = [];
+      const text = [];
+      const notices = [];
+      const layerCount = d.mode === 'split' ? 7 : 5;
+
+      html.push(line('Head Circumference', d.size ? d.size + ' cm' : 'Not Selected'));
+      html.push(line('Leather Type', d.leather));
+      html.push(line('Color Split Mode', d.mode === 'split' ? 'Two-Tone (Left-Right Split)' : 'Three-Tone (Middle & Both Sides)'));
+      text.push('Head Circumference：' + (d.size ? d.size + ' cm' : 'Not Selected'));
+      text.push('Leather Type：' + d.leather);
+      text.push('Color Split Mode：' + (d.mode === 'split' ? 'Two-Tone (Left-Right Split)' : 'Three-Tone (Middle & Both Sides)'));
+
+      html.push(subTitle('Area Colors'));
+      text.push('Area Colors：');
+      for (let i = 1; i <= layerCount; i++) {
+        const hex = d.areaColors[i];
+        if (hex) { html.push(colorLine('No.' + i + ' · ' + HEAD_ZONE[d.mode][i], swatch(hex) + cname(hex))); text.push(`  No.${i} ${HEAD_ZONE[d.mode][i]}: ${cname(hex)}`); }
+        else html.push(colorLine('No.' + i + ' · ' + HEAD_ZONE[d.mode][i], '<span style="color:#ccc;">Not Selected</span>'));
+      }
+
+      html.push(subTitle('Logo & Hot Stamping'));
+      html.push(detail(headLogo(o)));
+      text.push('Logo & Hot Stamping：');
+      text.push('  ' + headLogo(o));
+      ['left','right'].forEach(side => {
+        const lab = side === 'left' ? 'Left Ear' : 'Right Ear';
+        let s;
+        if (o[side + 'Eng']) s = `${lab}: English/numbers「${o[side+'Eng']}」· ${engFontText(o[side+'EngFont'])} · ${printText(o[side+'Print'])}`;
+        else if (o[side + 'Ch']) s = `${lab}: Chinese Characters「${o[side+'Ch']}」· ${chFontText(o[side+'ChFont'])} · ${printText(o[side+'Print'])} (Metal Mold, +$5 / £4)`;
+        else s = `${lab}: No Hot Stamping`;
+        html.push(detail(s)); text.push('  ' + s);
+      });
+
+      html.push(subTitle('Other Customization'));
+      text.push('Other Customization：');
+      const repS = o.logoReplace === 'yes' ? 'Selected (+$10 / £8)' : 'Not Selected';
+      html.push(detail('Logo Replacement: ' + repS));
+      text.push('  Logo Replacement: ' + repS);
+      const sp = headSmallPatterns(o);
+      if (sp.length) {
+        sp.forEach((it, idx) => {
+          let s;
+          if (it.craft === 'embroidery') {
+            s = `Small Patterns ${idx+1}: Embroidery (${HEAD_SMALL_POS[it.pos]||it.pos}, +$15–45 / £12–35, contact our team, not included in the automatic total)`;
+            notices.push('Head Guard Small Patterns ' + (idx+1) + ' Embroidery: ' + (HEAD_SMALL_POS[it.pos]||it.pos) + ', +$15–45 / £12–35 quoted by pattern');
+          } else {
+            s = `Small Patterns ${idx+1}: Hot Stamping (${HEAD_SMALL_POS[it.pos]||it.pos}, ${printText(it.print)}, +$5 / £4)`;
+          }
+          if (it.pos === 'other' && it.note) s += ', Notes「' + it.note + '」';
+          html.push(detail(s)); text.push('  ' + s);
+        });
+      } else { html.push(detail('Small Patterns: Not Added')); text.push('  Small Patterns: Not Added'); }
+
+      html.push(line('Base Price', bbMoney(d.basePrice)));
+      html.push(line('Color Extra Fee', bbMoney(d.colorExtra)));
+      html.push(line('Customization Extra Fee', bbMoney(d.customExtra)));
+      const total = d.basePrice + d.colorExtra + d.customExtra;
+      text.push('Fees: Base ' + bbMoney(d.basePrice) + ' + Color ' + bbMoney(d.colorExtra) + ' + Customization ' + bbMoney(d.customExtra));
+      text.push('Piece subtotal (excluding separate embroidery quote): ' + bbMoney(total));
+
+      if (o.logoType === 'embroidery') notices.push('Head Guard Embroidery Logo: separate quote based on pattern complexity');
+      if (/Shark|Crocodile|Ostrich|Lizard/.test(d.leather)) notices.push('Head Guard exotic leather「' + d.leather + '」: final leather and price are subject to our team confirmation.');
+      return { html: html.join(''), text: text.join('\n'), total, notices };
+    }
+
+    /* ===== Groin Guard渲染 ===== */
+    function buildGroin(d){
+      const html = [];
+      const text = [];
+      const notices = [];
+
+      html.push(line('Height', d.height ? d.height + ' cm' : 'Not Selected'));
+      html.push(line('Weight', d.weight ? d.weight + ' kg' : 'Not Selected'));
+      html.push(line('Waist', d.waist ? d.waist + ' cm' : 'Not Selected'));
+      html.push(line('Leather Type', d.leather));
+      text.push('Height：' + (d.height ? d.height + ' cm' : 'Not Selected'));
+      text.push('Weight：' + (d.weight ? d.weight + ' kg' : 'Not Selected'));
+      text.push('Waist：' + (d.waist ? d.waist + ' cm' : 'Not Selected'));
+      text.push('Leather Type：' + d.leather);
+
+      html.push(subTitle('Area Colors'));
+      text.push('Area Colors：');
+      for (let i = 1; i <= 6; i++) {
+        const hex = d.areaColors[i];
+        if (hex) { html.push(colorLine('No.' + i + ' · ' + GROIN_ZONE[i], swatch(hex) + cname(hex))); text.push(`  No.${i} ${GROIN_ZONE[i]}: ${cname(hex)}`); }
+        else html.push(colorLine('No.' + i + ' · ' + GROIN_ZONE[i], '<span style="color:#ccc;">Not Selected</span>'));
+      }
+
+      const o = d.opt || {};
+      html.push(subTitle('Logo & Patterns'));
+      text.push('Logo & Patterns：');
+      const GROIN_LOGO_LABEL = { original:'Original Logo (Outer Stitch)', colored:'Colored Logo (Outer Stitch)', none:'No Logo', embroidery:'Embroidery Logo' };
+      const lt = o.logoType || 'original';
+      let mainS = GROIN_LOGO_LABEL[lt] || lt;
+      if (lt === 'colored') mainS += ' · ' + cname(o.coloredLogo);
+      if (lt === 'embroidery') { mainS += ' (separate quote, not in the automatic total)'; notices.push('Groin Guard Embroidery Logo: separate quote based on pattern complexity'); }
+      html.push(detail('Logo Style: ' + mainS)); text.push('  Logo Style: ' + mainS);
+      if (lt === 'original' || lt === 'colored') {
+        const repS = o.logoReplace === 'yes' ? 'Replace with Own Pattern (+$10 / £8)' : 'Keep Brand Logo';
+        html.push(detail('Pattern Source: ' + repS)); text.push('  Pattern Source: ' + repS);
+      }
+      const gp = o.groinPatterns || {};
+      [['frontLeft','Front Left'],['frontRight','Front Right']].forEach(([key,nm]) => {
+        const it = gp[key];
+        let s;
+        if (!it || !it.craft || it.craft === 'none') s = nm + ': Not Added';
+        else if (it.craft === 'hot') s = nm + ': Hot Stamping (' + printText(it.print) + ', +$5 / £4)';
+        else { s = nm + ': Embroidery (+$15–45 / £12–35, contact our team, not in the automatic total)'; notices.push('Groin Guard ' + nm + ' Embroidery: quoted by pattern'); }
+        html.push(detail(s)); text.push('  ' + s);
+      });
+
+      html.push(line('Base Price', bbMoney(d.basePrice)));
+      html.push(line('Color Extra Fee', bbMoney(d.colorExtra)));
+      html.push(line('Customization Extra Fee', bbMoney(d.customExtra)));
+      const total = d.basePrice + d.colorExtra + d.customExtra;
+      text.push('Fees: Base ' + bbMoney(d.basePrice) + ' + Color ' + bbMoney(d.colorExtra) + ' + Customization ' + bbMoney(d.customExtra));
+      text.push('Piece subtotal (excluding separate embroidery quote): ' + bbMoney(total));
+      return { html: html.join(''), text: text.join('\n'), total, notices };
+    }
+
+    /* ===== 主渲染循环 ===== */
+    if (suit) {
+    const wrap = document.getElementById('itemsWrap');
+    const allNotices = [];
+    const allText = [];
+    let grand = 0;
+    suit.items.forEach((it, i) => {
+      const d = readItem(i);
+      let r;
+      if (d.type === 'glove') r = buildGlove(d);
+      else if (d.type === 'groin') r = buildGroin(d);
+      else r = buildHead(d);
+      grand += r.total;
+      allNotices.push(...r.notices);
+
+      const card = document.createElement('div');
+      card.className = 'item-card';
+      card.innerHTML =
+        `<div class="item-head"><span class="t">Item ${i+1} · ${TYPE_LABEL[d.type]}</span><span class="sub">${d.leather}</span></div>` +
+        `<div class="item-body">${r.html}</div>` +
+        `<div class="item-subtotal"><span>Piece subtotal</span><b>${bbMoney(r.total)}</b></div>` +
+        `<div class="edit-link"><button class="edit-btn" type="button" data-edit="${i}">Back to Edit This Piece</button></div>`;
+      wrap.appendChild(card);
+
+      allText.push('【 Item ' + (i+1) + ' · ' + TYPE_LABEL[d.type] + ' 】');
+      allText.push(r.text);
+      allText.push('');
+    });
+
+    document.getElementById('grandTotal').textContent = bbMoney(grand);
+    document.getElementById('pageSub').textContent = suit.items.length + ' piece(s), bundle automatic total ' + bbMoney(grand);
+
+    const noticeBox = document.getElementById('noticeBox');
+    if (allNotices.length) {
+      noticeBox.innerHTML = '<div class="sub-title" style="margin-top:0;">Separate quote / confirmation required</div>' +
+        allNotices.map(n => `<div class="detail">· ${n}</div>`).join('');
+    } else {
+      noticeBox.style.display = 'none';
+    }
+
+    /* ===== Back to Edit ===== */
+    document.querySelectorAll('.edit-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const i = parseInt(btn.dataset.edit, 10);
+        suit.current = i;
+        localStorage.setItem('bb_suit', JSON.stringify(suit));
+        window.location.href = 'pages/' + TYPE_RESULT[suit.items[i].type];
+      });
+    });
+
+    /* ===== Copy All ===== */
+    function fallbackCopy(text) {
+      const ta = document.createElement('textarea');
+      ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select();
+      try { document.execCommand('copy'); alert('プラン全体をコピーしました。そのまま当チームにお送りください。'); }
+      catch (e) { alert('コピーに失敗しました。手動でコピーしてください。'); }
+      document.body.removeChild(ta);
+    }
+    document.getElementById('copyAllBtn').onclick = () => {
+      const out = [];
+      out.push('BUFFALO BOXING · Darwin Series Bundle Custom Plan (' + suit.items.length + ' pieces)');
+      out.push('════════════════════');
+      out.push(allText.join('\n'));
+      out.push('════════════════════');
+      out.push('Bundle automatic total (excluding embroidery, exotic leather extensions and other separate quotes): ' + bbMoney(grand));
+      if (allNotices.length) {
+        out.push('Requires confirmation / separate quote:');
+        allNotices.forEach(n => out.push('· ' + n));
+      }
+      const text = out.join('\n');
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(text).then(
+          () => alert('プラン全体をコピーしました。そのまま当チームにお送りください。'),
+          () => fallbackCopy(text)
+        );
+      } else {
+        fallbackCopy(text);
+      }
+    };
+
+    /* ===== Reselect ===== */
+    document.getElementById('restartBtn').onclick = () => {
+      window.location.href = 'index.html';
+    };
+    }
+  </script>
+</body>
+</html>

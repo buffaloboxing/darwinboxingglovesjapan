@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>製品を選択 · BUFFALO BOXING</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%231a1a1a'/%3E%3Ctext x='16' y='22' font-family='Arial' font-size='18' font-weight='bold' fill='%23fff' text-anchor='middle'%3EB%3C/text%3E%3C/svg%3E">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    padding: 40px 20px;
+    max-width: 750px;
+    margin: 0 auto;
+    background: #fafafa;
+    color: #1a1a1a;
+    line-height: 1.6;
+  }
+  .page-frame {
+    background: #ffffff;
+    border: 1px solid #1a1a1a;
+    border-radius: 2px;
+    padding: 48px 40px;
+  }
+  @media (max-width: 520px) { .page-frame { padding: 36px 22px; } }
+  .brand-header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid #1a1a1a;
+  }
+  .brand-name { font-size: 20px; font-weight: 600; letter-spacing: 3px; color: #1a1a1a; }
+  .brand-series { font-size: 11px; letter-spacing: 4px; color: #666; margin-top: 6px; text-transform: uppercase; }
+
+  .page-title { font-size: 20px; font-weight: 500; color: #1a1a1a; letter-spacing: 1px; text-align: center; }
+  .page-sub { font-size: 13px; color: #999; margin: 10px 0 34px; text-align: center; }
+
+  .pick-list { display: flex; flex-direction: column; gap: 14px; margin-bottom: 34px; }
+  .pick-item {
+    position: relative;
+    border: 1px solid #d9d9d9; padding: 26px 20px; border-radius: 2px; cursor: pointer;
+    transition: all 0.2s ease; background: #fff; text-align: center;
+  }
+  .pick-item:hover { border-color: #1a1a1a; }
+  .pick-item.active { border-color: #1a1a1a; background: #fafafa; }
+  .pick-name { font-size: 18px; font-weight: 600; letter-spacing: 2px; }
+  .pick-en { font-size: 11px; letter-spacing: 3px; color: #999; text-transform: uppercase; margin-top: 7px; }
+  .pick-price { font-size: 13px; color: #666; margin-top: 16px; }
+  .pick-price b { color: #1a1a1a; font-weight: 600; font-size: 15px; margin-left: 4px; }
+  .order-badge {
+    display: none; position: absolute; top: 12px; left: 14px; min-width: 22px; height: 22px;
+    border: 1px solid #1a1a1a; border-radius: 50%; font-size: 12px; line-height: 20px; text-align: center;
+    background: #1a1a1a; color: #fff; padding: 0 5px;
+  }
+  .pick-item.active .order-badge { display: inline-block; }
+
+  /* 数量加减选择器 */
+  .qty-box { display: none; align-items: center; justify-content: center; gap: 16px; margin-top: 20px; }
+  .pick-item.active .qty-box { display: flex; }
+  .qty-btn {
+    width: 38px; height: 38px; border: 1px solid #1a1a1a; border-radius: 2px; background: #fff;
+    color: #1a1a1a; font-size: 20px; cursor: pointer; font-family: inherit; padding: 0;
+    display: flex; align-items: center; justify-content: center; transition: all .15s ease;
+  }
+  .qty-btn:hover { background: #1a1a1a; color: #fff; }
+  .qty-num { min-width: 30px; font-size: 17px; font-weight: 600; text-align: center; }
+  .qty-unit { font-size: 11px; color: #999; letter-spacing: 1px; margin-left: 2px; }
+
+  .summary-line {
+    font-size: 14px; color: #666; padding-bottom: 16px; margin-bottom: 30px;
+    border-bottom: 1px solid #1a1a1a; text-align: center;
+  }
+  .summary-line b { font-size: 18px; font-weight: 500; color: #1a1a1a; margin-left: 6px; }
+
+  .next-btn {
+    width: 100%; background: #1a1a1a; color: #fff; border: 1px solid #1a1a1a;
+    padding: 16px; border-radius: 2px; cursor: pointer; font-size: 14px; letter-spacing: 2px;
+    transition: all 0.2s ease;
+  }
+  .next-btn:hover { background: #000; border-color: #000; }
+
+  .policy-note { margin-top: 22px; padding-top: 14px; border-top: 1px solid #f0f0f0; font-size: 11px; color: #9a9a9a; line-height: 1.9; letter-spacing: .2px; text-align: center; }
+
+  /* 导入方案 */
+  .import-toggle { width:100%; border:1px solid #1a1a1a; background:#fff; color:#1a1a1a; border-radius:2px; padding:13px; font-size:12px; letter-spacing:2px; cursor:pointer; font-family:inherit; margin-bottom:26px; transition:all .2s; }
+  .import-toggle:hover { background:#1a1a1a; color:#fff; }
+  .import-panel { display:none; margin-bottom:30px; }
+  .import-panel.show { display:block; }
+  .import-textarea { width:100%; min-height:200px; border:1px solid #d9d9d9; border-radius:2px; padding:14px; font-size:13px; font-family:inherit; line-height:1.7; outline:none; resize:vertical; background:#fff; color:#1a1a1a; }
+  .import-textarea:focus { border-color:#1a1a1a; }
+  .import-actions { display:flex; gap:10px; margin:14px 0; }
+  .import-actions button { flex:1; padding:14px; border-radius:2px; font-size:13px; letter-spacing:1px; cursor:pointer; font-family:inherit; transition:all .2s; }
+  .parse-btn { background:#1a1a1a; color:#fff; border:1px solid #1a1a1a; }
+  .parse-btn:hover { background:#000; }
+  .clear-btn { background:#fff; color:#1a1a1a; border:1px solid #d9d9d9; }
+  .clear-btn:hover { border-color:#1a1a1a; }
+  .import-report { display:none; border:1px solid #d9d9d9; border-radius:2px; padding:16px; background:#fcfcfc; }
+  .import-report.show { display:block; }
+  .report-piece { padding-bottom:14px; margin-bottom:14px; border-bottom:1px solid #ececec; }
+  .report-piece:last-child { border-bottom:none; margin-bottom:0; padding-bottom:0; }
+  .report-head { font-size:14px; font-weight:600; letter-spacing:1px; margin-bottom:8px; }
+  .report-ok { font-size:12px; color:#555; line-height:1.9; }
+  .report-issue { font-size:12px; color:#a32; line-height:1.9; }
+  .confirm-import { display:none; width:100%; background:#1a1a1a; color:#fff; border:1px solid #1a1a1a; padding:16px; border-radius:2px; font-size:14px; letter-spacing:2px; cursor:pointer; font-family:inherit; margin-top:16px; }
+  .confirm-import.show { display:block; }
+  .confirm-import:hover { background:#000; }
+</style>
+</head>
+<body>
+  <div class="page-frame">
+    <div class="brand-header">
+      <div class="brand-name">BUFFALO BOXING</div>
+      <div class="brand-series">Darwin Custom Series</div>
+    </div>
+
+    <div class="page-title">製品を選択</div>
+    <div class="page-sub">1点だけ、またはバンドルで組み合わせてください。＋／−で同じ製品を複数注文でき、選択した順に1点ずつ設定します。</div>
+
+    
+    <button class="import-toggle" id="importToggle" type="button">既存プランを読み込む · プラン文を貼り付け</button>
+    <div class="import-panel" id="importPanel">
+      <textarea class="import-textarea" id="importText" placeholder="プラン全文、または1点分のプラン文をここに貼り付けてください。設定が自動で復元されます。認識できない項目は手動での補完が必要として表示されます。"></textarea>
+      <div class="import-actions">
+        <button class="parse-btn" id="parseBtn" type="button">プランを解析</button>
+        <button class="clear-btn" id="clearBtn" type="button">クリア</button>
+      </div>
+      <div class="import-report" id="importReport"></div>
+      <button class="confirm-import" id="confirmImport" type="button">読み込みを確定して設定へ</button>
+    </div>
+
+<div class="pick-list">
+      <div class="pick-item" data-key="glove" data-price="380">
+        <span class="order-badge" id="badge-glove"></span>
+        <div class="pick-name">ボクシンググローブ</div>
+        <div class="pick-en">ボクシンググローブ</div>
+        <div class="pick-price">より<b>$380 / £288</b></div>
+        <div class="qty-box">
+          <button class="qty-btn qty-minus" type="button">−</button>
+          <span><span class="qty-num">1</span><span class="qty-unit">組</span></span>
+          <button class="qty-btn qty-plus" type="button">+</button>
+        </div>
+      </div>
+
+      <div class="pick-item" data-key="head" data-price="290">
+        <span class="order-badge" id="badge-head"></span>
+        <div class="pick-name">ヘッドガード</div>
+        <div class="pick-en">ヘッドガード</div>
+        <div class="pick-price">より<b>$290 / £220</b></div>
+        <div class="qty-box">
+          <button class="qty-btn qty-minus" type="button">−</button>
+          <span><span class="qty-num">1</span><span class="qty-unit">点</span></span>
+          <button class="qty-btn qty-plus" type="button">+</button>
+        </div>
+      </div>
+
+      <div class="pick-item" data-key="groin" data-price="290">
+        <span class="order-badge" id="badge-groin"></span>
+        <div class="pick-name">グロインガード</div>
+        <div class="pick-en">グロインガード</div>
+        <div class="pick-price">より<b>$290 / £220</b></div>
+        <div class="qty-box">
+          <button class="qty-btn qty-minus" type="button">−</button>
+          <span><span class="qty-num">1</span><span class="qty-unit">点</span></span>
+          <button class="qty-btn qty-plus" type="button">+</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="summary-line">
+      <span id="countText">製品が選択されていません · 合計</span>
+      <b id="totalText">$0 / £0</b>
+    </div>
+
+    <button class="next-btn" id="nextBtn">次へ · 設定へ</button>
+
+    <div class="policy-note">基本価格には国際送料と通常の輸入関税・税が含まれており、通常の範囲では納品時に追加費用はかかりません。製作中に関税政策が大きく変わった場合は、確認のためご連絡します。オーダー製作は約1か月、その後7〜14営業日で国際配送します。オーダー品は品質上の問題以外の返品・交換はできません。品質問題が確認された場合は、当社が返送費用を負担するか、作り直しいたします。</div>
+  </div>
+
+  <script>
+    const items = document.querySelectorAll('.pick-item');
+    const countText = document.getElementById('countText');
+    const totalText = document.getElementById('totalText');
+    const nextBtn = document.getElementById('nextBtn');
+    const PRICE = { glove: 380, head: 290, groin: 290 };
+    function bbMoney(usd){ return '$' + usd + ' / £' + Math.round(usd / 1.32); }
+    const ENTRY = { glove: 'pages/g1.size.html', head: 'pages/h1.head-size.html', groin: 'pages/c1.groin-size.html' };
+    const MAX_QTY = 10;
+    let qty = { glove: 0, head: 0, groin: 0 };
+    let selectedOrder = []; // 装备首次选中的顺序
+
+    function setQty(k, n) {
+      n = Math.max(0, Math.min(MAX_QTY, n));
+      const was = qty[k];
+      qty[k] = n;
+      if (was === 0 && n > 0) selectedOrder.push(k);
+      if (n === 0) selectedOrder = selectedOrder.filter(t => t !== k);
+    }
+
+    function expandedList() {
+      const list = [];
+      selectedOrder.forEach(t => {
+        for (let i = 0; i < qty[t]; i++) list.push(t);
+      });
+      return list;
+    }
+
+    function refresh() {
+      let total = 0, grandN = 0, seq = 0;
+      const startSeq = {};
+      selectedOrder.forEach(t => {
+        startSeq[t] = seq + 1;
+        seq += qty[t];
+        total += qty[t] * PRICE[t];
+        grandN += qty[t];
+      });
+      items.forEach(it => {
+        const k = it.dataset.key;
+        const on = qty[k] > 0;
+        it.classList.toggle('active', on);
+        document.getElementById('badge-' + k).textContent = on ? startSeq[k] : '';
+        it.querySelector('.qty-num').textContent = qty[k] > 0 ? qty[k] : 1;
+      });
+      countText.textContent = grandN === 0 ? '製品が未選択 · 合計'
+        : (grandN >= 2 ? grandN + ' 点 · 合計' : '1点 · 合計');
+      totalText.textContent = bbMoney(total);
+    }
+
+    // 卡片整体点击：选中(1) / 取消(0)
+    items.forEach(it => {
+      it.addEventListener('click', e => {
+        if (e.target.closest('.qty-btn')) return; // 加减按钮单独处理
+        const k = it.dataset.key;
+        setQty(k, qty[k] > 0 ? 0 : 1);
+        refresh();
+      });
+    });
+
+    // 加减按钮
+    items.forEach(it => {
+      const k = it.dataset.key;
+      it.querySelector('.qty-plus').addEventListener('click', e => {
+        e.stopPropagation();
+        if (qty[k] >= MAX_QTY) { alert('最大 ' + MAX_QTY + ' pieces per style. For more, contact us.'); return; }
+        setQty(k, qty[k] + 1); refresh();
+      });
+      it.querySelector('.qty-minus').addEventListener('click', e => {
+        e.stopPropagation();
+        setQty(k, qty[k] - 1); refresh();
+      });
+    });
+
+    // 重建 bb_suit，同时按类型+序号迁移旧件前缀Data，避免Back后清零
+    function rebuildSuitPreserve(expanded){
+      let old=null;
+      try{ old=JSON.parse(localStorage.getItem('bb_suit')); }catch(e){ old=null; }
+      const oldByType={};
+      if(old && Array.isArray(old.items)){
+        old.items.forEach((it,idx)=>{ (oldByType[it.type]=oldByType[it.type]||[]).push(idx); });
+      }
+      // 收集旧前缀Data
+      const oldData={};
+      Object.keys(localStorage).forEach(k=>{
+        const m=k.match(/^bb_(\d+)_(.+)$/);
+        if(m){ const oi=parseInt(m[1],10); (oldData[oi]=oldData[oi]||{})[m[2]]=localStorage.getItem(k); }
+      });
+      // Clear旧前缀
+      Object.keys(localStorage).forEach(k=>{ if(/^bb_\d+_/.test(k))localStorage.removeItem(k); });
+      // 按类型游标迁移到新索引
+      const cursors={};
+      expanded.forEach((t,newIdx)=>{
+        const used=cursors[t]||0;
+        const queue=oldByType[t]||[];
+        if(used<queue.length){
+          const data=oldData[queue[used]]||{};
+          Object.keys(data).forEach(baseKey=>{ localStorage.setItem('bb_'+newIdx+'_'+baseKey,data[baseKey]); });
+        }
+        cursors[t]=used+1;
+      });
+      // Entering from the homepage NEXT always starts at the first item, so reset the cursor to 0
+      // (prevents the "copy previous item" button from showing on the wrong item).
+      const suit={mode:expanded.length>=2?'suit':'single',items:expanded.map(t=>({type:t})),current:0,finished:[]};
+      localStorage.setItem('bb_suit',JSON.stringify(suit));
+    }
+
+    nextBtn.addEventListener('click', () => {
+      const expanded = expandedList();
+      if (expanded.length === 0) { alert('先に製品を1点以上選択してください。'); return; }
+      rebuildSuitPreserve(expanded);
+      window.location.href = ENTRY[expanded[0]];
+    });
+
+    // 从已存在的 bb_suit Restore加购件数与顺序（Back首页不清零）
+    (function restoreFromSuit(){
+      let suit=null;
+      try{ suit=JSON.parse(localStorage.getItem('bb_suit')); }catch(e){ suit=null; }
+      if(!suit || !Array.isArray(suit.items) || !suit.items.length)return;
+      suit.items.forEach(it=>{ if(qty[it.type]!==undefined) setQty(it.type, qty[it.type]+1); });
+    })();
+
+    refresh();
+  
+    /* ===== Plan Text Reverse-Parsing Import ===== */
+    const NAME_HEX = {
+      'Pure White':'#FFFFFF','Milkshake White':'#F5F0EB','Golden Brown':'#9D5F3B','Elephant Gray':'#746148','Midnight Blue':'#1E2E44',
+      'Black':'#000000','Trench Gray':'#B3A59A','Orange':'#F27D3B','Sun Yellow':'#F2C12E','Chick Yellow':'#F9E77F',
+      'Olive Green':'#404234','Breeze Blue':'#BDE0F2','Tiffany Blue':'#A0E7E5','Klein Blue':'#0D32C4','Linen Blue':'#91A3B1',
+      'Marala Brown':'#C0A086','Sage Green':'#8C8969','Nimbus Gray':'#808080','Bright Red':'#BE3033','Sakura Pink':'#EEB9C9',
+      'Rose Pink':'#DF6981','Lemon Yellow':'#FFD700','Apricot':'#C6AEA6','Seagull Gray':'#C0C0C0','Deep Coffee':'#402D2D',
+      'Wine Red':'#6A2A30','Deep Blue':'#294162','Petal Pink':'#E4A3BB','Comic Green':'#3FBF72','Caramel Brown':'#80412D',
+      'Wild Buffalo Leather':'#452E22'
+    };
+    const LEATHERS = ['Swift Cowhide','Swift Cowhide + Wild Buffalo Leather','Swift Cowhide + Shark Skin','Swift Cowhide + Crocodile Skin','Swift Cowhide + Ostrich Skin','Swift Cowhide + Lizard Skin'];
+    const TYPE_KEY = {'Boxing Gloves':'glove','Head Guard':'head','Groin Guard':'groin'};
+    const BASE_PRICE = {
+      glove:{'Swift Cowhide':380,'Swift Cowhide + Wild Buffalo Leather':420,'Swift Cowhide + Shark Skin':800,'Swift Cowhide + Crocodile Skin':890,'Swift Cowhide + Ostrich Skin':890,'Swift Cowhide + Lizard Skin':890},
+      head:{'Swift Cowhide':290,'Swift Cowhide + Wild Buffalo Leather':330,'Swift Cowhide + Shark Skin':760,'Swift Cowhide + Crocodile Skin':760,'Swift Cowhide + Ostrich Skin':760,'Swift Cowhide + Lizard Skin':760},
+      groin:{'Swift Cowhide':290,'Swift Cowhide + Wild Buffalo Leather':330}
+    };
+    const norm = s => (s||'').replace(/\s+/g,'').trim();
+    const NAME_HEX_COMPACT = {};
+    Object.keys(NAME_HEX).forEach(n => { NAME_HEX_COMPACT[norm(n)] = NAME_HEX[n]; });
+    function findHexByName(name){
+      if(NAME_HEX[name]) return NAME_HEX[name];
+      return NAME_HEX_COMPACT[norm(name)] || null;
+    }
+    function findColorInLine(line){
+      let best=null,bestLen=0;
+      Object.keys(NAME_HEX).forEach(n=>{ if(line.indexOf(n)>=0 && n.length>bestLen){best=NAME_HEX[n];bestLen=n.length;} });
+      return best;
+    }
+    function parseLogoLine(type,line,co){
+      if(line.indexOf('Logo')<0) return false;
+      if(/Text\s*Logo/.test(line)){
+        co.logoType='text';
+        if(/Custom Text/.test(line)){
+          co.textContent='custom';
+          const cm=line.match(/「([^」]*)」/);
+          if(cm)co.textLogoCustom=cm[1];
+        } else co.textContent='brand';
+        co.textLogoFont=/Cursive/.test(line)?'cursive':'normal';
+        if(/Silver Foil/.test(line))co.textPrint='silver';
+        else if(/Original/.test(line))co.textPrint='original';
+        else co.textPrint='gold';
+        return true;
+      }
+      if(/Other Colors\s*Logo/.test(line)){
+        co.logoType='colored';
+        const hex=findColorInLine(line); if(hex)co.coloredLogo=hex;
+        if(type!=='groin')co.logoStitch=/Inner Stitch/.test(line)?'inner':'outer';
+        return true;
+      }
+      if(/Embroidery\s*Logo/.test(line)){co.logoType='embroidery';return true;}
+      if(/No\s*Logo/.test(line)){co.logoType='none';return true;}
+      if(/Original\s*Logo/.test(line)){
+        co.logoType='original';
+        if(type!=='groin')co.logoStitch=/Inner Stitch/.test(line)?'inner':'outer';
+        return true;
+      }
+      return false;
+    }
+
+    function parseWristLine(line,co){
+      let m=line.match(/^Left Hand[：:]\s*(.+)/), side=null;
+      if(m)side='left';
+      else { m=line.match(/^Right Hand[：:]\s*(.+)/); if(m)side='right'; }
+      if(!side)return false;
+      const body=m[1];
+      if(/Not Customized|No Hot Stamping/.test(body))return true;
+      const cm=body.match(/「([^」]*)」/);
+      if(/Chinese Characters/.test(body)){
+        if(cm)co[side+'Ch']=cm[1];
+        co[side+'ChFont']=/Serif/.test(body)?'song':'hand';
+      }else{
+        if(cm)co[side+'Eng']=cm[1];
+        co[side+'EngFont']=/Cursive/.test(body)?'cursive':'normal';
+      }
+      co[side+'Print']=/Silver Foil/.test(body)?'silver':(/Original/.test(body)?'original':'gold');
+      return true;
+    }
+
+    function splitBlocks(text){
+      const re = /【\s*Item\s*\d+\s*·\s*(Boxing Gloves|Head Guard|Groin Guard)\s*】/g;
+      const marks=[]; let m;
+      while((m=re.exec(text))) marks.push({type:TYPE_KEY[m[1]],start:m.index,contentStart:re.lastIndex});
+      if(marks.length){
+        return marks.map((mk,i)=>({type:mk.type,body:text.slice(mk.contentStart,i+1<marks.length?marks[i+1].start:text.length)}));
+      }
+      const type = /Head Guard/.test(text)?'head':/Groin Guard/.test(text)?'groin':'glove';
+      return [{type:TYPE_KEY[type]===undefined?'glove':TYPE_KEY[type],body:text}];
+    }
+
+    function parseBlock(type, body){
+      const lines=body.split(/\r?\n/);
+      const r={type,fields:{},issues:[],areaColors:{},customOptions:{}};
+      let inColor=false;
+      for(const rawLine of lines){
+        const line=rawLine.trim();
+        if(/Area Colors/.test(line)){inColor=true;continue;}
+        if(inColor && line==='')continue;
+        const cm=line.match(/^No\.(\d+)\b[^:]*:\s*(.+?)\s*$/);
+        if(inColor && cm){
+          const no=cm[1], hex=findHexByName(cm[2]);
+          if(hex) r.areaColors[no]=hex;
+          else r.issues.push('No.'+no+' color「'+cm[2].trim()+'」unrecognized, manual selection required');
+          continue;
+        }
+        if(inColor && line && !/^No\./.test(line) && !/[：:]/.test(line)) inColor=false;
+        let g=line.match(/Leather Type[：:]\s*(.+)/);
+        if(g){ const lt=g[1].trim(); if(LEATHERS.indexOf(lt)>=0) r.fields.leatherType=lt; else r.issues.push('Leather Type「'+g[1].trim()+'」unrecognized, manual selection required'); continue; }
+        g=line.match(/Glove Size[：:]\s*([\d.]+)/); if(g){r.fields.size=g[1];continue;}
+        g=line.match(/Head Circumference[：:]\s*([\d.]+)/); if(g){r.fields.size=g[1];continue;}
+        g=line.match(/Color Split Mode[：:]\s*(Three-Tone|Two-Tone)/); if(g){r.fields.mode=g[1];continue;}
+        g=line.match(/Height[：:]\s*([\d.]+)/); if(g){r.fields.height=g[1];continue;}
+        g=line.match(/Weight[：:]\s*([\d.]+)/); if(g){r.fields.weight=g[1];continue;}
+        g=line.match(/Waist[：:]\s*([\d.]+)/); if(g){r.fields.waist=g[1];continue;}
+        if(parseLogoLine(type,line,r.customOptions))continue;
+        if(type==='glove' && parseWristLine(line,r.customOptions))continue;
+      }
+      return r;
+    }
+
+    let parsedPieces=null;
+    const importToggle=document.getElementById('importToggle');
+    const importPanel=document.getElementById('importPanel');
+    const importText=document.getElementById('importText');
+    const importReport=document.getElementById('importReport');
+    const confirmImport=document.getElementById('confirmImport');
+    importToggle.addEventListener('click',()=>{importPanel.classList.toggle('show');});
+    document.getElementById('clearBtn').addEventListener('click',()=>{
+      importText.value=''; importReport.classList.remove('show'); confirmImport.classList.remove('show'); parsedPieces=null;
+    });
+    document.getElementById('parseBtn').addEventListener('click',()=>{
+      const txt=importText.value.trim();
+      if(!txt){alert('先にプラン文を貼り付けてください');return;}
+      const blocks=splitBlocks(txt);
+      parsedPieces=blocks.map(b=>parseBlock(b.type,b.body));
+      let html='';
+      parsedPieces.forEach((p,i)=>{
+        const typeName=p.type==='glove'?'Boxing Gloves':p.type==='head'?'Head Guard':'Groin Guard';
+        const f=p.fields;
+        const okLines=[];
+        if(f.size) okLines.push(p.type==='glove'?'Size '+f.size+' oz':'Head Circumference '+f.size+' cm');
+        if(f.height) okLines.push('Height '+f.height+' / Weight '+f.weight+' / Waist '+f.waist+' cm');
+        if(f.mode) okLines.push('Color Split Mode '+f.mode);
+        if(f.leatherType) okLines.push('Leather '+f.leatherType);
+        if(p.customOptions && p.customOptions.logoType){
+          const ltMap={text:'Text Logo',colored:'Colored Logo',original:'Original Logo',none:'No Logo',embroidery:'Embroidery Logo'};
+          okLines.push('Logo '+ (ltMap[p.customOptions.logoType]||p.customOptions.logoType));
+        }
+        if(p.type==='glove' && (p.customOptions.leftEng||p.customOptions.leftCh||p.customOptions.rightEng||p.customOptions.rightCh)){
+          okLines.push('Inner Wrist Lettering recognized');
+        }
+        okLines.push(Object.keys(p.areaColors).length+' color area(s) recognized');
+        html+='<div class="report-piece"><div class="report-head">Item '+(i+1)+' · '+typeName+'</div>';
+        okLines.forEach(t=>{html+='<div class="report-ok">'+t+'</div>';});
+        if(p.issues.length) p.issues.forEach(t=>{html+='<div class="report-issue">'+t+'</div>';});
+        else html+='<div class="report-ok">All fields recognized successfully</div>';
+        html+='</div>';
+      });
+      importReport.innerHTML=html; importReport.classList.add('show');
+      confirmImport.classList.add('show');
+    });
+
+    confirmImport.addEventListener('click',()=>{
+      if(!parsedPieces||!parsedPieces.length)return;
+      const items=parsedPieces.map(p=>({type:p.type}));
+      const suit={mode:items.length>=2?'suit':'single',items:items,current:0,finished:[]};
+      Object.keys(localStorage).forEach(k=>{ if(/^bb_\d+_/.test(k))localStorage.removeItem(k); });
+      localStorage.setItem('bb_suit',JSON.stringify(suit));
+      parsedPieces.forEach((p,idx)=>{
+        const pre='bb_'+idx+'_';
+        const f=p.fields;
+        if(f.size) localStorage.setItem(pre+'size',f.size);
+        if(f.height){localStorage.setItem(pre+'height',f.height);localStorage.setItem(pre+'weight',f.weight);localStorage.setItem(pre+'waist',f.waist);}
+        if(f.mode) localStorage.setItem(pre+'mode',f.mode);
+        if(f.leatherType){
+          localStorage.setItem(pre+'leatherType',f.leatherType);
+          const bp=(BASE_PRICE[p.type]||{})[f.leatherType];
+          if(bp)localStorage.setItem(pre+'basePrice',String(bp));
+        }
+        localStorage.setItem(pre+'areaColors',JSON.stringify(p.areaColors));
+        localStorage.setItem(pre+'colorExtra','0');
+        localStorage.setItem(pre+'hasVisitedColorPage','true');
+        if(p.customOptions && p.customOptions.logoType) localStorage.setItem(pre+'customOptions',JSON.stringify(p.customOptions));
+      });
+      window.location.href=ENTRY[parsedPieces[0].type];
+    });
+</script>
+</body>
+</html>
