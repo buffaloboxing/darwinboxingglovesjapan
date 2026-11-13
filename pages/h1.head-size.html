@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>1. 頭囲 · BUFFALO BOXING ヘッドガード カスタム</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    padding: 40px 20px;
+    max-width: 750px;
+    margin: 0 auto;
+    background: #fafafa;
+    color: #1a1a1a;
+    line-height: 1.6;
+  }
+  .page-frame { background: #ffffff; border: 1px solid #1a1a1a; border-radius: 2px; padding: 48px 40px; }
+  .brand-header { text-align: center; margin-bottom: 44px; padding-bottom: 24px; border-bottom: 1px solid #1a1a1a; }
+  .brand-name { font-size: 20px; font-weight: 600; letter-spacing: 3px; color: #1a1a1a; }
+  .brand-series { font-size: 11px; letter-spacing: 4px; color: #666; margin-top: 6px; text-transform: uppercase; }
+
+  .step-tag { font-size: 11px; letter-spacing: 3px; color: #999; text-transform: uppercase; margin-bottom: 10px; }
+  .page-title { font-size: 20px; font-weight: 500; margin-bottom: 30px; color: #1a1a1a; letter-spacing: 1px; }
+
+  .field-label { font-size: 14px; font-weight: 500; color: #333; display: block; margin-bottom: 10px; }
+  .input-wrap { position: relative; margin-bottom: 14px; }
+  input[type="number"] {
+    width: 100%; padding: 14px 56px 14px 16px; border: 1px solid #d9d9d9; border-radius: 2px;
+    font-size: 16px; font-family: inherit; outline: none; background: #fff; transition: border-color .2s ease;
+  }
+  input[type="number"]:focus { border-color: #1a1a1a; }
+  .unit { position: absolute; right: 16px; top: 50%; transform: translateY(-50%); font-size: 14px; color: #999; }
+
+  .note { font-size: 12px; color: #999; line-height: 1.7; margin: 10px 0 40px; }
+
+  .btn-group { display: flex; gap: 12px; }
+  .prev-btn, .next-btn {
+    flex: 1; padding: 16px; border-radius: 2px; cursor: pointer; font-size: 14px; letter-spacing: 2px; transition: all .2s ease;
+  }
+  .prev-btn { background: #fff; color: #1a1a1a; border: 1px solid #d9d9d9; }
+  .prev-btn:hover { border-color: #1a1a1a; }
+  .next-btn { background: #1a1a1a; color: #fff; border: 1px solid #1a1a1a; }
+  .next-btn:hover { background: #000; border-color: #000; }
+
+  .toast {
+    position: fixed; left: 50%; bottom: 60px; transform: translateX(-50%); background: #1a1a1a; color: #fff;
+    font-size: 13px; padding: 11px 20px; border-radius: 2px; opacity: 0; pointer-events: none; transition: opacity .25s; z-index: 40;
+  }
+  .toast.show { opacity: .95 }
+  .copy-prev-btn {
+    width: 100%; margin-bottom: 28px; padding: 14px; border: 1px solid #1a1a1a; border-radius: 2px;
+    background: #fff; color: #1a1a1a; font-size: 13px; letter-spacing: 1px; cursor: pointer;
+    font-family: inherit; transition: all .2s ease;
+  }
+  .copy-prev-btn:hover { background: #1a1a1a; color: #fff; }
+  .step-nav { display: flex; gap: 8px; margin-bottom: 30px; overflow-x: auto; padding-bottom: 4px; -webkit-overflow-scrolling: touch; }
+  .step-nav::-webkit-scrollbar { height: 3px; }
+  .step-nav-item { flex: 0 0 auto; display: flex; align-items: center; gap: 7px; border: 1px solid #d9d9d9; border-radius: 2px; padding: 9px 13px; background: #fff; font-size: 12px; letter-spacing: 1px; color: #666; cursor: pointer; font-family: inherit; transition: all .2s ease; }
+  .step-nav-item .sn-num { display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border: 1px solid #999; border-radius: 50%; font-size: 10px; }
+  .step-nav-item:hover { border-color: #1a1a1a; color: #1a1a1a; }
+  .step-nav-item.current { background: #1a1a1a; border-color: #1a1a1a; color: #fff; }
+  .step-nav-item.current .sn-num { border-color: #fff; }
+    .global-nav { display:flex; gap:10px; margin-top:24px; padding-top:18px; border-top:1px solid #f0f0f0; }
+    .gn-link { flex:1; text-align:center; border:1px solid #d9d9d9; border-radius:2px; padding:13px 8px; font-size:12px; letter-spacing:1px; color:#666; background:#fff; text-decoration:none; cursor:pointer; transition:all .2s; }
+    .gn-link:hover { border-color:#1a1a1a; color:#1a1a1a; }
+    .gn-link.gn-bundle { border-color:#1a1a1a; color:#1a1a1a; display:none; }
+    .gn-link.gn-bundle:hover { background:#1a1a1a; color:#fff; }
+</style>
+</head>
+<body>
+  <div class="page-frame">
+    <div class="brand-header">
+      <div class="brand-name">BUFFALO BOXING</div>
+      <div class="brand-series">ヘッドガード · Darwin Custom</div>
+    </div>
+
+    <div class="step-tag">ステップ 01 / 05</div>
+    <div class="step-nav" id="stepNav"><button type="button" class="step-nav-item current" data-href="h1.head-size.html"><span class="sn-num">1</span>頭囲</button><button type="button" class="step-nav-item" data-href="h2.head-leather.html"><span class="sn-num">2</span>革</button><button type="button" class="step-nav-item" data-href="h3.head-mode.html"><span class="sn-num">3</span>モード</button><button type="button" class="step-nav-item" data-href="h4.head-color.html"><span class="sn-num">4</span>カラー</button><button type="button" class="step-nav-item" data-href="h5.head-customize.html"><span class="sn-num">5</span>文字入れ</button><button type="button" class="step-nav-item" data-href="h6.head-result.html"><span class="sn-num">6</span>結果</button></div>
+<div class="page-title">頭囲</div>
+<button class="copy-prev-btn" id="copyPrevBtn" type="button" style="display:none;">前の1点の設定をコピーしてから、必要に応じて調整してください。</button>
+
+    <label class="field-label" for="headSize">頭囲</label>
+    <div class="input-wrap">
+      <input type="number" id="headSize" min="50" max="65" step="0.5" placeholder="例：58">
+      <span class="unit">cm</span>
+    </div>
+
+    <div class="note">
+      測り方：柔らかいメジャーを眉の上、耳を通り、頭の最も太い部分に一周させて周囲を読み取ります。<br>
+      正確でなくてかまいません。ヘッドガードは調整できます。
+    </div>
+
+    <div class="btn-group">
+      <button class="prev-btn" id="prevBtn">戻る · 戻る</button>
+      <button class="next-btn" id="nextBtn">次へ · 革を選択</button>
+    </div>
+  </div>
+
+  <div class="toast" id="toast">プレビューモード：次へは「革の選択」に進みます<div class="global-nav">
+      <a class="gn-link" href="../index.html">カスタマイザーのホームに戻る · 数量の追加・変更</a>
+      <a class="gn-link gn-bundle" id="gnBundle" href="../bundle.html">バンドル一覧に戻る</a>
+    </div>
+    </div>
+
+  <script>
+    /* ===== 统一存储封装（每件独立前缀） ===== */
+    const BBSUIT_KEY = 'bb_suit';
+    function BB_suit(){ try{ return JSON.parse(localStorage.getItem(BBSUIT_KEY)) || null; }catch(e){ return null; } }
+    function BB_prefix(){
+      const s = BB_suit();
+      if(!s || !Array.isArray(s.items) || !s.items.length) return '';
+      const idx = (typeof s.current === 'number') ? s.current : 0;
+      return 'bb_' + idx + '_';
+    }
+    const LS = {
+      get(k){ return localStorage.getItem(BB_prefix() + k); },
+      set(k,v){ localStorage.setItem(BB_prefix() + k, v); },
+      remove(k){ localStorage.removeItem(BB_prefix() + k); }
+    };
+
+    const headSize = document.getElementById('headSize');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const toast = document.getElementById('toast');
+
+    prevBtn.addEventListener('click', () => { window.location.href = '../index.html'; });
+    nextBtn.addEventListener('click', () => {
+      const v = parseFloat(headSize.value);
+      if (!v || v < 50 || v > 65) { alert('有効な頭囲を入力してください（50〜65cm）。'); return; }
+      LS.set('size', v);
+      window.location.href = 'h2.head-leather.html';
+    });
+
+    // Restore已填
+    const savedSize = LS.get('size');
+    if (savedSize) headSize.value = savedSize;
+      /* ===== Copy previous piece (identical multi-piece) ===== */
+    (function initCopyPrev(){
+      const suit = BB_suit();
+      if (!suit || !Array.isArray(suit.items)) return;
+      const cur = (typeof suit.current === 'number') ? suit.current : 0;
+      if (cur < 1) return;
+      if (!suit.items[cur-1] || suit.items[cur].type !== suit.items[cur-1].type) return;
+      const btn = document.getElementById('copyPrevBtn');
+      btn.style.display = 'block';
+      btn.addEventListener('click', () => {
+        const prevPfx = 'bb_' + (cur - 1) + '_';
+        const curPfx = 'bb_' + cur + '_';
+        Object.keys(localStorage).forEach(k => {
+          if (k.indexOf(prevPfx) === 0) {
+            localStorage.setItem(curPfx + k.slice(prevPfx.length), localStorage.getItem(k));
+          }
+        });
+        location.reload();
+      });
+    })();
+    window.__bbSave = function(){ const v=parseFloat(headSize.value); if(v>=50&&v<=65) LS.set('size',v); };
+    document.getElementById('stepNav').addEventListener('click', function(e){
+      const it = e.target.closest('.step-nav-item');
+      if (!it) return;
+      try { if (window.__bbSave) window.__bbSave(); } catch(err){}
+      window.location.href = it.dataset.href;
+    });
+</script>
+<script>
+    (function(){
+      try{
+        var st=BB_suit();
+        var b=document.getElementById('gnBundle');
+        if(b && st && st.mode==='suit') b.style.display='inline-block';
+      }catch(e){}
+    })();
+  </script>
+</body>
+</html>

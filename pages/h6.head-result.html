@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>プラン確認 · BUFFALO BOXING ヘッドガード</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    padding: 40px 20px; max-width: 750px; margin: 0 auto; background: #fafafa; color: #1a1a1a; line-height: 1.7;
+  }
+  .page-frame { background: #fff; border: 1px solid #1a1a1a; border-radius: 2px; padding: 32px 20px; }
+  @media (min-width: 768px) { .page-frame { padding: 48px 40px; } }
+  .brand-header { text-align: center; margin-bottom: 30px; padding-bottom: 24px; border-bottom: 1px solid #1a1a1a; }
+  .brand-name { font-size: 20px; font-weight: 600; letter-spacing: 3px; }
+  .brand-series { font-size: 11px; letter-spacing: 4px; color: #666; margin-top: 6px; text-transform: uppercase; }
+
+  .page-title { font-size: 20px; font-weight: 500; margin-bottom: 32px; text-align: center; letter-spacing: 1px; }
+  .result-item { display: flex; justify-content: space-between; gap: 16px; padding: 13px 0; border-bottom: 1px solid #f0f0f0; font-size: 14px; }
+  .item-label { color: #999; flex: 0 0 auto; }
+  .item-value { font-weight: 500; text-align: right; }
+  .section-title { font-weight: 500; margin: 30px 0 12px; font-size: 15px; letter-spacing: .5px; }
+  .color-swatch { display: inline-block; width: 14px; height: 14px; border-radius: 2px; margin-right: 8px; vertical-align: middle; border: 1px solid rgba(0,0,0,.08); }
+  .color-item { display: flex; justify-content: space-between; align-items: center; font-size: 14px; padding: 9px 0; border-bottom: 1px solid #f0f0f0; gap: 10px; }
+  .custom-section { padding: 16px 18px; background: #fafafa; border: 1px solid #f0f0f0; border-radius: 2px; margin-bottom: 12px; }
+  .custom-detail { font-size: 14px; color: #333; margin: 5px 0; }
+  .final-price { margin: 34px 0 18px; padding: 28px 24px; background: #fafafa; border: 1px solid #1a1a1a; border-radius: 2px; text-align: center; }
+  .final-price-text { font-size: 11px; color: #666; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
+  .final-price-num { font-size: 30px; font-weight: 500; }
+  .note { font-size: 12px; color: #999; margin: 18px 0; line-height: 1.8; }
+  .policy-note { margin: 22px 0 4px; padding-top: 14px; border-top: 1px solid #f0f0f0; font-size: 11px; color: #9a9a9a; line-height: 1.9; letter-spacing: .2px; }
+  .btn-group { display: flex; gap: 12px; margin-top: 24px; }
+  .prev-btn, .copy-btn { flex: 1; padding: 16px; border-radius: 2px; font-size: 14px; cursor: pointer; letter-spacing: 2px; transition: all .2s; }
+  .prev-btn { background: #fff; color: #1a1a1a; border: 1px solid #d9d9d9; }
+  .prev-btn:hover { border-color: #1a1a1a; }
+  .copy-btn { background: #1a1a1a; color: #fff; border: 1px solid #1a1a1a; }
+  .copy-btn:hover { background: #000; border-color: #000; }
+
+  .suit-progress { display:none; font-size: 12px; color: #666; letter-spacing: 1px; text-align: center; margin-bottom: 22px; padding: 10px 14px; background: #fafafa; border: 1px solid #f0f0f0; border-radius: 2px; }
+  .suit-actions { display:none; margin-top: 12px; }
+  .suit-primary { width: 100%; padding: 16px; border-radius: 2px; cursor: pointer; font-size: 14px; letter-spacing: 2px; background: #1a1a1a; color: #fff; border: 1px solid #1a1a1a; transition: all .2s; }
+  .suit-primary:hover { background: #000; }
+  .step-nav { display: flex; gap: 8px; margin-bottom: 30px; overflow-x: auto; padding-bottom: 4px; -webkit-overflow-scrolling: touch; }
+  .step-nav::-webkit-scrollbar { height: 3px; }
+  .step-nav-item { flex: 0 0 auto; display: flex; align-items: center; gap: 7px; border: 1px solid #d9d9d9; border-radius: 2px; padding: 9px 13px; background: #fff; font-size: 12px; letter-spacing: 1px; color: #666; cursor: pointer; font-family: inherit; transition: all .2s ease; }
+  .step-nav-item .sn-num { display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border: 1px solid #999; border-radius: 50%; font-size: 10px; }
+  .step-nav-item:hover { border-color: #1a1a1a; color: #1a1a1a; }
+  .step-nav-item.current { background: #1a1a1a; border-color: #1a1a1a; color: #fff; }
+  .step-nav-item.current .sn-num { border-color: #fff; }
+    .global-nav { display:flex; gap:10px; margin-top:24px; padding-top:18px; border-top:1px solid #f0f0f0; }
+    .gn-link { flex:1; text-align:center; border:1px solid #d9d9d9; border-radius:2px; padding:13px 8px; font-size:12px; letter-spacing:1px; color:#666; background:#fff; text-decoration:none; cursor:pointer; transition:all .2s; }
+    .gn-link:hover { border-color:#1a1a1a; color:#1a1a1a; }
+    .gn-link.gn-bundle { border-color:#1a1a1a; color:#1a1a1a; display:none; }
+    .gn-link.gn-bundle:hover { background:#1a1a1a; color:#fff; }
+</style>
+</head>
+<body>
+  <div class="page-frame">
+    <div class="brand-header">
+      <div class="brand-name">BUFFALO BOXING</div>
+      <div class="brand-series">ヘッドガード · Darwin Custom</div>
+    </div>
+
+    <div class="step-nav" id="stepNav"><button type="button" class="step-nav-item" data-href="h1.head-size.html"><span class="sn-num">1</span>頭囲</button><button type="button" class="step-nav-item" data-href="h2.head-leather.html"><span class="sn-num">2</span>革</button><button type="button" class="step-nav-item" data-href="h3.head-mode.html"><span class="sn-num">3</span>モード</button><button type="button" class="step-nav-item" data-href="h4.head-color.html"><span class="sn-num">4</span>カラー</button><button type="button" class="step-nav-item" data-href="h5.head-customize.html"><span class="sn-num">5</span>文字入れ</button><button type="button" class="step-nav-item current" data-href="h6.head-result.html"><span class="sn-num">6</span>結果</button></div>
+<div class="page-title">プラン確認</div>
+
+    <div class="suit-progress" id="suitProgress"></div>
+
+    <div class="result-item"><span class="item-label">頭囲</span><span class="item-value" id="sizeVal">--</span></div>
+    <div class="result-item"><span class="item-label">革の種類</span><span class="item-value" id="leatherVal">--</span></div>
+    <div class="result-item"><span class="item-label">配色モード</span><span class="item-value" id="modeVal">--</span></div>
+
+    <div class="section-title">エリアカラー</div>
+    <div id="colorList"></div>
+
+    <div class="section-title">ロゴと箔押し</div>
+    <div class="custom-section" id="logoDetail"></div>
+
+    <div class="section-title">その他のカスタム</div>
+    <div class="custom-section" id="otherDetail"></div>
+
+    <div class="result-item"><span class="item-label">基本価格</span><span class="item-value" id="baseVal">--</span></div>
+    <div class="result-item"><span class="item-label">カラー追加料金</span><span class="item-value" id="colorExtraVal">--</span></div>
+    <div class="result-item"><span class="item-label">カスタム追加料金</span><span class="item-value" id="customExtraVal">--</span></div>
+
+    <div class="final-price">
+      <div class="final-price-text">概算合計 · 概算合計</div>
+      <div class="final-price-num" id="totalPrice">--</div>
+      <div style="font-size:12px;color:#999;margin-top:6px;">刺繍の別途見積もりを除く</div>
+    </div>
+
+    <div class="note">
+      1. 漢字の銅型と小柄の箔押しは各 +$5 / £4、ロゴ差し替えパネルは +$10 / £8。いずれも自動計算の合計に含まれます。<br>
+      2. 刺繍ロゴと刺繍の小柄は複雑さに応じて当チームがお見積もり（+$15–45 / £12–35）。自動計算の合計には含まれません。<br>
+      3. 希少革の最終仕様と価格は当チームの確認をもって確定します。<br>
+      4. コピー後、このプランを当チームにお送りいただくとご注文が確定します。最終価格は当チームの確認により確定します。
+    </div>
+
+    <div class="policy-note">基本価格には国際送料と通常の輸入関税・税が含まれており、通常の範囲では納品時に追加費用はかかりません。製作中に関税政策が大きく変わった場合は、確認のためご連絡します。オーダー製作は約1か月、その後7〜14営業日で国際配送します。オーダー品は品質上の問題以外の返品・交換はできません。品質問題が確認された場合は、当社が返送費用を負担するか、作り直しいたします。</div>
+
+    <div class="btn-group">
+      <button class="prev-btn" id="prevBtn">戻る · 編集に戻る</button>
+      <button class="copy-btn" id="copyBtn">コピー · プランをコピー</button>
+    </div>
+
+    <div class="suit-actions" id="suitActions">
+      <button class="suit-primary" id="suitPrimaryBtn" type="button"></button>
+    </div>
+  <div class="global-nav">
+      <a class="gn-link" href="../index.html">カスタマイザーのホームに戻る · 数量の追加・変更</a>
+      <a class="gn-link gn-bundle" id="gnBundle" href="../bundle.html">バンドル一覧に戻る</a>
+    </div>
+    </div>
+
+  <script>
+    /* ===== 统一存储封装（每件独立前缀） ===== */
+    const BBSUIT_KEY = 'bb_suit';
+    function BB_suit(){ try{ return JSON.parse(localStorage.getItem(BBSUIT_KEY)) || null; }catch(e){ return null; } }
+    function BB_prefix(){
+      const s = BB_suit();
+      if(!s || !Array.isArray(s.items) || !s.items.length) return '';
+      const idx = (typeof s.current === 'number') ? s.current : 0;
+      return 'bb_' + idx + '_';
+    }
+    const LS = {
+      get(k){ return localStorage.getItem(BB_prefix() + k); },
+      set(k,v){ localStorage.setItem(BB_prefix() + k, v); },
+      remove(k){ localStorage.removeItem(BB_prefix() + k); }
+    };
+
+    const ZONE_JA = {
+      split: { 1:'左側',2:'右側',3:'左耳ストリップ',4:'左耳',5:'右耳ストリップ',6:'右耳',7:'パイピング' },
+      triple: { 1:'中央',2:'左右両側',3:'耳ストリップ',4:'耳',5:'パイピング' }
+    };
+    const ZONE_NAMES = {
+      split: { 1:'Left Side',2:'Right Side',3:'Left Ear Strip',4:'Left Ear',5:'Right Ear Strip',6:'Right Ear',7:'Piping' },
+      triple: { 1:'Middle',2:'Both Sides',3:'Ear Strips',4:'Ears',5:'Piping' }
+    };
+    const COLOR_NAME = {
+      '#FFFFFF':'Pure White','#F5F0EB':'Milkshake White','#9D5F3B':'Golden Brown','#746148':'Elephant Gray','#1E2E44':'Midnight Blue',
+      '#000000':'Black','#80412D':'Caramel Brown','#3FBF72':'Comic Green','#B3A59A':'Trench Gray','#F27D3B':'Orange',
+      '#F2C12E':'Sun Yellow','#F9E77F':'Chick Yellow','#404234':'Olive Green','#BDE0F2':'Breeze Blue','#A0E7E5':'Tiffany Blue',
+      '#0D32C4':'Klein Blue','#91A3B1':'Linen Blue','#C0A086':'Marala Brown','#8C8969':'Sage Green','#808080':'Nimbus Gray',
+      '#BE3033':'Bright Red','#EEB9C9':'Sakura Pink','#DF6981':'Rose Pink','#E4A3BB':'Petal Pink','#6A2A30':'Wine Red',
+      '#FFD700':'Lemon Yellow','#C6AEA6':'Apricot','#294162':'Deep Blue','#C0C0C0':'Seagull Gray','#402D2D':'Deep Coffee',
+      '#452E22':'Wild Buffalo Leather'
+    };
+
+    const size = LS.get('size');
+    const leather = LS.get('leatherType') || 'Not Selected';
+    const mode = LS.get('mode') || 'triple';
+    const basePrice = parseInt(LS.get('basePrice'),10) || 0;
+    const colorExtra = parseInt(LS.get('colorExtra'),10) || 0;
+    const customExtra = parseInt(LS.get('customExtra'),10) || 0;
+    function bbMoney(usd){ return '$' + usd + ' / £' + Math.round(usd / 1.32); }
+    let areaColors = {};
+    try { areaColors = JSON.parse(LS.get('areaColors')) || {}; } catch(e) {}
+    let opt = {};
+    try { opt = JSON.parse(LS.get('customOptions')) || {}; } catch(e) {}
+
+    document.getElementById('sizeVal').textContent = size ? size + ' cm' : '未選択';
+    document.getElementById('leatherVal').textContent = ({'Swift Cowhide':'スウィフト牛革','Swift Cowhide + Wild Buffalo Leather':'スウィフト牛革 + ワイルドバッファロー革','Swift Cowhide + Shark Skin':'スウィフト牛革 + シャーク革','Swift Cowhide + Crocodile Skin':'スウィフト牛革 + クロコダイル革','Swift Cowhide + Ostrich Skin':'スウィフト牛革 + オーストリッチ革','Swift Cowhide + Lizard Skin':'スウィフト牛革 + トカゲ革','Not Selected':'未選択'}[leather] || leather);
+    document.getElementById('modeVal').textContent = mode === 'split' ? 'ツートーン（左右分割）' : 'スリートーン（中央と左右）';
+    document.getElementById('baseVal').textContent = bbMoney(basePrice);
+    document.getElementById('colorExtraVal').textContent = bbMoney(colorExtra);
+    document.getElementById('customExtraVal').textContent = bbMoney(customExtra);
+
+    // Area Colors
+    const layerCount = mode === 'split' ? 7 : 5;
+    const colorList = document.getElementById('colorList');
+    for (let i = 1; i <= layerCount; i++) {
+      const hex = areaColors[i];
+      const row = document.createElement('div');
+      row.className = 'color-item';
+      if (hex) {
+        row.innerHTML = `<span>No.${i} · ${ZONE_JA[mode][i]}</span>
+          <span><span class="color-swatch" style="background:${hex};"></span>${COLOR_NAME[hex] || hex}</span>`;
+      } else {
+        row.innerHTML = `<span>No.${i} · ${ZONE_JA[mode][i]}</span><span style="color:#ccc;">未選択</span>`;
+      }
+      colorList.appendChild(row);
+    }
+
+    // Logo & Hot Stamping
+    const printText = v => ({gold:'Gold Foil',silver:'Silver Foil',original:'OriginalHot Stamping'}[v] || v);
+    const engFontText = v => v === 'cursive' ? 'Cursive' : 'Regular';
+    const chFontText = v => v === 'song' ? 'Serif' : 'Handwriting';
+    const mixedFontText = v => v === 'cursive' ? 'Cursive/Handwriting' : 'Regular / Serif';
+
+    const printTextJa=v=>({gold:'金箔',silver:'銀箔',original:'オリジナル箔押し'}[v]||v);
+    const engFontJa=v=>v==='cursive'?'筆記体':'標準';
+    const chFontJa=v=>v==='song'?'セリフ':'手書き';
+    const mixedFontJa=v=>v==='cursive'?'筆記体／手書き':'標準／セリフ';
+    const SMALL_POS_NAME = {leftEar:'Left Ear',rightEar:'Right Ear',foreLeft:'Left Forehead',foreRight:'Right Forehead',other:'Other Areas'};
+    let logoHtml = '';
+    if (opt.logoType === 'text') {
+      const tc = opt.textContent || 'brand';
+      if (tc === 'custom') {
+        let s = `文字ロゴ（額の中央）· カスタム文字「${opt.textLogoCustom}」· ${mixedFontJa(opt.textLogoFont)} · ${printTextJa(opt.textPrint)}`;
+        if (/[一-龥]/.test(opt.textLogoCustom || '')) s += ' (Chinese character metal mold, +$5 / £4)';
+        logoHtml += `<div class="custom-detail">${s}</div>`;
+      } else {
+        logoHtml += `<div class="custom-detail">文字ロゴ（額の中央）· ブランド文字 · ${printTextJa(opt.textPrint)}</div>`;
+      }
+    } else if (opt.logoType === 'colored') {
+      logoHtml += `<div class="custom-detail">カラーロゴ · ${COLOR_NAME[opt.coloredLogo] || opt.coloredLogo}</div>`;
+    } else if (opt.logoType === 'none') {
+      logoHtml += `<div class="custom-detail">ロゴなし</div>`;
+    } else if (opt.logoType === 'embroidery') {
+      logoHtml += `<div class="custom-detail">刺繍ロゴ · 別途見積もり。当チームまでお問い合わせください</div>`;
+    } else {
+      logoHtml += `<div class="custom-detail">オリジナルロゴ · 外縫い</div>`;
+    }
+    if (opt.leftEng) {
+      logoHtml += `<div class="custom-detail">左耳：英語／数字「${opt.leftEng}」· ${engFontJa(opt.leftEngFont)} · ${printTextJa(opt.leftPrint)}</div>`;
+    } else if (opt.leftCh) {
+      logoHtml += `<div class="custom-detail">左耳：漢字「${opt.leftCh}」· ${chFontJa(opt.leftChFont)} · ${printTextJa(opt.leftPrint)}（銅型、+$5 / £4）</div>`;
+    } else {
+      logoHtml += `<div class="custom-detail">左耳：箔押しなし</div>`;
+    }
+    if (opt.rightEng) {
+      logoHtml += `<div class="custom-detail">右耳：英語／数字「${opt.rightEng}」· ${engFontJa(opt.rightEngFont)} · ${printTextJa(opt.rightPrint)}</div>`;
+    } else if (opt.rightCh) {
+      logoHtml += `<div class="custom-detail">右耳：漢字「${opt.rightCh}」· ${chFontJa(opt.rightChFont)} · ${printTextJa(opt.rightPrint)}（銅型、+$5 / £4）</div>`;
+    } else {
+      logoHtml += `<div class="custom-detail">右耳：箔押しなし</div>`;
+    }
+    document.getElementById('logoDetail').innerHTML = logoHtml;
+
+    // Other Customization
+    function getSmallPatterns() {
+      const norm = it => ({
+        pos: it.pos || 'leftEar', note: it.note || '',
+        craft: it.craft || 'hot', print: it.print || 'gold'
+      });
+      if (Array.isArray(opt.smallPatterns)) return opt.smallPatterns.map(norm);
+      if (opt.smallPattern === 'yes') return [norm({ pos: opt.smallPos, note: opt.smallNote })];
+      return [];
+    }
+    const smallListData = getSmallPatterns();
+    let otherHtml = '';
+    otherHtml += `<div class="custom-detail">ロゴ差し替え：${opt.logoReplace === 'yes' ? '選択済み（+$10 / £8）' : '未選択'}</div>`;
+    if (smallListData.length) {
+      smallListData.forEach((it, idx) => {
+        let s;
+        if (it.craft === 'embroidery') {
+          s = `Small Patterns ${idx + 1}: Embroidery (${SMALL_POS_NAME[it.pos] || it.pos}, +$15–45 / £12–35, contact our team, not included in the automatic total)`;
+        } else {
+          s = `小柄 ${idx + 1}：箔押し（${SMALL_POS_NAME[it.pos] || it.pos}、${printTextJa(it.print)}、+$5 / £4）`;
+        }
+        if (it.pos === 'other' && it.note) s += `, Notes「${it.note}」`;
+        otherHtml += `<div class="custom-detail">${s}</div>`;
+      });
+    } else {
+      otherHtml += `<div class="custom-detail">小柄：未追加</div>`;
+    }
+    document.getElementById('otherDetail').innerHTML = otherHtml;
+
+    const total = basePrice + colorExtra + customExtra;
+    document.getElementById('totalPrice').textContent = bbMoney(total);
+
+    /* ============ Copy Plan ============ */
+    function buildText() {
+      let lines = [];
+      lines.push('BUFFALO BOXING · Darwin Series Head Guard Custom Plan');
+      lines.push('────────────────────');
+      lines.push('Head Circumference: ' + (size ? size + ' cm' : 'Not Selected'));
+      lines.push('Leather Type: ' + leather);
+      lines.push('Color Split Mode: ' + (mode === 'split' ? 'Two-Tone (Left-Right Split)' : 'Three-Tone (Middle & Both Sides)'));
+      lines.push('Area Colors:');
+      for (let i = 1; i <= layerCount; i++) {
+        const hex = areaColors[i];
+        if (hex) lines.push(`  No.${i} ${ZONE_NAMES[mode][i]}: ${COLOR_NAME[hex] || hex}`);
+      }
+      lines.push('Logo & Hot Stamping:');
+      if (opt.logoType === 'text') {
+        const tc = opt.textContent || 'brand';
+        if (tc === 'custom') {
+          let s = '  Text Logo (middle of forehead) · Custom Text「' + opt.textLogoCustom + '」· ' + mixedFontText(opt.textLogoFont) + ' · ' + printText(opt.textPrint);
+          if (/[一-龥]/.test(opt.textLogoCustom || '')) s += ' (Chinese character metal mold, +$5 / £4)';
+          lines.push(s);
+        } else {
+          lines.push('  Text Logo (middle of forehead) · Brand Text · ' + printText(opt.textPrint));
+        }
+      } else if (opt.logoType === 'colored') {
+        lines.push(`  Colored Logo · ${COLOR_NAME[opt.coloredLogo] || opt.coloredLogo}`);
+      } else if (opt.logoType === 'none') {
+        lines.push('  No Logo');
+      } else if (opt.logoType === 'embroidery') {
+        lines.push('  Embroidery Logo · separate quote, contact our team');
+      } else {
+        lines.push('  Original Logo · Outer Stitch');
+      }
+      if (opt.leftEng) {
+        lines.push(`  Left Ear: English/numbers「${opt.leftEng}」· ${engFontText(opt.leftEngFont)} · ${printText(opt.leftPrint)}`);
+      } else if (opt.leftCh) {
+        lines.push(`  Left Ear: Chinese Characters「${opt.leftCh}」· ${chFontText(opt.leftChFont)} · ${printText(opt.leftPrint)} (Metal Mold, +$5 / £4)`);
+      }
+      if (opt.rightEng) {
+        lines.push(`  Right Ear: English/numbers「${opt.rightEng}」· ${engFontText(opt.rightEngFont)} · ${printText(opt.rightPrint)}`);
+      } else if (opt.rightCh) {
+        lines.push(`  Right Ear: Chinese Characters「${opt.rightCh}」· ${chFontText(opt.rightChFont)} · ${printText(opt.rightPrint)} (Metal Mold, +$5 / £4)`);
+      }
+      lines.push('Other Customization:');
+      lines.push('  Logo Replacement: ' + (opt.logoReplace === 'yes' ? 'Selected (+$10 / £8)' : 'Not Selected'));
+      const copySmall = getSmallPatterns();
+      if (copySmall.length) {
+        copySmall.forEach((it, idx) => {
+          let s;
+          if (it.craft === 'embroidery') {
+            s = '  Small Patterns ' + (idx + 1) + ': Embroidery (' + (SMALL_POS_NAME[it.pos] || it.pos) + ', +$15–45 / £12–35, contact our team, not included in the automatic total)';
+          } else {
+            s = '  Small Patterns ' + (idx + 1) + ': Hot Stamping (' + (SMALL_POS_NAME[it.pos] || it.pos) + ', ' + printText(it.print) + ', +$5 / £4)';
+          }
+          if (it.pos === 'other' && it.note) s += ', Notes「' + it.note + '」';
+          lines.push(s);
+        });
+      } else {
+        lines.push('  Small Patterns: Not Added');
+      }
+      lines.push('Fees: Base ' + bbMoney(basePrice) + ' + Color ' + bbMoney(colorExtra) + ' + Customization ' + bbMoney(customExtra));
+      lines.push('Estimated Total (excluding separate embroidery quotes): ' + bbMoney(total));
+      lines.push('────────────────────');
+      return lines.join('\n');
+    }
+
+    function fallbackCopy(text) {
+      const ta = document.createElement('textarea');
+      ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select();
+      try { document.execCommand('copy'); alert('プランをコピーしました。そのまま当チームにお送りください。'); }
+      catch (e) { alert('コピーに失敗しました。手動でコピーしてください。'); }
+      document.body.removeChild(ta);
+    }
+
+    document.getElementById('copyBtn').onclick = () => {
+      const text = buildText();
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(text).then(
+          () => alert('プランをコピーしました。そのまま当チームにお送りください。'),
+          () => fallbackCopy(text)
+        );
+      } else {
+        fallbackCopy(text);
+      }
+    };
+
+    document.getElementById('prevBtn').onclick = () => {
+      window.location.href = 'h5.head-customize.html';
+    };
+
+    /* ============ 套装联动 ============ */
+    const TYPE_ENTRY = { glove: 'g1.size.html', head: 'h1.head-size.html', groin: 'c1.groin-size.html' };
+    const TYPE_LABEL = { glove: 'Boxing Gloves', head: 'Head Guard', groin: 'Groin Guard' };
+    (function initSuit(){
+      const suit = BB_suit();
+      if(!suit || suit.mode !== 'suit' || !Array.isArray(suit.items) || suit.items.length < 2) return;
+      const M = suit.items.length;
+      const N = (typeof suit.current === 'number') ? suit.current : 0;
+
+      if(!Array.isArray(suit.finished)) suit.finished = [];
+      suit.finished[N] = true;
+      localStorage.setItem(BBSUIT_KEY, JSON.stringify(suit));
+
+      const prog = document.getElementById('suitProgress');
+      prog.style.display = 'block';
+      prog.textContent = 'バンドルの進行：' + (N + 1) + ' of ' + M + ' (' + TYPE_LABEL[suit.items[N].type] + ')';
+
+      const actions = document.getElementById('suitActions');
+      const btn = document.getElementById('suitPrimaryBtn');
+      actions.style.display = 'block';
+      if(N >= M - 1){
+        btn.textContent = 'バンドル一覧を見る';
+        btn.onclick = () => { window.location.href = '../bundle.html'; };
+      } else {
+        btn.textContent = '次の1点へ · ' + TYPE_LABEL[suit.items[N + 1].type];
+        btn.onclick = () => {
+          suit.current = N + 1;
+          localStorage.setItem(BBSUIT_KEY, JSON.stringify(suit));
+          window.location.href = TYPE_ENTRY[suit.items[N + 1].type];
+        };
+      }
+    })();
+      document.getElementById('stepNav').addEventListener('click', function(e){
+      const it = e.target.closest('.step-nav-item');
+      if (!it) return;
+      try { if (window.__bbSave) window.__bbSave(); } catch(err){}
+      window.location.href = it.dataset.href;
+    });
+</script>
+<script>
+    (function(){
+      try{
+        var st=BB_suit();
+        var b=document.getElementById('gnBundle');
+        if(b && st && st.mode==='suit') b.style.display='inline-block';
+      }catch(e){}
+    })();
+  </script>
+</body>
+</html>

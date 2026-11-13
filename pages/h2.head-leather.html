@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>革を選択 · BUFFALO BOXING ヘッドガード カスタム</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    padding: 40px 20px; max-width: 750px; margin: 0 auto; background: #fafafa; color: #1a1a1a; line-height: 1.6;
+  }
+  .page-frame { background: #fff; border: 1px solid #1a1a1a; border-radius: 2px; padding: 48px 40px; }
+  .brand-header { text-align: center; margin-bottom: 44px; padding-bottom: 24px; border-bottom: 1px solid #1a1a1a; }
+  .brand-name { font-size: 20px; font-weight: 600; letter-spacing: 3px; }
+  .brand-series { font-size: 11px; letter-spacing: 4px; color: #666; margin-top: 6px; text-transform: uppercase; }
+
+  .step-tag { font-size: 11px; letter-spacing: 3px; color: #999; text-transform: uppercase; margin-bottom: 10px; }
+  .page-title { font-size: 20px; font-weight: 500; margin-bottom: 24px; letter-spacing: 1px; }
+
+  .current-price { font-size: 14px; color: #666; margin-bottom: 30px; padding-bottom: 16px; border-bottom: 1px solid #1a1a1a; }
+  .current-price span { font-size: 22px; font-weight: 500; color: #1a1a1a; margin-left: 8px; }
+
+  .leather-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px; }
+  .leather-item {
+    border: 1px solid #d9d9d9; padding: 18px 20px; border-radius: 2px; cursor: pointer;
+    display: flex; justify-content: space-between; align-items: center; gap: 12px; background: #fff; transition: all .2s;
+  }
+  .leather-item:hover { border-color: #1a1a1a; }
+  .leather-item.active { border-color: #1a1a1a; background: #fafafa; }
+  .leather-name { font-size: 15px; min-width: 0; }
+  .price-tag { font-size: 15px; font-weight: 500; flex: 0 0 auto; }
+
+  .alert-box { padding: 15px 18px; background: #fafafa; border: 1px solid #d9d9d9; border-radius: 2px; font-size: 12px; color: #555; line-height: 1.8; margin-bottom: 30px; }
+
+  .btn-group { display: flex; gap: 12px; }
+  .prev-btn, .next-btn { flex: 1; padding: 16px; border-radius: 2px; cursor: pointer; font-size: 14px; letter-spacing: 2px; transition: all .2s; }
+  .prev-btn { background: #fff; color: #1a1a1a; border: 1px solid #d9d9d9; }
+  .prev-btn:hover { border-color: #1a1a1a; }
+  .next-btn { background: #1a1a1a; color: #fff; border: 1px solid #1a1a1a; }
+  .next-btn:hover { background: #000; border-color: #000; }
+  .step-nav { display: flex; gap: 8px; margin-bottom: 30px; overflow-x: auto; padding-bottom: 4px; -webkit-overflow-scrolling: touch; }
+  .step-nav::-webkit-scrollbar { height: 3px; }
+  .step-nav-item { flex: 0 0 auto; display: flex; align-items: center; gap: 7px; border: 1px solid #d9d9d9; border-radius: 2px; padding: 9px 13px; background: #fff; font-size: 12px; letter-spacing: 1px; color: #666; cursor: pointer; font-family: inherit; transition: all .2s ease; }
+  .step-nav-item .sn-num { display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border: 1px solid #999; border-radius: 50%; font-size: 10px; }
+  .step-nav-item:hover { border-color: #1a1a1a; color: #1a1a1a; }
+  .step-nav-item.current { background: #1a1a1a; border-color: #1a1a1a; color: #fff; }
+  .step-nav-item.current .sn-num { border-color: #fff; }
+    .global-nav { display:flex; gap:10px; margin-top:24px; padding-top:18px; border-top:1px solid #f0f0f0; }
+    .gn-link { flex:1; text-align:center; border:1px solid #d9d9d9; border-radius:2px; padding:13px 8px; font-size:12px; letter-spacing:1px; color:#666; background:#fff; text-decoration:none; cursor:pointer; transition:all .2s; }
+    .gn-link:hover { border-color:#1a1a1a; color:#1a1a1a; }
+    .gn-link.gn-bundle { border-color:#1a1a1a; color:#1a1a1a; display:none; }
+    .gn-link.gn-bundle:hover { background:#1a1a1a; color:#fff; }
+</style>
+</head>
+<body>
+  <div class="page-frame">
+    <div class="brand-header">
+      <div class="brand-name">BUFFALO BOXING</div>
+      <div class="brand-series">ヘッドガード · Darwin Custom</div>
+    </div>
+
+    <div class="step-tag">ステップ 02 / 06</div>
+    <div class="step-nav" id="stepNav"><button type="button" class="step-nav-item" data-href="h1.head-size.html"><span class="sn-num">1</span>頭囲</button><button type="button" class="step-nav-item current" data-href="h2.head-leather.html"><span class="sn-num">2</span>革</button><button type="button" class="step-nav-item" data-href="h3.head-mode.html"><span class="sn-num">3</span>モード</button><button type="button" class="step-nav-item" data-href="h4.head-color.html"><span class="sn-num">4</span>カラー</button><button type="button" class="step-nav-item" data-href="h5.head-customize.html"><span class="sn-num">5</span>文字入れ</button><button type="button" class="step-nav-item" data-href="h6.head-result.html"><span class="sn-num">6</span>結果</button></div>
+<div class="page-title">革の種類を選択</div>
+
+    <div class="current-price">基本価格 <span id="currentPrice">$290 / £220</span></div>
+
+    <div class="leather-list" id="leatherList">
+      <div class="leather-item active" data-type="swift" data-price="290">
+        <span class="leather-name">スウィフト牛革</span><span class="price-tag">$290 / £220</span>
+      </div>
+      <div class="leather-item" data-type="wild" data-price="330">
+        <span class="leather-name">スウィフト牛革 + ワイルドバッファロー革</span><span class="price-tag">$330 / £250</span>
+      </div>
+      <div class="leather-item" data-type="shark" data-price="760">
+        <span class="leather-name">スウィフト牛革 + シャーク革</span><span class="price-tag">$760 / £576</span>
+      </div>
+      <div class="leather-item" data-type="croc" data-price="760">
+        <span class="leather-name">スウィフト牛革 + クロコダイル革</span><span class="price-tag">$760 / £576</span>
+      </div>
+      <div class="leather-item" data-type="ostrich" data-price="760">
+        <span class="leather-name">スウィフト牛革 + オーストリッチ革</span><span class="price-tag">$760 / £576</span>
+      </div>
+      <div class="leather-item" data-type="lizard" data-price="760">
+        <span class="leather-name">スウィフト牛革 + トカゲ革</span><span class="price-tag">$760 / £576</span>
+      </div>
+    </div>
+
+    <div id="tipBox" class="alert-box" style="display:none;"></div>
+
+    <div class="btn-group">
+      <button class="prev-btn" id="prevBtn">戻る · 戻る</button>
+      <button class="next-btn" id="nextBtn">次へ · 配色モード</button>
+    </div>
+  <div class="global-nav">
+      <a class="gn-link" href="../index.html">カスタマイザーのホームに戻る · 数量の追加・変更</a>
+      <a class="gn-link gn-bundle" id="gnBundle" href="../bundle.html">バンドル一覧に戻る</a>
+    </div>
+    </div>
+
+  <script>
+    /* ===== 统一存储封装（每件独立前缀） ===== */
+    const BBSUIT_KEY = 'bb_suit';
+    function BB_suit(){ try{ return JSON.parse(localStorage.getItem(BBSUIT_KEY)) || null; }catch(e){ return null; } }
+    function BB_prefix(){
+      const s = BB_suit();
+      if(!s || !Array.isArray(s.items) || !s.items.length) return '';
+      const idx = (typeof s.current === 'number') ? s.current : 0;
+      return 'bb_' + idx + '_';
+    }
+    const LS = {
+      get(k){ return localStorage.getItem(BB_prefix() + k); },
+      set(k,v){ localStorage.setItem(BB_prefix() + k, v); },
+      remove(k){ localStorage.removeItem(BB_prefix() + k); }
+    };
+
+    const TYPE_NAME = {
+      swift: 'Swift Cowhide', wild: 'Swift Cowhide + Wild Buffalo Leather', shark: 'Swift Cowhide + Shark Skin',
+      croc: 'Swift Cowhide + Crocodile Skin', ostrich: 'Swift Cowhide + Ostrich Skin', lizard: 'Swift Cowhide + Lizard Skin'
+    };
+    const RARE_TYPES = ['shark', 'croc', 'ostrich', 'lizard'];
+
+    const WILD_TIP = 'Wild buffalo leather uses a separate color card on the color page. Selecting "Wild Buffalo Leather" means wild buffalo leather is applied to this area and does not count toward the free color quota; it is available on any area of the head guard. Original hot stamping is only available when the corresponding area uses wild buffalo leather.';
+    const RARE_TIP = 'ワイルドバッファロー以外の希少革には固定のカラーカードがありません。まず近い色を選んでいただければ、革の種類は後ほど当チームが確認します。既定価格はスリートーンのヘッドガードのエリア1（額の中央）とエリア3（耳ストリップ）のみ対応します。範囲を広げたい場合や異なる希少革を組み合わせたい場合は、色を選んで当チームまでお見積もりをご依頼ください。希少革は文字ロゴの箔押しのみ対応します。';
+
+    let selected = { type: 'swift', price: 290 };
+    const list = document.getElementById('leatherList');
+    const tipBox = document.getElementById('tipBox');
+    const currentPrice = document.getElementById('currentPrice');
+
+    function refreshTip() {
+      if (selected.type === 'wild') {
+        tipBox.textContent = WILD_TIP; tipBox.style.display = 'block';
+      } else if (RARE_TYPES.includes(selected.type)) {
+        tipBox.textContent = RARE_TIP; tipBox.style.display = 'block';
+      } else {
+        tipBox.style.display = 'none';
+      }
+    }
+
+    list.addEventListener('click', e => {
+      const it = e.target.closest('.leather-item');
+      if (!it) return;
+      list.querySelectorAll('.leather-item').forEach(x => x.classList.remove('active'));
+      it.classList.add('active');
+      selected = { type: it.dataset.type, price: parseInt(it.dataset.price, 10) };
+      currentPrice.textContent = selected.price;
+      refreshTip();
+    });
+
+    document.getElementById('prevBtn').onclick = () => {
+      window.location.href = 'h1.head-size.html';
+    };
+    document.getElementById('nextBtn').onclick = () => {
+      LS.set('leatherType', TYPE_NAME[selected.type]);
+      LS.set('basePrice', selected.price);
+      window.location.href = 'h3.head-mode.html';
+    };
+
+    // Restore已选
+    (function restore() {
+      const savedName = LS.get('leatherType');
+      if (!savedName) return;
+      const entry = Object.entries(TYPE_NAME).find(([, nm]) => nm === savedName);
+      if (!entry) return;
+      const type = entry[0];
+      const el = list.querySelector(`.leather-item[data-type="${type}"]`);
+      if (el) {
+        list.querySelectorAll('.leather-item').forEach(x => x.classList.remove('active'));
+        el.classList.add('active');
+        selected = { type, price: parseInt(el.dataset.price, 10) };
+        currentPrice.textContent = selected.price;
+        refreshTip();
+      }
+    })();
+      document.getElementById('stepNav').addEventListener('click', function(e){
+      const it = e.target.closest('.step-nav-item');
+      if (!it) return;
+      try { if (window.__bbSave) window.__bbSave(); } catch(err){}
+      window.location.href = it.dataset.href;
+    });
+</script>
+<script>
+    (function(){
+      try{
+        var st=BB_suit();
+        var b=document.getElementById('gnBundle');
+        if(b && st && st.mode==='suit') b.style.display='inline-block';
+      }catch(e){}
+    })();
+  </script>
+</body>
+</html>

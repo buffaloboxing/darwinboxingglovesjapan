@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>配色モード · BUFFALO BOXING ヘッドガード カスタム</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    padding: 40px 20px; max-width: 750px; margin: 0 auto; background: #fafafa; color: #1a1a1a; line-height: 1.6;
+  }
+  .page-frame { background: #fff; border: 1px solid #1a1a1a; border-radius: 2px; padding: 48px 40px; }
+  .brand-header { text-align: center; margin-bottom: 44px; padding-bottom: 24px; border-bottom: 1px solid #1a1a1a; }
+  .brand-name { font-size: 20px; font-weight: 600; letter-spacing: 3px; }
+  .brand-series { font-size: 11px; letter-spacing: 4px; color: #666; margin-top: 6px; text-transform: uppercase; }
+
+  .step-tag { font-size: 11px; letter-spacing: 3px; color: #999; text-transform: uppercase; margin-bottom: 10px; }
+  .page-title { font-size: 20px; font-weight: 500; margin-bottom: 30px; letter-spacing: 1px; }
+
+  .mode-list { display: flex; flex-direction: column; gap: 18px; margin-bottom: 36px; }
+  .mode-item { border: 1px solid #d9d9d9; border-radius: 2px; background: #fff; cursor: pointer; transition: all .2s; overflow: hidden; }
+  .mode-item:hover { border-color: #1a1a1a; }
+  .mode-item.active { border-color: #1a1a1a; }
+  .mode-item.disabled { opacity: .45; cursor: not-allowed; }
+  .mode-item.disabled:hover { border-color: #d9d9d9; }
+  .rare-mode-note { font-size: 12px; padding: 12px 14px; border: 1px solid #d9d9d9; border-radius: 2px; background: #fafafa; margin-bottom: 24px; line-height: 1.7; display: none; }
+  .mode-fig { width: 100%; display: block; background: #fff; border-bottom: 1px solid #ececec; }
+  .mode-meta { padding: 22px 20px 24px; text-align: center; }
+  .mode-item.active .mode-meta { background: #fafafa; }
+  .mode-name { font-size: 18px; font-weight: 600; letter-spacing: 3px; }
+  .mode-en { font-size: 11px; letter-spacing: 3px; color: #999; text-transform: uppercase; margin-top: 7px; }
+  .mode-parts { font-size: 12px; color: #777; margin-top: 14px; letter-spacing: 1px; }
+
+  .btn-group { display: flex; gap: 12px; }
+  .prev-btn, .next-btn { flex: 1; padding: 16px; border-radius: 2px; cursor: pointer; font-size: 14px; letter-spacing: 2px; transition: all .2s; }
+  .prev-btn { background: #fff; color: #1a1a1a; border: 1px solid #d9d9d9; }
+  .prev-btn:hover { border-color: #1a1a1a; }
+  .next-btn { background: #1a1a1a; color: #fff; border: 1px solid #1a1a1a; }
+  .next-btn:hover { background: #000; border-color: #000; }
+  .step-nav { display: flex; gap: 8px; margin-bottom: 30px; overflow-x: auto; padding-bottom: 4px; -webkit-overflow-scrolling: touch; }
+  .step-nav::-webkit-scrollbar { height: 3px; }
+  .step-nav-item { flex: 0 0 auto; display: flex; align-items: center; gap: 7px; border: 1px solid #d9d9d9; border-radius: 2px; padding: 9px 13px; background: #fff; font-size: 12px; letter-spacing: 1px; color: #666; cursor: pointer; font-family: inherit; transition: all .2s ease; }
+  .step-nav-item .sn-num { display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border: 1px solid #999; border-radius: 50%; font-size: 10px; }
+  .step-nav-item:hover { border-color: #1a1a1a; color: #1a1a1a; }
+  .step-nav-item.current { background: #1a1a1a; border-color: #1a1a1a; color: #fff; }
+  .step-nav-item.current .sn-num { border-color: #fff; }
+    .global-nav { display:flex; gap:10px; margin-top:24px; padding-top:18px; border-top:1px solid #f0f0f0; }
+    .gn-link { flex:1; text-align:center; border:1px solid #d9d9d9; border-radius:2px; padding:13px 8px; font-size:12px; letter-spacing:1px; color:#666; background:#fff; text-decoration:none; cursor:pointer; transition:all .2s; }
+    .gn-link:hover { border-color:#1a1a1a; color:#1a1a1a; }
+    .gn-link.gn-bundle { border-color:#1a1a1a; color:#1a1a1a; display:none; }
+    .gn-link.gn-bundle:hover { background:#1a1a1a; color:#fff; }
+</style>
+</head>
+<body>
+  <div class="page-frame">
+    <div class="brand-header">
+      <div class="brand-name">BUFFALO BOXING</div>
+      <div class="brand-series">ヘッドガード · Darwin Custom</div>
+    </div>
+
+    <div class="step-tag">ステップ 03 / 06</div>
+    <div class="step-nav" id="stepNav"><button type="button" class="step-nav-item" data-href="h1.head-size.html"><span class="sn-num">1</span>頭囲</button><button type="button" class="step-nav-item" data-href="h2.head-leather.html"><span class="sn-num">2</span>革</button><button type="button" class="step-nav-item current" data-href="h3.head-mode.html"><span class="sn-num">3</span>モード</button><button type="button" class="step-nav-item" data-href="h4.head-color.html"><span class="sn-num">4</span>カラー</button><button type="button" class="step-nav-item" data-href="h5.head-customize.html"><span class="sn-num">5</span>文字入れ</button><button type="button" class="step-nav-item" data-href="h6.head-result.html"><span class="sn-num">6</span>結果</button></div>
+<div class="page-title">配色モードを選択</div>
+
+    <div class="rare-mode-note" id="rareModeNote">希少革の価格はスリートーンのヘッドガードのみ対応し、ゾーン1（額の中央）とゾーン3（耳ストリップ）を選べます。ツートーンやその他のゾーンは別途お見積もりです。当チームまでお問い合わせください。</div>
+    <div class="mode-list" id="modeList">
+      <div class="mode-item" id="splitItem" data-mode="split">
+        <img class="mode-fig" src="../images/head/split-overview.png" alt="Two-Tone Diagram">
+        <div class="mode-meta">
+          <div class="mode-name">ツートーン</div>
+          <div class="mode-en">スプリット · 左右分割</div>
+          <div class="mode-parts" id="splitLockNote" style="display:none;">希少革の既定価格はツートーンに対応していません。お見積もりは当チームまでお問い合わせください。</div>
+        </div>
+      </div>
+      <div class="mode-item active" data-mode="triple">
+        <img class="mode-fig" src="../images/head/triple-overview.png" alt="Three-Tone Diagram">
+        <div class="mode-meta">
+          <div class="mode-name">スリートーン</div>
+          <div class="mode-en">トリプル · 中央と左右</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="btn-group">
+      <button class="prev-btn" id="prevBtn">戻る · 戻る</button>
+      <button class="next-btn" id="nextBtn">次へ · カラーを選択</button>
+    </div>
+  <div class="global-nav">
+      <a class="gn-link" href="../index.html">カスタマイザーのホームに戻る · 数量の追加・変更</a>
+      <a class="gn-link gn-bundle" id="gnBundle" href="../bundle.html">バンドル一覧に戻る</a>
+    </div>
+    </div>
+
+  <script>
+    /* ===== 统一存储封装（每件独立前缀） ===== */
+    const BBSUIT_KEY = 'bb_suit';
+    function BB_suit(){ try{ return JSON.parse(localStorage.getItem(BBSUIT_KEY)) || null; }catch(e){ return null; } }
+    function BB_prefix(){
+      const s = BB_suit();
+      if(!s || !Array.isArray(s.items) || !s.items.length) return '';
+      const idx = (typeof s.current === 'number') ? s.current : 0;
+      return 'bb_' + idx + '_';
+    }
+    const LS = {
+      get(k){ return localStorage.getItem(BB_prefix() + k); },
+      set(k,v){ localStorage.setItem(BB_prefix() + k, v); },
+      remove(k){ localStorage.removeItem(BB_prefix() + k); }
+    };
+
+    const leatherType = LS.get('leatherType') || '';
+    const isRare = /Shark|Crocodile|Ostrich|Lizard/.test(leatherType);
+    let mode = 'triple';
+    const modeList = document.getElementById('modeList');
+
+    if (isRare) {
+      document.getElementById('rareModeNote').style.display = 'block';
+      document.getElementById('splitItem').classList.add('disabled');
+      document.getElementById('splitLockNote').style.display = 'block';
+      LS.set('mode', 'triple');
+    }
+
+    modeList.addEventListener('click', e => {
+      const it = e.target.closest('.mode-item');
+      if (!it) return;
+      if (isRare && it.dataset.mode === 'split') return;
+      modeList.querySelectorAll('.mode-item').forEach(x => x.classList.remove('active'));
+      it.classList.add('active'); mode = it.dataset.mode;
+    });
+    document.getElementById('prevBtn').onclick = () => { window.location.href = 'h2.head-leather.html'; };
+    document.getElementById('nextBtn').onclick = () => {
+      LS.set('mode', mode);
+      window.location.href = 'h4.head-color.html?mode=' + mode;
+    };
+      window.__bbSave = function(){ LS.set('mode', mode); };
+    document.getElementById('stepNav').addEventListener('click', function(e){
+      const it = e.target.closest('.step-nav-item');
+      if (!it) return;
+      try { if (window.__bbSave) window.__bbSave(); } catch(err){}
+      window.location.href = it.dataset.href;
+    });
+</script>
+<script>
+    (function(){
+      try{
+        var st=BB_suit();
+        var b=document.getElementById('gnBundle');
+        if(b && st && st.mode==='suit') b.style.display='inline-block';
+      }catch(e){}
+    })();
+  </script>
+</body>
+</html>
