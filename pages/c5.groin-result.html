@@ -85,9 +85,9 @@
     </div>
 
     <div class="note">
-      1. 標準牛革は2色まで無料、ワイルドバッファロー革は3色まで無料。追加1色ごとに +$40 / £30。<br>
+      1. 標準牛革は2色まで無料、ワイルドバッファロー革は3色まで無料。追加1色ごとに +¥6,400。<br>
       2. ワイルドバッファロー革の選択は無料色の枠に数えられず、グロインガードのどのエリアでも選べます。<br>
-      3. カラーロゴの新規カラーは +$10 / £8、自社パターンへの差し替えは +$10 / £8、前面の箔押しは1点 +$5 / £4。刺繍は別途見積もりで自動計算に含まれません。<br>
+      3. カラーロゴの新規カラーは +¥1,600、自社パターンへの差し替えは +¥1,600、前面の箔押しは1点 +¥800。刺繍は別途見積もりで自動計算に含まれません。<br>
       4. コピー後、このプランを当チームにお送りいただくとご注文が確定します。最終価格は当チームの確認により確定します。
     </div>
 
@@ -135,7 +135,7 @@
         'Colored Logo（Outer Stitch）':'カラーロゴ（外縫い）',
         'No Logo':'ロゴなし',
         'Embroidery Logo':'刺繍ロゴ',
-        'Replace with Own Pattern (+$10 / £8)':'自社パターンに差し替え（+$10 / £8）',
+        'Replace with Own Pattern (+¥1,600)':'自社パターンに差し替え（+¥1,600）',
         'Keep Brand Logo':'ブランドロゴのまま',
         'Not Added':'未追加',
         'Logo Style':'ロゴの種類',
@@ -144,7 +144,7 @@
         'Front Right':'前面 右'
       };
       if (map[s]) return map[s];
-      if (s === 'Embroidery (+$15–45 / £12–35, contact our team, not in the automatic total)') return '刺繍（+$15–45 / £12–35、当チームへお問い合わせ、自動計算には含まれません）';
+      if (s === 'Embroidery (+¥2,400–7,200, contact our team, not in the automatic total)') return '刺繍（+¥2,400–7,200、当チームへお問い合わせ、自動計算には含まれません）';
       return s.replace('Hot Stamping · ', '箔押し · ');
     }
     const COLOR_NAME = {
@@ -164,7 +164,7 @@
     const basePrice = parseInt(LS.get('basePrice'),10) || 0;
     const colorExtra = parseInt(LS.get('colorExtra'),10) || 0;
     const customExtra = parseInt(LS.get('customExtra'),10) || 0;
-    function bbMoney(usd){ return '$' + usd + ' / £' + Math.round(usd / 1.32); }
+    function bbMoney(usd){ return '¥' + (usd * 160).toLocaleString('en-US'); }
     let areaColors = {};
     try { areaColors = JSON.parse(LS.get('areaColors')) || {}; } catch (e) {}
     let customOptions = {};
@@ -203,15 +203,15 @@
       if (lt === 'embroidery') main += ' (separate quote, not in the automatic total)';
       arr.push(['Logo Style', main]);
       if (lt === 'original' || lt === 'colored') {
-        arr.push(['Pattern Source', customOptions.logoReplace === 'yes' ? 'Replace with Own Pattern (+$10 / £8)' : 'Keep Brand Logo']);
+        arr.push(['Pattern Source', customOptions.logoReplace === 'yes' ? 'Replace with Own Pattern (+¥1,600)' : 'Keep Brand Logo']);
       }
       const gp = customOptions.groinPatterns || {};
       [['frontLeft','Front Left'],['frontRight','Front Right']].forEach(([key,nm]) => {
         const it = gp[key];
         let s;
         if (!it || !it.craft || it.craft === 'none') s = 'Not Added';
-        else if (it.craft === 'hot') s = 'Hot Stamping · ' + (PRINT_NAME[it.print] || 'Gold Foil') + ' (+$5 / £4)';
-        else s = 'Embroidery (+$15–45 / £12–35, contact our team, not in the automatic total)';
+        else if (it.craft === 'hot') s = 'Hot Stamping · ' + (PRINT_NAME[it.print] || 'Gold Foil') + ' (+¥800)';
+        else s = 'Embroidery (+¥2,400–7,200, contact our team, not in the automatic total)';
         arr.push([nm, s]);
       });
       return arr;

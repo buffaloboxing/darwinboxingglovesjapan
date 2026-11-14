@@ -91,8 +91,8 @@
     </div>
 
     <div class="note">
-      1. 漢字の銅型と小柄の箔押しは各 +$5 / £4、ロゴ差し替えパネルは +$10 / £8。いずれも自動計算の合計に含まれます。<br>
-      2. 刺繍ロゴと刺繍の小柄は複雑さに応じて当チームがお見積もり（+$15–45 / £12–35）。自動計算の合計には含まれません。<br>
+      1. 漢字の銅型と小柄の箔押しは各 +¥800、ロゴ差し替えパネルは +¥1,600。いずれも自動計算の合計に含まれます。<br>
+      2. 刺繍ロゴと刺繍の小柄は複雑さに応じて当チームがお見積もり（+¥2,400–7,200）。自動計算の合計には含まれません。<br>
       3. 希少革の最終仕様と価格は当チームの確認をもって確定します。<br>
       4. コピー後、このプランを当チームにお送りいただくとご注文が確定します。最終価格は当チームの確認により確定します。
     </div>
@@ -153,7 +153,7 @@
     const basePrice = parseInt(LS.get('basePrice'),10) || 0;
     const colorExtra = parseInt(LS.get('colorExtra'),10) || 0;
     const customExtra = parseInt(LS.get('customExtra'),10) || 0;
-    function bbMoney(usd){ return '$' + usd + ' / £' + Math.round(usd / 1.32); }
+    function bbMoney(usd){ return '¥' + (usd * 160).toLocaleString('en-US'); }
     let areaColors = {};
     try { areaColors = JSON.parse(LS.get('areaColors')) || {}; } catch(e) {}
     let opt = {};
@@ -198,7 +198,7 @@
       const tc = opt.textContent || 'brand';
       if (tc === 'custom') {
         let s = `文字ロゴ（額の中央）· カスタム文字「${opt.textLogoCustom}」· ${mixedFontJa(opt.textLogoFont)} · ${printTextJa(opt.textPrint)}`;
-        if (/[一-龥]/.test(opt.textLogoCustom || '')) s += ' (Chinese character metal mold, +$5 / £4)';
+        if (/[一-龥]/.test(opt.textLogoCustom || '')) s += ' (Chinese character metal mold, +¥800)';
         logoHtml += `<div class="custom-detail">${s}</div>`;
       } else {
         logoHtml += `<div class="custom-detail">文字ロゴ（額の中央）· ブランド文字 · ${printTextJa(opt.textPrint)}</div>`;
@@ -215,14 +215,14 @@
     if (opt.leftEng) {
       logoHtml += `<div class="custom-detail">左耳：英語／数字「${opt.leftEng}」· ${engFontJa(opt.leftEngFont)} · ${printTextJa(opt.leftPrint)}</div>`;
     } else if (opt.leftCh) {
-      logoHtml += `<div class="custom-detail">左耳：漢字「${opt.leftCh}」· ${chFontJa(opt.leftChFont)} · ${printTextJa(opt.leftPrint)}（銅型、+$5 / £4）</div>`;
+      logoHtml += `<div class="custom-detail">左耳：漢字「${opt.leftCh}」· ${chFontJa(opt.leftChFont)} · ${printTextJa(opt.leftPrint)}（銅型、+¥800）</div>`;
     } else {
       logoHtml += `<div class="custom-detail">左耳：箔押しなし</div>`;
     }
     if (opt.rightEng) {
       logoHtml += `<div class="custom-detail">右耳：英語／数字「${opt.rightEng}」· ${engFontJa(opt.rightEngFont)} · ${printTextJa(opt.rightPrint)}</div>`;
     } else if (opt.rightCh) {
-      logoHtml += `<div class="custom-detail">右耳：漢字「${opt.rightCh}」· ${chFontJa(opt.rightChFont)} · ${printTextJa(opt.rightPrint)}（銅型、+$5 / £4）</div>`;
+      logoHtml += `<div class="custom-detail">右耳：漢字「${opt.rightCh}」· ${chFontJa(opt.rightChFont)} · ${printTextJa(opt.rightPrint)}（銅型、+¥800）</div>`;
     } else {
       logoHtml += `<div class="custom-detail">右耳：箔押しなし</div>`;
     }
@@ -240,14 +240,14 @@
     }
     const smallListData = getSmallPatterns();
     let otherHtml = '';
-    otherHtml += `<div class="custom-detail">ロゴ差し替え：${opt.logoReplace === 'yes' ? '選択済み（+$10 / £8）' : '未選択'}</div>`;
+    otherHtml += `<div class="custom-detail">ロゴ差し替え：${opt.logoReplace === 'yes' ? '選択済み（+¥1,600）' : '未選択'}</div>`;
     if (smallListData.length) {
       smallListData.forEach((it, idx) => {
         let s;
         if (it.craft === 'embroidery') {
-          s = `Small Patterns ${idx + 1}: Embroidery (${SMALL_POS_NAME[it.pos] || it.pos}, +$15–45 / £12–35, contact our team, not included in the automatic total)`;
+          s = `Small Patterns ${idx + 1}: Embroidery (${SMALL_POS_NAME[it.pos] || it.pos}, +¥2,400–7,200, contact our team, not included in the automatic total)`;
         } else {
-          s = `小柄 ${idx + 1}：箔押し（${SMALL_POS_NAME[it.pos] || it.pos}、${printTextJa(it.print)}、+$5 / £4）`;
+          s = `小柄 ${idx + 1}：箔押し（${SMALL_POS_NAME[it.pos] || it.pos}、${printTextJa(it.print)}、+¥800）`;
         }
         if (it.pos === 'other' && it.note) s += `, Notes「${it.note}」`;
         otherHtml += `<div class="custom-detail">${s}</div>`;
@@ -278,7 +278,7 @@
         const tc = opt.textContent || 'brand';
         if (tc === 'custom') {
           let s = '  Text Logo (middle of forehead) · Custom Text「' + opt.textLogoCustom + '」· ' + mixedFontText(opt.textLogoFont) + ' · ' + printText(opt.textPrint);
-          if (/[一-龥]/.test(opt.textLogoCustom || '')) s += ' (Chinese character metal mold, +$5 / £4)';
+          if (/[一-龥]/.test(opt.textLogoCustom || '')) s += ' (Chinese character metal mold, +¥800)';
           lines.push(s);
         } else {
           lines.push('  Text Logo (middle of forehead) · Brand Text · ' + printText(opt.textPrint));
@@ -295,23 +295,23 @@
       if (opt.leftEng) {
         lines.push(`  Left Ear: English/numbers「${opt.leftEng}」· ${engFontText(opt.leftEngFont)} · ${printText(opt.leftPrint)}`);
       } else if (opt.leftCh) {
-        lines.push(`  Left Ear: Chinese Characters「${opt.leftCh}」· ${chFontText(opt.leftChFont)} · ${printText(opt.leftPrint)} (Metal Mold, +$5 / £4)`);
+        lines.push(`  Left Ear: Chinese Characters「${opt.leftCh}」· ${chFontText(opt.leftChFont)} · ${printText(opt.leftPrint)} (Metal Mold, +¥800)`);
       }
       if (opt.rightEng) {
         lines.push(`  Right Ear: English/numbers「${opt.rightEng}」· ${engFontText(opt.rightEngFont)} · ${printText(opt.rightPrint)}`);
       } else if (opt.rightCh) {
-        lines.push(`  Right Ear: Chinese Characters「${opt.rightCh}」· ${chFontText(opt.rightChFont)} · ${printText(opt.rightPrint)} (Metal Mold, +$5 / £4)`);
+        lines.push(`  Right Ear: Chinese Characters「${opt.rightCh}」· ${chFontText(opt.rightChFont)} · ${printText(opt.rightPrint)} (Metal Mold, +¥800)`);
       }
       lines.push('Other Customization:');
-      lines.push('  Logo Replacement: ' + (opt.logoReplace === 'yes' ? 'Selected (+$10 / £8)' : 'Not Selected'));
+      lines.push('  Logo Replacement: ' + (opt.logoReplace === 'yes' ? 'Selected (+¥1,600)' : 'Not Selected'));
       const copySmall = getSmallPatterns();
       if (copySmall.length) {
         copySmall.forEach((it, idx) => {
           let s;
           if (it.craft === 'embroidery') {
-            s = '  Small Patterns ' + (idx + 1) + ': Embroidery (' + (SMALL_POS_NAME[it.pos] || it.pos) + ', +$15–45 / £12–35, contact our team, not included in the automatic total)';
+            s = '  Small Patterns ' + (idx + 1) + ': Embroidery (' + (SMALL_POS_NAME[it.pos] || it.pos) + ', +¥2,400–7,200, contact our team, not included in the automatic total)';
           } else {
-            s = '  Small Patterns ' + (idx + 1) + ': Hot Stamping (' + (SMALL_POS_NAME[it.pos] || it.pos) + ', ' + printText(it.print) + ', +$5 / £4)';
+            s = '  Small Patterns ' + (idx + 1) + ': Hot Stamping (' + (SMALL_POS_NAME[it.pos] || it.pos) + ', ' + printText(it.print) + ', +¥800)';
           }
           if (it.pos === 'other' && it.note) s += ', Notes「' + it.note + '」';
           lines.push(s);

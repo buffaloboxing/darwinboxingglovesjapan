@@ -103,7 +103,7 @@
     <div class="step-nav" id="stepNav"><button type="button" class="step-nav-item" data-href="h1.head-size.html"><span class="sn-num">1</span>頭囲</button><button type="button" class="step-nav-item" data-href="h2.head-leather.html"><span class="sn-num">2</span>革</button><button type="button" class="step-nav-item" data-href="h3.head-mode.html"><span class="sn-num">3</span>モード</button><button type="button" class="step-nav-item current" data-href="h4.head-color.html"><span class="sn-num">4</span>カラー</button><button type="button" class="step-nav-item" data-href="h5.head-customize.html"><span class="sn-num">5</span>文字入れ</button><button type="button" class="step-nav-item" data-href="h6.head-result.html"><span class="sn-num">6</span>結果</button></div>
 <div class="page-title" id="pageTitle">カラープレビュー</div>
 
-    <div class="current-price">現在価格 <b id="totalPrice">$290 / £220</b></div>
+    <div class="current-price">現在価格 <b id="totalPrice">¥46,400</b></div>
 
     <div class="canvas-container">
       <div class="loading-tip" id="loadingTip">プレビューを読み込み中…</div>
@@ -123,7 +123,7 @@
 
     <button class="solid-btn" id="solidBtn">ワンタップ単色 · 全エリアに適用</button>
 
-    <div class="extra-line">使用済みの色 <b id="extraText">0色 · 追加 $0 / £0</b></div>
+    <div class="extra-line">使用済みの色 <b id="extraText">0色 · 追加 ¥0</b></div>
     <div class="rule-note" id="ruleNote"></div>
 
     <div class="block-label" style="margin-top:26px;">革の特記事項</div>
@@ -393,7 +393,7 @@ const LAYER_DATA = {
       return false;
     };
 
-    function bbMoney(usd){ return '$' + usd + ' / £' + Math.round(usd / 1.32); }
+    function bbMoney(usd){ return '¥' + (usd * 160).toLocaleString('en-US'); }
 
     function calc() {
       const bigColors = new Set();
@@ -462,7 +462,7 @@ const LAYER_DATA = {
     ruleNote.innerHTML =
       'Main-color areas (' + CFG.big.map(b => 'No.' + b).join(', ') + '): 2 free colors<br>' +
       'Small areas (' + smallZoneIds.map(b => 'No.' + b).join(', ') + '): one more free color beyond the 2 main colors<br>' +
-      'Each extra color +$40 / £30. Specialty leather does not count toward the free color quota.';
+      'Each extra color +¥6,400. Specialty leather does not count toward the free color quota.';
 
     if (isWild) {
       leatherTip.textContent = 'ワイルドバッファロー革は専用のカラーカードを使います。上のワイルドバッファロー革のブロックを選ぶと、このエリアにワイルドバッファロー革が適用され、無料色の枠には数えられません。ヘッドガードのどのエリアでも使え、無料色が1色増えます（メインエリアは最大3色、小エリアは最大2色）。オリジナル箔押しは、スリートーンの中央がワイルドバッファロー革のときのみ可能です。';

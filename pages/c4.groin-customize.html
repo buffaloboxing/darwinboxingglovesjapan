@@ -85,7 +85,7 @@
     <div class="step-tag">ステップ 04 / 05</div>
     <div class="step-nav" id="stepNav"><button type="button" class="step-nav-item" data-href="c1.groin-size.html"><span class="sn-num">1</span>データ</button><button type="button" class="step-nav-item" data-href="c2.groin-leather.html"><span class="sn-num">2</span>革</button><button type="button" class="step-nav-item" data-href="c3.groin-color.html"><span class="sn-num">3</span>カラー</button><button type="button" class="step-nav-item current" data-href="c4.groin-customize.html"><span class="sn-num">4</span>ロゴ</button><button type="button" class="step-nav-item" data-href="c5.groin-result.html"><span class="sn-num">5</span>結果</button></div>
 <div class="page-title">ロゴとパターン</div>
-    <div class="current-price">現在価格 <span id="currentPrice">$0 / £0</span></div>
+    <div class="current-price">現在価格 <span id="currentPrice">¥0</span></div>
 
     <!-- 01 主 Logo（固定Outer Stitch，无Text Logo） -->
     <div class="section">
@@ -112,7 +112,7 @@
         <span class="option-label">パターンの元</span>
         <div class="radio-group">
           <label class="radio-item"><input type="radio" name="logoReplace" value="no" checked> ブランドロゴのまま</label>
-          <label class="radio-item"><input type="radio" name="logoReplace" value="yes"> 自社パターンに差し替え <span class="price-tag">+$10 / £8</span></label>
+          <label class="radio-item"><input type="radio" name="logoReplace" value="yes"> 自社パターンに差し替え <span class="price-tag">+¥1,600</span></label>
         </div>
         <div class="note">差し替えには線画画像が必要です。</div>
       </div>
@@ -121,7 +121,7 @@
     <!-- 02 正面图案（左/右各一个） -->
     <div class="section">
       <div class="section-title">02 / 前面パターン</div>
-      <div class="note" style="margin:0 0 14px;">前面の左と右にそれぞれ1つずつパターンを追加できます。箔押しは1点 +$5 / £4 で自動計算の合計に含まれます。刺繍は1点 +$15–45 / £12–35、複雑さに応じて当チームが見積もり、自動計算の合計には含まれません。</div>
+      <div class="note" style="margin:0 0 14px;">前面の左と右にそれぞれ1つずつパターンを追加できます。箔押しは1点 +¥800 で自動計算の合計に含まれます。刺繍は1点 +¥2,400–7,200、複雑さに応じて当チームが見積もり、自動計算の合計には含まれません。</div>
       <div id="patternBox"></div>
     </div>
 
@@ -180,7 +180,7 @@
       const inUse = usedHex.has(hex);
       const o = document.createElement('option');
       o.value = hex;
-      o.textContent = nm + ' · ' + (inUse ? 'Already used on the groin guard (free)' : 'New color (+$10 / £8)');
+      o.textContent = nm + ' · ' + (inUse ? 'Already used on the groin guard (free)' : 'New color (+¥1,600)');
       coloredSelect.appendChild(o);
     });
     const coloredNote = document.getElementById('coloredLogoNote');
@@ -188,7 +188,7 @@
       const hex = coloredSelect.value;
       coloredNote.textContent = usedHex.has(hex)
         ? 'This color is already used on the groin guard, so there is no extra charge for the logo.'
-        : 'This color is not used on the groin guard, so the logo adds +$10 / £8.';
+        : 'This color is not used on the groin guard, so the logo adds +¥1,600.';
     }
     coloredSelect.addEventListener('change', () => { refreshColoredNote(); calc(); });
 
@@ -221,7 +221,7 @@
           '<span class="option-label">加工</span>' +
           '<div class="radio-group">' +
             '<label class="radio-item"><input type="radio" name="' + craftName + '" value="none" ' + (st.craft==='none'?'checked':'') + '> 未追加</label>' +
-            '<label class="radio-item"><input type="radio" name="' + craftName + '" value="hot" ' + (st.craft==='hot'?'checked':'') + '> 箔押し（+$5 / £4）</label>' +
+            '<label class="radio-item"><input type="radio" name="' + craftName + '" value="hot" ' + (st.craft==='hot'?'checked':'') + '> 箔押し（+¥800）</label>' +
             '<label class="radio-item"><input type="radio" name="' + craftName + '" value="embroidery" ' + (st.craft==='embroidery'?'checked':'') + '> 刺繍</label>' +
           '</div>' +
           '<div class="pattern-detail' + (st.craft==='hot'?' show':'') + '">' +
@@ -234,7 +234,7 @@
             '<div class="note">Only simple line art images are supported.</div>' +
           '</div>' +
           '<div class="pattern-detail' + (st.craft==='embroidery'?' show':'') + '">' +
-            '<div class="note">Embroidery is quoted based on pattern complexity, +$15–45 / £12–35 per piece. Contact our team to confirm; not included in the automatic total.</div>' +
+            '<div class="note">Embroidery is quoted based on pattern complexity, +¥2,400–7,200 per piece. Contact our team to confirm; not included in the automatic total.</div>' +
           '</div>';
         box.appendChild(card);
       });
@@ -267,7 +267,7 @@
     });
 
     /* ============ Pricing ============ */
-    function bbMoney(usd){ return '$' + usd + ' / £' + Math.round(usd / 1.32); }
+    function bbMoney(usd){ return '¥' + (usd * 160).toLocaleString('en-US'); }
     function calc() {
       let customExtra = 0;
       const lt = logoTypeValue();

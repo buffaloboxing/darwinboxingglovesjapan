@@ -95,7 +95,7 @@
     <div class="step-nav" id="stepNav"><button type="button" class="step-nav-item" data-href="h1.head-size.html"><span class="sn-num">1</span>頭囲</button><button type="button" class="step-nav-item" data-href="h2.head-leather.html"><span class="sn-num">2</span>革</button><button type="button" class="step-nav-item" data-href="h3.head-mode.html"><span class="sn-num">3</span>モード</button><button type="button" class="step-nav-item" data-href="h4.head-color.html"><span class="sn-num">4</span>カラー</button><button type="button" class="step-nav-item current" data-href="h5.head-customize.html"><span class="sn-num">5</span>文字入れ</button><button type="button" class="step-nav-item" data-href="h6.head-result.html"><span class="sn-num">6</span>結果</button></div>
 <div class="page-title">文字入れとパターン</div>
 
-    <div class="current-price">現在価格 <span id="currentPrice">$0 / £0</span></div>
+    <div class="current-price">現在価格 <span id="currentPrice">¥0</span></div>
 
     <!-- 01 Logo（先Style，后替换） -->
     <div class="section">
@@ -122,7 +122,7 @@
         </div>
 
         <div class="sub-box" id="textCustomBox" style="background:#fff;">
-          <span class="option-label">カスタム文字（英字・数字は無料、漢字は銅型が必要 +$5 / £4）</span>
+          <span class="option-label">カスタム文字（英字・数字は無料、漢字は銅型が必要 +¥800）</span>
           <input type="text" id="textLogoCustom" placeholder="25文字まで。英字・数字・漢字に対応" maxlength="25">
 <div class="mem-text-cap" id="textLogoCustomMemCap" style="display:none;">最近の入力 · タップで入力</div><div class="mem-text-row" id="textLogoCustomMemBox"></div>
           <span class="option-label">フォント</span>
@@ -153,7 +153,7 @@
         <span class="option-label">パターンの元</span>
         <div class="radio-group">
           <label class="radio-item"><input type="radio" name="logoReplace" value="no" checked> ブランドロゴのまま</label>
-          <label class="radio-item"><input type="radio" name="logoReplace" value="yes"> 自社パターンに差し替え <span class="price-tag">+$10 / £8</span></label>
+          <label class="radio-item"><input type="radio" name="logoReplace" value="yes"> 自社パターンに差し替え <span class="price-tag">+¥1,600</span></label>
         </div>
         <div class="note">差し替えには線画画像が必要です。金箔・銀箔・カラー箔押しはワイルドバッファロー革のみ対応します。</div>
       </div>
@@ -170,7 +170,7 @@
         <label class="radio-item"><input type="radio" name="leftEngFont" value="normal" checked> 標準</label>
         <label class="radio-item"><input type="radio" name="leftEngFont" value="cursive"> 筆記体</label>
       </div>
-      <span class="option-label">漢字（銅型、+$5 / £4、10文字まで）</span>
+      <span class="option-label">漢字（銅型、+¥800、10文字まで）</span>
       <input type="text" id="leftCh" placeholder="漢字・スペース・句読点" maxlength="10">
 <div class="mem-text-cap" id="leftChMemCap" style="display:none;">最近の入力 · タップで入力</div><div class="mem-text-row" id="leftChMemBox"></div>
       <div class="radio-group">
@@ -197,7 +197,7 @@
         <label class="radio-item"><input type="radio" name="rightEngFont" value="normal" checked> 標準</label>
         <label class="radio-item"><input type="radio" name="rightEngFont" value="cursive"> 筆記体</label>
       </div>
-      <span class="option-label">漢字（銅型、+$5 / £4、10文字まで）</span>
+      <span class="option-label">漢字（銅型、+¥800、10文字まで）</span>
       <input type="text" id="rightCh" placeholder="漢字・スペース・句読点" maxlength="10">
 <div class="mem-text-cap" id="rightChMemCap" style="display:none;">最近の入力 · タップで入力</div><div class="mem-text-row" id="rightChMemBox"></div>
       <div class="radio-group">
@@ -216,7 +216,7 @@
     <!-- 04 Small Patterns（可叠加多个） -->
     <div class="section">
       <div class="section-title">04 / 小柄</div>
-      <div class="note" style="margin:0 0 14px;">小柄は線画画像が必要で、複数の位置に重ねて配置できます。箔押しは1点 +$5 / £4（金箔・銀箔・オリジナルはワイルドバッファロー革専用）。刺繍は1点 +$15–45 / £12–35、複雑さに応じて当チームまでお問い合わせください。</div>
+      <div class="note" style="margin:0 0 14px;">小柄は線画画像が必要で、複数の位置に重ねて配置できます。箔押しは1点 +¥800（金箔・銀箔・オリジナルはワイルドバッファロー革専用）。刺繍は1点 +¥2,400–7,200、複雑さに応じて当チームまでお問い合わせください。</div>
       <div id="smallList"></div>
       <div class="empty-small" id="smallEmpty">小柄はまだ追加されていません</div>
       <button class="add-small-btn" id="addSmallBtn" type="button">＋ 小柄を追加</button>
@@ -370,14 +370,14 @@
       const inUse = usedHex.has(hex);
       const o = document.createElement('option');
       o.value = hex;
-      o.textContent = `${nm} · ${inUse ? 'Already used on the head guard (free)' : 'New color (+$10 / £8)'}`;
+      o.textContent = `${nm} · ${inUse ? 'Already used on the head guard (free)' : 'New color (+¥1,600)'}`;
       coloredSelect.appendChild(o);
     });
     function refreshColoredNote() {
       const hex = coloredSelect.value;
       coloredNote.textContent = usedHex.has(hex)
         ? 'This color is already used on the head guard, so there is no extra charge for the logo.'
-        : 'This color is not used on the head guard, so the logo adds +$10 / £8.';
+        : 'This color is not used on the head guard, so the logo adds +¥1,600.';
     }
     coloredSelect.addEventListener('change', () => { refreshColoredNote(); calc(); });
 
@@ -400,8 +400,8 @@
           `<option value="${val}" ${item.pos === val ? 'selected' : ''}>${nm}</option>`).join('');
         const isHot = item.craft !== 'embroidery';
         const title = isHot
-          ? `Small Patterns ${idx + 1} · Hot Stamping (+$5 / £4)`
-          : `Small Patterns ${idx + 1} · Embroidery (+$15–45 / £12–35)`;
+          ? `Small Patterns ${idx + 1} · Hot Stamping (+¥800)`
+          : `Small Patterns ${idx + 1} · Embroidery (+¥2,400–7,200)`;
         const printName = 'smallPrint' + idx;
         const originalRadio = isWild
           ? `<label class="radio-item"><input type="radio" name="${printName}" value="original" ${item.print === 'original' ? 'checked' : ''}> オリジナル（ワイルドバッファロー革専用）</label>`
@@ -414,7 +414,7 @@
                ${originalRadio}
              </div>
              <div class="note">Only simple line art images are supported.</div>`
-          : `<div class="note" style="margin-top:10px;">Embroidery is quoted based on pattern complexity, +$15–45 / £12–35 per piece. Contact our team to confirm; not included in the automatic total.</div>`;
+          : `<div class="note" style="margin-top:10px;">Embroidery is quoted based on pattern complexity, +¥2,400–7,200 per piece. Contact our team to confirm; not included in the automatic total.</div>`;
         div.innerHTML =
           `<div class="small-item-head">
              <span class="small-item-title">${title}</span>
@@ -478,7 +478,7 @@
     const colorExtra = parseInt(LS.get('colorExtra'),10) || 0;
     const currentPriceEl = document.getElementById('currentPrice');
 
-    function bbMoney(usd){ return '$' + usd + ' / £' + Math.round(usd / 1.32); }
+    function bbMoney(usd){ return '¥' + (usd * 160).toLocaleString('en-US'); }
 
     function calc() {
       let customExtra = 0;

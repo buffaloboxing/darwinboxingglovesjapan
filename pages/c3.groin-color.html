@@ -91,7 +91,7 @@
     <div class="step-tag">ステップ 03 / 05</div>
     <div class="step-nav" id="stepNav"><button type="button" class="step-nav-item" data-href="c1.groin-size.html"><span class="sn-num">1</span>データ</button><button type="button" class="step-nav-item" data-href="c2.groin-leather.html"><span class="sn-num">2</span>革</button><button type="button" class="step-nav-item current" data-href="c3.groin-color.html"><span class="sn-num">3</span>カラー</button><button type="button" class="step-nav-item" data-href="c4.groin-customize.html"><span class="sn-num">4</span>ロゴ</button><button type="button" class="step-nav-item" data-href="c5.groin-result.html"><span class="sn-num">5</span>結果</button></div>
 <div class="page-title">カラーマッチング</div>
-    <div class="current-price">現在価格 <b id="totalPrice">$290 / £220</b></div>
+    <div class="current-price">現在価格 <b id="totalPrice">¥46,400</b></div>
 
     <div class="canvas-container">
       <div class="loading-tip" id="loadingTip">プレビューを読み込み中…</div>
@@ -111,7 +111,7 @@
 
     <button class="solid-btn" id="solidBtn">ワンタップ単色 · 全エリアに適用</button>
 
-    <div class="extra-line">使用済みの色 <b id="extraText">0色 · 追加 $0 / £0</b></div>
+    <div class="extra-line">使用済みの色 <b id="extraText">0色 · 追加 ¥0</b></div>
     <div class="rule-note" id="ruleNote"></div>
 
     <div class="block-label" style="margin-top:26px;">革の特記事項</div>
@@ -324,7 +324,7 @@
     const leatherType = LS.get('leatherType') || '';
     const basePrice = parseInt(LS.get('basePrice'), 10) || 290;
     const isWild = leatherType.includes('Wild Buffalo Leather');
-    function bbMoney(usd){ return '$' + usd + ' / £' + Math.round(usd / 1.32); }
+    function bbMoney(usd){ return '¥' + (usd * 160).toLocaleString('en-US'); }
 
     function calc() {
       const usedColors = new Set();
@@ -345,7 +345,7 @@
 
     /* ==================== 规则与Leather提示 ==================== */
     ruleNote.innerHTML =
-      'All areas: 2 free colors; each extra color +$40 / £30.<br>' +
+      'All areas: 2 free colors; each extra color +¥6,400.<br>' +
       'After choosing Wild Buffalo Leather, the Wild Buffalo Leather block above represents that selection; it does not count toward the free color quota and raises the free quota to 3.';
 
     if (isWild) {

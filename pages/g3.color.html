@@ -301,7 +301,7 @@
     <div class="step-nav" id="stepNav"><button type="button" class="step-nav-item" data-href="g1.size.html"><span class="sn-num">1</span>サイズ</button><button type="button" class="step-nav-item" data-href="g2.leather.html"><span class="sn-num">2</span>革</button><button type="button" class="step-nav-item current" data-href="g3.color.html"><span class="sn-num">3</span>カラー</button><button type="button" class="step-nav-item" data-href="g4.customize.html"><span class="sn-num">4</span>文字入れ</button><button type="button" class="step-nav-item" data-href="g5.result.html"><span class="sn-num">5</span>結果</button></div>
 <div class="page-title">カラープレビュー / カラー</div>
 
-    <div class="current-price">現在価格 <span id="currentPrice">$380 / £288</span></div>
+    <div class="current-price">現在価格 <span id="currentPrice">¥60,800</span></div>
     <div class="price-alert" id="priceAlert"></div>
 
     <div class="canvas-container">
@@ -310,8 +310,8 @@
     </div>
 
     <div class="color-rules">
-        <div class="color-rule">エリア1・2・3：2色まで無料、追加1色ごとに +$70 / £53。</div>
-        <div class="color-rule">エリア4〜8：無料2色に加えてさらに1色無料、以降1色ごとに +$40 / £30。</div>
+        <div class="color-rule">エリア1・2・3：2色まで無料、追加1色ごとに +¥11,200。</div>
+        <div class="color-rule">エリア4〜8：無料2色に加えてさらに1色無料、以降1色ごとに +¥6,400。</div>
     </div>
 
     <div class="controls">
@@ -629,7 +629,7 @@
     });
 
     /* ==================== Price & 提示逻辑 ==================== */
-    function bbMoney(usd){ return '$' + usd + ' / £' + Math.round(usd / 1.32); }
+    function bbMoney(usd){ return '¥' + (usd * 160).toLocaleString('en-US'); }
 
     function calculatePrice() {
         const area123Colors = new Set();
