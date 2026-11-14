@@ -133,7 +133,7 @@
         <span class="order-badge" id="badge-glove"></span>
         <div class="pick-name">ボクシンググローブ</div>
         <div class="pick-en">ボクシンググローブ</div>
-        <div class="pick-price">より<b>$380 / £288</b></div>
+        <div class="pick-price">より<b>¥60,800</b></div>
         <div class="qty-box">
           <button class="qty-btn qty-minus" type="button">−</button>
           <span><span class="qty-num">1</span><span class="qty-unit">組</span></span>
@@ -145,7 +145,7 @@
         <span class="order-badge" id="badge-head"></span>
         <div class="pick-name">ヘッドガード</div>
         <div class="pick-en">ヘッドガード</div>
-        <div class="pick-price">より<b>$290 / £220</b></div>
+        <div class="pick-price">より<b>¥46,400</b></div>
         <div class="qty-box">
           <button class="qty-btn qty-minus" type="button">−</button>
           <span><span class="qty-num">1</span><span class="qty-unit">点</span></span>
@@ -157,7 +157,7 @@
         <span class="order-badge" id="badge-groin"></span>
         <div class="pick-name">グロインガード</div>
         <div class="pick-en">グロインガード</div>
-        <div class="pick-price">より<b>$290 / £220</b></div>
+        <div class="pick-price">より<b>¥46,400</b></div>
         <div class="qty-box">
           <button class="qty-btn qty-minus" type="button">−</button>
           <span><span class="qty-num">1</span><span class="qty-unit">点</span></span>
@@ -168,7 +168,7 @@
 
     <div class="summary-line">
       <span id="countText">製品が選択されていません · 合計</span>
-      <b id="totalText">$0 / £0</b>
+      <b id="totalText">¥0</b>
     </div>
 
     <button class="next-btn" id="nextBtn">次へ · 設定へ</button>
@@ -182,7 +182,7 @@
     const totalText = document.getElementById('totalText');
     const nextBtn = document.getElementById('nextBtn');
     const PRICE = { glove: 380, head: 290, groin: 290 };
-    function bbMoney(usd){ return '$' + usd + ' / £' + Math.round(usd / 1.32); }
+    function bbMoney(usd){ return '¥' + (usd * 160).toLocaleString('en-US'); }
     const ENTRY = { glove: 'pages/g1.size.html', head: 'pages/h1.head-size.html', groin: 'pages/c1.groin-size.html' };
     const MAX_QTY = 10;
     let qty = { glove: 0, head: 0, groin: 0 };

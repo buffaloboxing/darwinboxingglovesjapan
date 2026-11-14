@@ -113,7 +113,7 @@
     const stitchText = v => v === 'inner' ? 'Inner Stitch' : 'Outer Stitch';
     const cname = hex => COLOR_NAME[hex] || hex;
     const swatch = hex => `<span class="color-swatch" style="background:${hex};"></span>`;
-    function bbMoney(usd){ return '$' + usd + ' / £' + Math.round(usd / 1.32); }
+    function bbMoney(usd){ return '¥' + (usd * 160).toLocaleString('en-US'); }
 
     /* ===== 读取套装与各件Data ===== */
     let suit;
@@ -154,7 +154,7 @@
         const tc = o.textContent || 'brand';
         if (tc === 'custom') {
           let s = `Text Logo (Wrist Front) · Custom Text「${o.textLogoCustom}」· ${mixedFontText(o.textLogoFont)} · ${printText(o.textPrint)}`;
-          if (/[一-龥]/.test(o.textLogoCustom || '')) s += ' (Chinese character metal mold, +$5 / £4)';
+          if (/[一-龥]/.test(o.textLogoCustom || '')) s += ' (Chinese character metal mold, +¥800)';
           return s;
         }
         return `Text Logo (Wrist Front) · Brand Text · ${printText(o.textPrint)}`;
@@ -194,7 +194,7 @@
         const lab = side === 'left' ? 'Left Hand' : 'Right Hand';
         let s;
         if (o[side + 'Eng']) s = `${lab}: English/numbers「${o[side+'Eng']}」· ${engFontText(o[side+'EngFont'])} · ${printText(o[side+'Print'])}`;
-        else if (o[side + 'Ch']) s = `${lab}: Chinese Characters「${o[side+'Ch']}」· ${chFontText(o[side+'ChFont'])} · ${printText(o[side+'Print'])} (Metal Mold, +$5 / £4)`;
+        else if (o[side + 'Ch']) s = `${lab}: Chinese Characters「${o[side+'Ch']}」· ${chFontText(o[side+'ChFont'])} · ${printText(o[side+'Print'])} (Metal Mold, +¥800)`;
         else s = `${lab}: Not Customized`;
         html.push(detail(s)); text.push('  ' + s);
       });
@@ -206,22 +206,22 @@
         sp.forEach((it, idx) => {
           let s;
           if (it.craft === 'embroidery') {
-            s = `Small Patterns ${idx+1}: Embroidery (${GLOVE_POS[it.pos]||it.pos}, +$15–45 / £12–35, contact our team, not included in the automatic total)`;
-            notices.push('Boxing Gloves Small Patterns ' + (idx+1) + ' Embroidery: ' + (GLOVE_POS[it.pos]||it.pos) + ', +$15–45 / £12–35 quoted by pattern');
+            s = `Small Patterns ${idx+1}: Embroidery (${GLOVE_POS[it.pos]||it.pos}, +¥2,400–7,200, contact our team, not included in the automatic total)`;
+            notices.push('Boxing Gloves Small Patterns ' + (idx+1) + ' Embroidery: ' + (GLOVE_POS[it.pos]||it.pos) + ', +¥2,400–7,200 quoted by pattern');
           } else {
-            s = `Small Patterns ${idx+1}: Hot Stamping (${GLOVE_POS[it.pos]||it.pos}, ${printText(it.print)}, +$5 / £4)`;
+            s = `Small Patterns ${idx+1}: Hot Stamping (${GLOVE_POS[it.pos]||it.pos}, ${printText(it.print)}, +¥800)`;
           }
           html.push(detail(s)); text.push('  ' + s);
         });
       } else { html.push(detail('Small Patterns: Not Added')); text.push('  Not Added'); }
 
       const handS = o.handEmbroidery === 'yes'
-        ? 'Hand Back Embroidery added (+$15–45 / £12–35, provide the pattern and contact our team, not included in the automatic total)'
+        ? 'Hand Back Embroidery added (+¥2,400–7,200, provide the pattern and contact our team, not included in the automatic total)'
         : 'Not Added';
       html.push(subTitle('Hand Back Embroidery'));
       html.push(detail(handS));
       text.push('Hand Back Embroidery: ' + handS);
-      if (o.handEmbroidery === 'yes') notices.push('Boxing Gloves Hand Back Embroidery: +$15–45 / £12–35 quoted by pattern');
+      if (o.handEmbroidery === 'yes') notices.push('Boxing Gloves Hand Back Embroidery: +¥2,400–7,200 quoted by pattern');
 
       if ((o.logoType === 'embroidery')) notices.push('Boxing Gloves Embroidery Logo: separate quote based on pattern complexity');
       if (/Shark|Crocodile|Ostrich|Lizard/.test(d.leather)) notices.push('Boxing Gloves exotic leather「' + d.leather + '」: final leather and price are subject to our team confirmation.');
@@ -241,7 +241,7 @@
         const tc = o.textContent || 'brand';
         if (tc === 'custom') {
           let s = `Text Logo (middle of forehead) · Custom Text「${o.textLogoCustom}」· ${mixedFontText(o.textLogoFont)} · ${printText(o.textPrint)}`;
-          if (/[一-龥]/.test(o.textLogoCustom || '')) s += ' (Chinese character metal mold, +$5 / £4)';
+          if (/[一-龥]/.test(o.textLogoCustom || '')) s += ' (Chinese character metal mold, +¥800)';
           return s;
         }
         return `Text Logo (middle of forehead) · Brand Text · ${printText(o.textPrint)}`;
@@ -287,14 +287,14 @@
         const lab = side === 'left' ? 'Left Ear' : 'Right Ear';
         let s;
         if (o[side + 'Eng']) s = `${lab}: English/numbers「${o[side+'Eng']}」· ${engFontText(o[side+'EngFont'])} · ${printText(o[side+'Print'])}`;
-        else if (o[side + 'Ch']) s = `${lab}: Chinese Characters「${o[side+'Ch']}」· ${chFontText(o[side+'ChFont'])} · ${printText(o[side+'Print'])} (Metal Mold, +$5 / £4)`;
+        else if (o[side + 'Ch']) s = `${lab}: Chinese Characters「${o[side+'Ch']}」· ${chFontText(o[side+'ChFont'])} · ${printText(o[side+'Print'])} (Metal Mold, +¥800)`;
         else s = `${lab}: No Hot Stamping`;
         html.push(detail(s)); text.push('  ' + s);
       });
 
       html.push(subTitle('Other Customization'));
       text.push('Other Customization：');
-      const repS = o.logoReplace === 'yes' ? 'Selected (+$10 / £8)' : 'Not Selected';
+      const repS = o.logoReplace === 'yes' ? 'Selected (+¥1,600)' : 'Not Selected';
       html.push(detail('Logo Replacement: ' + repS));
       text.push('  Logo Replacement: ' + repS);
       const sp = headSmallPatterns(o);
@@ -302,10 +302,10 @@
         sp.forEach((it, idx) => {
           let s;
           if (it.craft === 'embroidery') {
-            s = `Small Patterns ${idx+1}: Embroidery (${HEAD_SMALL_POS[it.pos]||it.pos}, +$15–45 / £12–35, contact our team, not included in the automatic total)`;
-            notices.push('Head Guard Small Patterns ' + (idx+1) + ' Embroidery: ' + (HEAD_SMALL_POS[it.pos]||it.pos) + ', +$15–45 / £12–35 quoted by pattern');
+            s = `Small Patterns ${idx+1}: Embroidery (${HEAD_SMALL_POS[it.pos]||it.pos}, +¥2,400–7,200, contact our team, not included in the automatic total)`;
+            notices.push('Head Guard Small Patterns ' + (idx+1) + ' Embroidery: ' + (HEAD_SMALL_POS[it.pos]||it.pos) + ', +¥2,400–7,200 quoted by pattern');
           } else {
-            s = `Small Patterns ${idx+1}: Hot Stamping (${HEAD_SMALL_POS[it.pos]||it.pos}, ${printText(it.print)}, +$5 / £4)`;
+            s = `Small Patterns ${idx+1}: Hot Stamping (${HEAD_SMALL_POS[it.pos]||it.pos}, ${printText(it.print)}, +¥800)`;
           }
           if (it.pos === 'other' && it.note) s += ', Notes「' + it.note + '」';
           html.push(detail(s)); text.push('  ' + s);
@@ -357,7 +357,7 @@
       if (lt === 'embroidery') { mainS += ' (separate quote, not in the automatic total)'; notices.push('Groin Guard Embroidery Logo: separate quote based on pattern complexity'); }
       html.push(detail('Logo Style: ' + mainS)); text.push('  Logo Style: ' + mainS);
       if (lt === 'original' || lt === 'colored') {
-        const repS = o.logoReplace === 'yes' ? 'Replace with Own Pattern (+$10 / £8)' : 'Keep Brand Logo';
+        const repS = o.logoReplace === 'yes' ? 'Replace with Own Pattern (+¥1,600)' : 'Keep Brand Logo';
         html.push(detail('Pattern Source: ' + repS)); text.push('  Pattern Source: ' + repS);
       }
       const gp = o.groinPatterns || {};
@@ -365,8 +365,8 @@
         const it = gp[key];
         let s;
         if (!it || !it.craft || it.craft === 'none') s = nm + ': Not Added';
-        else if (it.craft === 'hot') s = nm + ': Hot Stamping (' + printText(it.print) + ', +$5 / £4)';
-        else { s = nm + ': Embroidery (+$15–45 / £12–35, contact our team, not in the automatic total)'; notices.push('Groin Guard ' + nm + ' Embroidery: quoted by pattern'); }
+        else if (it.craft === 'hot') s = nm + ': Hot Stamping (' + printText(it.print) + ', +¥800)';
+        else { s = nm + ': Embroidery (+¥2,400–7,200, contact our team, not in the automatic total)'; notices.push('Groin Guard ' + nm + ' Embroidery: quoted by pattern'); }
         html.push(detail(s)); text.push('  ' + s);
       });
 
