@@ -61,6 +61,14 @@
   .bb-brand-footer .bb-slogan{font-size:10px;letter-spacing:4px;color:#666;text-transform:uppercase;}
   .bb-brand-footer .bb-sub{font-size:8px;letter-spacing:2px;color:#bbb;margin-top:6px;text-transform:uppercase;}
 </style>
+<script>
+(function(){
+  window.bbToCNY=function(base){
+    return '¥'+Math.round(Number(base)*6.6642).toLocaleString('en-US');
+  };
+})();
+</script>
+
 </head>
 <body>
   <div class="page-frame">
@@ -456,6 +464,7 @@
       out.push(allText.join('\n'));
       out.push('════════════════════');
       out.push('Bundle automatic total (excluding embroidery, exotic leather extensions and other separate quotes): ' + bbMoney(grand));
+      out.push('= ' + window.bbToCNY(grand) + ' CNY（人民幣・社内核算用）');
       if (allNotices.length) {
         out.push('Requires confirmation / separate quote:');
         allNotices.forEach(n => out.push('· ' + n));
