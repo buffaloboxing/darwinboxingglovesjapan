@@ -60,14 +60,6 @@
   .bb-brand-footer .bb-slogan{font-size:10px;letter-spacing:4px;color:#666;text-transform:uppercase;}
   .bb-brand-footer .bb-sub{font-size:8px;letter-spacing:2px;color:#bbb;margin-top:6px;text-transform:uppercase;}
 </style>
-<script>
-(function(){
-  window.bbToCNY=function(base){
-    return '¥'+Math.round(Number(base)*6.6642).toLocaleString('en-US');
-  };
-})();
-</script>
-
 </head>
 <body>
   <div class="page-frame">
@@ -341,7 +333,6 @@
       lines.push('Fees: Base ' + bbMoney(basePrice) + ' + Color ' + bbMoney(colorExtra) + ' + Customization ' + bbMoney(customExtra));
       lines.push('Estimated Total (excluding separate embroidery quotes): ' + bbMoney(total));
       lines.push('────────────────────');
-      lines.push('= ' + window.bbToCNY(total) + ' CNY（人民幣・社内核算用）');
       return lines.join('\n');
     }
 
